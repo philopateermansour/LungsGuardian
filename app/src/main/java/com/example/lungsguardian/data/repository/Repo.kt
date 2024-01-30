@@ -23,7 +23,7 @@ class Repo {
 
                 }
                 override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
-                      Log.e("TAG", "onFailure: " )
+                     // Log.e("TAG", "onFailure: " )
                 }
 
             })
@@ -40,7 +40,7 @@ class Repo {
                     }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Log.e("TAG", "onFailure: " )
+                   // Log.e("TAG", "onFailure: " )
                 }
             }
             )}
