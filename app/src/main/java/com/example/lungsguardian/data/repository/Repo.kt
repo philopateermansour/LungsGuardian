@@ -40,6 +40,7 @@ class Repo {
                     }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                    //Log.e("TAG", "onFailure: " )
                 }
             }
             )}
