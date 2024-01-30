@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Lungs Guardian</string>
+    <string name="login" >تسجيل الدخول</string>
+    <string name="email" >بريد إلكتروني</string>
+    <string name="password" >كلمة المرور</string>
+    <string name="forgot" >نسيت كلمة المرور؟</string>
+    <string name="new_to_this_platform" >هل أنت جديد على هذه المنصة؟</string>
+    <string name="sign_up" >تسجيل</string>
+    <string name="full_name" >الاسم الكامل(باللغة الإنجليزية)</string>
+    <string name="phone_number" >رقم التليفون</string>
+    <string name="already_signed_up" >قمت بالتسجيل بالفعل؟</string>
+    <string name="confirm_password" >تأكيد كلمة المرور</string>
+    <string name="register">تسجيل</string>
+    <string name="lungs_guardian">Lungs Guardian</string>
+    <string name="password_signup">كلمة المرور(باللغة الإنجليزية)</string>
+    <string name="reset_password">تغيير كلمة المرور</string>
+    <string name="reset">تغيير</string>
+    <string name="back_to_log_in">الرجوع لتسجيل الدخول</string>
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="profile">الحساب الشخصي</string>
+    <string name="downloads">التحميلات</string>
+    <string name="required">مطلوب</string>
+    <string name="passwords_doesn_t_match">كلمات المرور غير متطابقة</string>
+</resources>
