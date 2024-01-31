@@ -39,6 +39,7 @@ class ForgetFragment : Fragment() {
         }
         binding.btnReset.setOnClickListener {
             val email = binding.editTextEmailReset.text.toString().trim()
+            binding.progressBar.visibility= View.VISIBLE
             forgetViewModel.validate(email)
         }
     }
@@ -47,9 +48,21 @@ class ForgetFragment : Fragment() {
         forgetViewModel.forgetValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailReset.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 binding.inputTextEmailReset.isErrorEnabled = false
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+            }
+        }
+        forgetViewModel.sendCodeResponse.observe(viewLifecycleOwner){
+            if (it.code() == 200){
+                findNavController().navigate(ForgetFragmentDirections.actionForgetFragmentToResetFragment())
+                binding.progressBar.visibility= View.GONE
+            }
+            else if (it.code() == 400){
+                Toast.makeText(context,"this email is not registered in the system",Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
             }
         }
     }

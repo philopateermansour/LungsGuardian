@@ -52,5 +52,20 @@
             app:destination="@id/loginFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/loginFragment"/>
+        <action
+            android:id="@+id/action_forgetFragment_to_resetFragment"
+            app:destination="@id/resetFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetFragment"
+        android:name="com.example.lungsguardian.ui.auth.reset.ResetFragment"
+        android:label="fragment_reset"
+        tools:layout="@layout/fragment_reset" >
+        <action
+            android:id="@+id/action_resetFragment_to_forgetFragment"
+            app:destination="@id/forgetFragment"
+            app:popUpTo="@id/forgetFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
