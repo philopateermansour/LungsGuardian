@@ -65,4 +65,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    //For serialising JSONP add converter-scalars
+    implementation ("com.squareup.retrofit2:converter-scalars:2.1.0")
 }

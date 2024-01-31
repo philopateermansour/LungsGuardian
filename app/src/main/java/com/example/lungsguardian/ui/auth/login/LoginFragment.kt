@@ -51,6 +51,7 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text.toString().trim()
             val password = binding.editTextPasswordLogin.text.toString()
+            binding.progressBar.visibility= View.VISIBLE
             loginViewModel.validate(email, password)
         }
     }
@@ -59,11 +60,14 @@ class LoginFragment : Fragment() {
         loginViewModel.loginValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailLogin.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordLogin.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextEmailLogin.isErrorEnabled = false
+                binding.progressBar.visibility= View.GONE
             }
 
         }
@@ -72,10 +76,12 @@ class LoginFragment : Fragment() {
                 val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
+                binding.progressBar.visibility= View.GONE
             }
             else if (it.code() == 401){
                 binding.inputTextPasswordLogin.isErrorEnabled = false
                 Toast.makeText(context,"wrong email or password",Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
             }
         }
     }

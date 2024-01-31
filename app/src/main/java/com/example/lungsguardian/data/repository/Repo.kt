@@ -2,6 +2,7 @@ package com.example.lungsguardian.data.repository
 
 import android.util.Log
 import com.example.lungsguardian.data.model.LoginResponse
+import com.example.lungsguardian.data.model.ResetPasswordModel
 import com.example.lungsguardian.data.model.SignupResponse
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserSignupModel
@@ -20,7 +21,6 @@ class Repo {
                     response: Response<SignupResponse>
                 ) {
                     userCallback.invoke(response)
-
                 }
 
                 override fun onFailure(call: Call<SignupResponse>, t: Throwable) {
@@ -45,5 +45,30 @@ class Repo {
                 }
             }
             )
+    }
+    fun sendCode(email :String,emailCallback:(Response<String>?) -> Unit){
+        RetroConnection.getCalls.sendCode(email)
+            .enqueue(object  :Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    emailCallback.invoke(response)
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("TAG", "onFailure: " )
+                }
+
+            })
+    }
+
+    fun resetPassword(resetPasswordModel: ResetPasswordModel,resetCallback: (Response<String>?)->Unit){
+        RetroConnection.getCalls.resetPassword(resetPasswordModel.Email,resetPasswordModel)
+            .enqueue(object  :Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    resetCallback.invoke(response)
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("TAG", "onFailure: " )
+                }
+            })
     }
 }

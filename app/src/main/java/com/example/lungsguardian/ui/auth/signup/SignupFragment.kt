@@ -56,6 +56,7 @@ class SignupFragment : Fragment() {
             val phone = binding.editTextPhoneNumber.text.toString().trim()
             val password = binding.editTextPasswordSignUp.text.toString()
             val confirmPassword = binding.editTextPasswordConfirm.text.toString()
+            binding.progressBar.visibility= View.VISIBLE
             signupViewModel.validate(email, fullName, phone, password, confirmPassword)
         }
     }
@@ -64,28 +65,38 @@ class SignupFragment : Fragment() {
         signupViewModel.signUpValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailSignUp.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_FULL_NAME_NULL)) {
                 binding.inputTextFullName.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PHONE_NULL)) {
                 binding.inputTextPhoneNumber.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordSignUp.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.passwords_doesn_t_match)
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextEmailSignUp.isErrorEnabled = false
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PHONE_INVALID)) {
                 Toast.makeText(context, VALIDATE_PHONE_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextPhoneNumber.isErrorEnabled = false
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_FULL_NAME_INVALID)) {
                 Toast.makeText(context, VALIDATE_FULL_NAME_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextFullName.isErrorEnabled = false
+                binding.progressBar.visibility= View.GONE
             } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.inputTextPasswordSignUp.isErrorEnabled = false
+                binding.progressBar.visibility= View.GONE
             }
         }
         signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
@@ -93,6 +104,7 @@ class SignupFragment : Fragment() {
                 val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
+                binding.progressBar.visibility= View.GONE
             }
         }
     }
