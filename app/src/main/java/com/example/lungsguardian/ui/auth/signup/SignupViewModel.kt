@@ -1,22 +1,32 @@
 package com.example.lungsguardian.ui.auth.signup
 
+import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.lungsguardian.VALIDATE_EMAIL_PROBLEM
-import com.example.lungsguardian.VALIDATE_FULLNAME_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORDCONFIGURATION_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORDDOESNTMATCH_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORD_PROBLEM
-import com.example.lungsguardian.VALIDATE_PHONE_PROBLEM
+import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.VALIDATE_FULL_NAME_INVALID
+import com.example.lungsguardian.VALIDATE_FULL_NAME_NULL
+import com.example.lungsguardian.VALIDATE_PASSWORD_CONFIGURATION_NULL
+import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
+import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.VALIDATE_PHONE_INVALID
+import com.example.lungsguardian.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.data.model.SignupResponse
 import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.repository.Repo
 import retrofit2.Response
 
 class SignupViewModel : ViewModel() {
-    private val _singUpValidate = MutableLiveData<String>()
-    val signUpValidate get() = _singUpValidate
-    val responseLiveData = MutableLiveData<Response<SignupResponse>>()
+    private val _signUpValidate = MutableLiveData<String>()
+    val signUpValidate get() = _signUpValidate
+    private val _responseLiveData = MutableLiveData<Response<SignupResponse>>()
+    val responseLiveData get() = _responseLiveData
+    private val phoneNumberPattern = Regex("\\d{11}")
+    private val passwordPattern = Regex(
+        "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
+    )
     private var repo: Repo = Repo()
 
     fun validate(
@@ -28,27 +38,51 @@ class SignupViewModel : ViewModel() {
     ) {
 
         if (email.isEmpty()) {
-            _singUpValidate.value = VALIDATE_EMAIL_PROBLEM
+            signUpValidate.value = VALIDATE_EMAIL_NULL
+        } else if (!isEmailValid(email)) {
+            signUpValidate.value = VALIDATE_EMAIL_INVALID
         } else if (fullName.isEmpty()) {
-            _singUpValidate.value = VALIDATE_FULLNAME_PROBLEM
+            signUpValidate.value = VALIDATE_FULL_NAME_NULL
+        } else if (!isFullNameValid(fullName)) {
+            signUpValidate.value = VALIDATE_FULL_NAME_INVALID
         } else if (phone.isEmpty()) {
-            _singUpValidate.value = VALIDATE_PHONE_PROBLEM
+            signUpValidate.value = VALIDATE_PHONE_NULL
+        } else if (!isPhoneValid(phone)) {
+            signUpValidate.value = VALIDATE_PHONE_INVALID
         } else if (password.isEmpty()) {
-            _singUpValidate.value = VALIDATE_PASSWORD_PROBLEM
+            signUpValidate.value = VALIDATE_PASSWORD_NULL
+        } else if (!isPasswordValid(password)) {
+            signUpValidate.value = VALIDATE_PASSWORD_INVALID
         } else if (confirmPassword.isEmpty()) {
-            _singUpValidate.value = VALIDATE_PASSWORDCONFIGURATION_PROBLEM
+            signUpValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
         } else if (password != confirmPassword) {
-            _singUpValidate.value = VALIDATE_PASSWORDDOESNTMATCH_PROBLEM
+            signUpValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
         } else {
-            createAccount(UserSignupModel(email,fullName,password,phone))
+            createAccount(UserSignupModel(email, fullName, password, phone))
         }
-
     }
 
 
-    private fun createAccount(user:UserSignupModel) {
+    private fun createAccount(user: UserSignupModel) {
         repo.createAccount(user) {
             responseLiveData.value = it
         }
     }
+
+    private fun isEmailValid(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private fun isFullNameValid(fullName: String): Boolean {
+        return fullName.contains(" ")
+    }
+
+    private fun isPhoneValid(phone: String): Boolean {
+        return phone.matches(phoneNumberPattern)
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        return password.matches(passwordPattern)
+    }
+
 }
