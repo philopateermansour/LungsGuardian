@@ -5,16 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.VALIDATE_EMAIL_PROBLEM
-import com.example.lungsguardian.VALIDATE_FULLNAME_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORDCONFIGURATION_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORDDOESNTMATCH_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORD_PROBLEM
-import com.example.lungsguardian.VALIDATE_PHONE_PROBLEM
+import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.VALIDATE_FULL_NAME_INVALID
+import com.example.lungsguardian.VALIDATE_FULL_NAME_NULL
+import com.example.lungsguardian.VALIDATE_PASSWORD_CONFIGURATION_NULL
+import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
+import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.VALIDATE_PHONE_INVALID
+import com.example.lungsguardian.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.HomeActivity
 
@@ -57,23 +62,35 @@ class SignupFragment : Fragment() {
 
     private fun observe() {
         signupViewModel.signUpValidate.observe(viewLifecycleOwner) {
-            if (it.equals(VALIDATE_EMAIL_PROBLEM)) {
-                binding.inputTextEmailSignUp.error =  getString(R.string.required)
-            } else if (it.equals(VALIDATE_FULLNAME_PROBLEM)) {
-                binding.inputTextFullName.error =  getString(R.string.required)
-            } else if (it.equals(VALIDATE_PHONE_PROBLEM)) {
-                binding.inputTextPhoneNumber.error =  getString(R.string.required)
-            } else if (it.equals(VALIDATE_PASSWORD_PROBLEM)) {
-                binding.inputTextPasswordSignUp.error =  getString(R.string.required)
-            } else if (it.equals(VALIDATE_PASSWORDCONFIGURATION_PROBLEM)) {
-                binding.inputTextPasswordConfirm.error =  getString(R.string.required)
-            } else if (it.equals(VALIDATE_PASSWORDDOESNTMATCH_PROBLEM)) {
+            if (it.equals(VALIDATE_EMAIL_NULL)) {
+                binding.inputTextEmailSignUp.error = getString(R.string.required)
+            } else if (it.equals(VALIDATE_FULL_NAME_NULL)) {
+                binding.inputTextFullName.error = getString(R.string.required)
+            } else if (it.equals(VALIDATE_PHONE_NULL)) {
+                binding.inputTextPhoneNumber.error = getString(R.string.required)
+            } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
+                binding.inputTextPasswordSignUp.error = getString(R.string.required)
+            } else if (it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)) {
+                binding.inputTextPasswordConfirm.error = getString(R.string.required)
+            } else if (it.equals(VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.passwords_doesn_t_match)
+            } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
+                Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextEmailSignUp.isErrorEnabled = false
+            } else if (it.equals(VALIDATE_PHONE_INVALID)) {
+                Toast.makeText(context, VALIDATE_PHONE_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextPhoneNumber.isErrorEnabled = false
+            } else if (it.equals(VALIDATE_FULL_NAME_INVALID)) {
+                Toast.makeText(context, VALIDATE_FULL_NAME_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextFullName.isErrorEnabled = false
+            } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
+                Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
+                binding.inputTextPasswordSignUp.isErrorEnabled = false
             }
         }
-        signupViewModel.responseLiveData.observe(viewLifecycleOwner){
-            if (it.isSuccessful){
-                val intent = Intent (activity, HomeActivity::class.java)
+        signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
+            if (it.code() == 200) {
+                val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
             }
