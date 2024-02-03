@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_start"
+    android:id="@+id/nav_auth"
     app:startDestination="@id/splashFragment">
 
     <fragment
@@ -14,8 +14,7 @@
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -50,8 +49,8 @@
         <action
             android:id="@+id/action_forgetFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/loginFragment"/>
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_forgetFragment_to_resetFragment"
             app:destination="@id/resetFragment"

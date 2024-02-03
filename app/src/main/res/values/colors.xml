@@ -6,5 +6,4 @@
     <color name="gray">#B6B6B6</color>
     <color name="red">#E42719</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">#27B4EF</color>
-
 </resources>
