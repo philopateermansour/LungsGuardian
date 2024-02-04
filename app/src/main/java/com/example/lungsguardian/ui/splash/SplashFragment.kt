@@ -26,8 +26,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.myLooper()!!).postDelayed({
 
-            val action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-            findNavController().navigate(action)
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
 
         }, 3000)
     }
