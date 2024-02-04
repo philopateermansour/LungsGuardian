@@ -68,4 +68,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     //For serialising JSONP add converter-scalars
     implementation ("com.squareup.retrofit2:converter-scalars:2.1.0")
+    //card view
+    implementation("androidx.cardview:cardview:1.0.0")
 }
