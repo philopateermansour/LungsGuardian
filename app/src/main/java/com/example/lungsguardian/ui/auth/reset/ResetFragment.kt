@@ -31,14 +31,14 @@ class ResetFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reset, container, false)
+        _binding = FragmentResetBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentResetBinding.bind(view)
 
         onClicks()
         observe()
@@ -55,6 +55,7 @@ class ResetFragment : Fragment() {
             val password= binding.editTextPasswordReset.text.toString()
             val confirmPassword = binding.editTextPasswordConfirm.text.toString()
             binding.progressBar.visibility= View.VISIBLE
+            binding.btnReset.text=null
             resetViewModel.validate(email,code,password,confirmPassword)
         }
     }
@@ -64,30 +65,41 @@ class ResetFragment : Fragment() {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailReset.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_CODE_NULL)) {
                 binding.inputTextCode.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
+                binding.inputTextEmailReset.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordReset.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
+                binding.inputTextCode.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
+                binding.inputTextPasswordReset.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.passwords_doesn_t_match)
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextEmailReset.isErrorEnabled = false
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_CODE_INVALID)) {
                 Toast.makeText(context, VALIDATE_CODE_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextCode.isErrorEnabled = false
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.inputTextPasswordReset.isErrorEnabled = false
                 binding.progressBar.visibility = View.GONE
+                binding.btnReset.setText(R.string.reset)
             }
         }
         resetViewModel.responseLiveData.observe(viewLifecycleOwner){
@@ -96,6 +108,12 @@ class ResetFragment : Fragment() {
                 startActivity(intent)
                 activity?.finish()
                 binding.progressBar.visibility= View.GONE
+                binding.btnReset.setText(R.string.reset)
+            }else{
+                Toast.makeText(context,"Invalid code or email",Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnReset.setText(R.string.reset)
+                binding.inputTextPasswordConfirm.isErrorEnabled = false
             }
         }
     }
