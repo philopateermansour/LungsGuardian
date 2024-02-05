@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeActivity">
+    tools:context=".ui.home.HomeActivity"
+    android:background="@color/white_to_black">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide_line_bottom"
+        android:id="@+id/guide_horizontal_90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_horizontal_91"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.91" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigator"
         android:layout_width="match_parent"
@@ -21,13 +28,11 @@
         app:elevation="@dimen/_2sdp"
         app:menu="@menu/bottom_home_menu"
         app:itemIconTint="@drawable/item_selector_bottom_nav"
-        app:itemRippleColor="@android:color/transparent"
+        app:itemRippleColor="@android:color/darker_gray"
         app:labelVisibilityMode="selected"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_7sdp"
-        app:layout_constraintTop_toTopOf="@id/guide_line_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="@id/guide_horizontal_91"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
@@ -35,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigator"
+        app:layout_constraintBottom_toTopOf="@id/guide_horizontal_90"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_home" />
 

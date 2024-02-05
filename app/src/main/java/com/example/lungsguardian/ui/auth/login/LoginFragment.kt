@@ -25,9 +25,10 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        _binding=FragmentLoginBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,6 +53,7 @@ class LoginFragment : Fragment() {
             val email = binding.editTextEmailLogin.text.toString().trim()
             val password = binding.editTextPasswordLogin.text.toString()
             binding.progressBar.visibility= View.VISIBLE
+            binding.btnLogin.text=null
             loginViewModel.validate(email, password)
         }
     }
@@ -61,13 +63,17 @@ class LoginFragment : Fragment() {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailLogin.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordLogin.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
+                binding.inputTextEmailLogin.isErrorEnabled = false
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.inputTextEmailLogin.isErrorEnabled = false
                 binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
             }
 
         }
@@ -77,11 +83,20 @@ class LoginFragment : Fragment() {
                 startActivity(intent)
                 activity?.finish()
                 binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
             }
             else if (it.code() == 401){
                 binding.inputTextPasswordLogin.isErrorEnabled = false
                 Toast.makeText(context,"wrong email or password",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
+                binding.inputTextPasswordLogin.isErrorEnabled = false
+            }
+            else{
+                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
+                binding.inputTextPasswordLogin.isErrorEnabled = false
             }
         }
     }
