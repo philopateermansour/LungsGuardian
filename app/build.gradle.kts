@@ -55,8 +55,8 @@ dependencies {
     //sdp
     implementation ("com.intuit.sdp:sdp-android:1.1.0")
     //navigation component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     // LiveData
@@ -70,5 +70,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-scalars:2.1.0")
     //circular image
     implementation ("de.hdodenhof:circleimageview:3.1.0")
-
+    //preferences Datastore
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
 }
