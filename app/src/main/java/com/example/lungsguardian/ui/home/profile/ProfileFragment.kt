@@ -1,12 +1,13 @@
 package com.example.lungsguardian.ui.home.profile
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.lungsguardian.R
+import androidx.fragment.app.Fragment
 import com.example.lungsguardian.databinding.FragmentProfileBinding
+import com.example.lungsguardian.ui.auth.AuthenticationScreen
 
 class ProfileFragment : Fragment() {
 
@@ -23,8 +24,16 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onClicks()
     }
 
+    private fun onClicks() {
+        binding.logoutCardView.setOnClickListener {
+            val intent = Intent(activity, AuthenticationScreen::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

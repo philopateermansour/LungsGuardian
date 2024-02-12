@@ -1,5 +1,7 @@
 package com.example.lungsguardian.ui.auth.signup
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,9 +20,12 @@ import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.repository.Repo
 import retrofit2.Response
 
+
 class SignupViewModel : ViewModel() {
     private val _signUpValidate = MutableLiveData<String>()
     val signUpValidate get() = _signUpValidate
+    private val _emailExistsValidate = MutableLiveData<String>()
+    val emailExistsValidate get() = _signUpValidate
     private val _responseLiveData = MutableLiveData<Response<SignupResponse>>()
     val responseLiveData get() = _responseLiveData
     private val phoneNumberPattern = Regex("\\d{11}")
@@ -58,9 +63,9 @@ class SignupViewModel : ViewModel() {
         } else if (password != confirmPassword) {
             signUpValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
         } else {
+            checkIfEmailExists(email)
             createAccount(UserSignupModel(email, fullName, password, phone))
-        }
-    }
+        }}
 
 
     private fun createAccount(user: UserSignupModel) {
@@ -68,7 +73,11 @@ class SignupViewModel : ViewModel() {
             responseLiveData.value = it
         }
     }
-
+    private fun checkIfEmailExists(email: String) {
+        repo.checkIfEmailExists(email){
+            emailExistsValidate.value = it?.body()
+        }
+    }
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
@@ -84,5 +93,4 @@ class SignupViewModel : ViewModel() {
     private fun isPasswordValid(password: String): Boolean {
         return password.matches(passwordPattern)
     }
-
 }

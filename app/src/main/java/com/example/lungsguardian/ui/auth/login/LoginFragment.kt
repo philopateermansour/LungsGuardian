@@ -22,6 +22,8 @@ class LoginFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
 
@@ -34,10 +36,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLoginBinding.bind(view)
-
         onClicks()
         observe()
-
 
     }
 
@@ -52,6 +52,7 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text.toString().trim()
             val password = binding.editTextPasswordLogin.text.toString()
+
             binding.progressBar.visibility= View.VISIBLE
             binding.btnLogin.text=null
             loginViewModel.validate(email, password)
@@ -99,6 +100,9 @@ class LoginFragment : Fragment() {
                 binding.inputTextPasswordLogin.isErrorEnabled = false
             }
         }
+    }
+    private suspend fun autoLogin(email :String,fullName:String){
+
     }
 
     override fun onDestroyView() {

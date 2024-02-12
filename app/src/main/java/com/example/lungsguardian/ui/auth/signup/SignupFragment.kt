@@ -1,6 +1,8 @@
 package com.example.lungsguardian.ui.auth.signup
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +31,7 @@ class SignupFragment : Fragment() {
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
     private val signupViewModel: SignupViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -121,8 +124,12 @@ class SignupFragment : Fragment() {
                 activity?.finish()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-            }else{
-                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+            }
+        }
+        signupViewModel.emailExistsValidate.observe(viewLifecycleOwner){
+            if (it.equals("true")){
+                Toast.makeText(context,
+                    getString(R.string.this_account_is_already_registered),Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
                 binding.inputTextPasswordConfirm.isErrorEnabled = false

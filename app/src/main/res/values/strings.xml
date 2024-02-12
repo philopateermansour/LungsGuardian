@@ -71,4 +71,9 @@
     <string name="forget_password">Forget password</string>
     <string name="code">Code</string>
     <string name="back_to_send_code">Back to send code</string>
+    <string name="profile_photo">profile photo</string>
+    <string name="change_password">Change Password</string>
+    <string name="customize_your_profile">Customize your profile</string>
+    <string name="this_account_is_already_registered">This account is already registered</string>
+    <string name="logout">Logout</string>
 </resources>
