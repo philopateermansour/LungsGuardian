@@ -24,8 +24,10 @@ import com.example.lungsguardian.VALIDATE_PHONE_INVALID
 import com.example.lungsguardian.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class SignupFragment : Fragment() {
 
     private var _binding: FragmentSignupBinding? = null
@@ -125,6 +127,13 @@ class SignupFragment : Fragment() {
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             }
+            else{
+                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnSignup.setText(R.string.sign_up)
+                binding.inputTextPasswordConfirm.isErrorEnabled = false
+            }
+
         }
         signupViewModel.emailExistsValidate.observe(viewLifecycleOwner){
             if (it.equals("true")){

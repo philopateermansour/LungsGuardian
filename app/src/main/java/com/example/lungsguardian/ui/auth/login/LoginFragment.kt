@@ -15,8 +15,10 @@ import com.example.lungsguardian.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentLoginBinding
 import com.example.lungsguardian.ui.home.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by viewModels()
@@ -100,9 +102,6 @@ class LoginFragment : Fragment() {
                 binding.inputTextPasswordLogin.isErrorEnabled = false
             }
         }
-    }
-    private suspend fun autoLogin(email :String,fullName:String){
-
     }
 
     override fun onDestroyView() {

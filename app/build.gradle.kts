@@ -3,6 +3,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
     //navigation component
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
+    //hilt
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -70,6 +73,12 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-scalars:2.1.0")
     //circular image
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    //hilt
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
     //preferences Datastore
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+}
+kapt {
+    correctErrorTypes = true
 }

@@ -20,8 +20,10 @@ import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
 import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentResetBinding
 import com.example.lungsguardian.ui.home.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class ResetFragment : Fragment() {
 
     private var _binding: FragmentResetBinding? = null
