@@ -7,8 +7,9 @@ import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.source.remote.AuthApi
 import retrofit2.Response
+import javax.inject.Inject
 
-class Repo constructor(val getCalls:AuthApi) : IRepo {
+class Repo @Inject constructor(val getCalls:AuthApi) : IRepo {
 
     override suspend fun createAccount(user: UserSignupModel, userCallback: (Response<SignupResponse>?) -> Unit) {
         val response = getCalls.createAccount(user)
