@@ -1,4 +1,4 @@
-package com.example.lungsguardian.ui.home
+package com.example.lungsguardian.ui.home.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

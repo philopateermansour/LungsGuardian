@@ -14,7 +14,7 @@ import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentLoginBinding
-import com.example.lungsguardian.ui.home.HomeActivity
+import com.example.lungsguardian.ui.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
