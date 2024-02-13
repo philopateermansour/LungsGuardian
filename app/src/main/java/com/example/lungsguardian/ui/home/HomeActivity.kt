@@ -1,7 +1,7 @@
 package com.example.lungsguardian.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.lungsguardian.R.id.fragmentContainerView
@@ -16,14 +16,18 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         val navHostFragment = supportFragmentManager.findFragmentById(fragmentContainerView)
                 as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigator.setupWithNavController(navController)
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 }
