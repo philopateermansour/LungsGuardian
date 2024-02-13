@@ -12,7 +12,9 @@ import com.example.lungsguardian.R
 import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.databinding.FragmentForgetBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ForgetFragment : Fragment() {
 
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.VALIDATE_FULL_NAME_INVALID
@@ -17,11 +18,16 @@ import com.example.lungsguardian.VALIDATE_PHONE_INVALID
 import com.example.lungsguardian.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.data.model.SignupResponse
 import com.example.lungsguardian.data.model.UserSignupModel
+import com.example.lungsguardian.data.repository.IRepo
 import com.example.lungsguardian.data.repository.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
 
-class SignupViewModel : ViewModel() {
+@HiltViewModel
+class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
     private val _signUpValidate = MutableLiveData<String>()
     val signUpValidate get() = _signUpValidate
     private val _emailExistsValidate = MutableLiveData<String>()
@@ -32,7 +38,6 @@ class SignupViewModel : ViewModel() {
     private val passwordPattern = Regex(
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
     )
-    private var repo: Repo = Repo()
 
     fun validate(
         email: String,
@@ -63,14 +68,15 @@ class SignupViewModel : ViewModel() {
         } else if (password != confirmPassword) {
             signUpValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
         } else {
-            checkIfEmailExists(email)
             createAccount(UserSignupModel(email, fullName, password, phone))
         }}
 
 
     private fun createAccount(user: UserSignupModel) {
-        repo.createAccount(user) {
-            responseLiveData.value = it
+        viewModelScope.launch {
+            repo.createAccount(user) {
+                responseLiveData.value = it
+            }
         }
     }
     private fun checkIfEmailExists(email: String) {

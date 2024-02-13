@@ -3,6 +3,7 @@ package com.example.lungsguardian.ui.auth.reset
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.VALIDATE_CODE_INVALID
 import com.example.lungsguardian.VALIDATE_CODE_NULL
 import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
@@ -13,10 +14,15 @@ import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
 import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.data.model.ResetPasswordModel
 import com.example.lungsguardian.data.model.SignupResponse
+import com.example.lungsguardian.data.repository.IRepo
 import com.example.lungsguardian.data.repository.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class ResetViewModel :ViewModel() {
+@HiltViewModel
+class ResetViewModel @Inject constructor(private val repo: IRepo) :ViewModel() {
 
     private val _resetValidate =MutableLiveData<String>()
     val resetValidate get() = _resetValidate
@@ -29,7 +35,6 @@ class ResetViewModel :ViewModel() {
     private val passwordPattern = Regex(
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
     )
-    private val repo:Repo= Repo()
     fun validate(email:String,code:String,password:String,confirmPassword:String){
         if (email.isEmpty()){
             resetValidate.value = VALIDATE_EMAIL_NULL
@@ -53,8 +58,10 @@ class ResetViewModel :ViewModel() {
     }
 
     private fun resetPassword(resetPasswordModel: ResetPasswordModel){
-        repo.resetPassword(resetPasswordModel){
-            responseLiveData.value = it
+        viewModelScope.launch {
+            repo.resetPassword(resetPasswordModel) {
+                responseLiveData.value = it
+            }
         }
     }
 

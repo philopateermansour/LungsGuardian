@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
+import com.example.lungsguardian.ui.auth.AuthenticationScreen
 import com.example.lungsguardian.ui.home.HomeActivity
 
 
@@ -31,8 +32,9 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.myLooper()!!).postDelayed({
 
-            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
-
+            val intent = Intent(activity, AuthenticationScreen::class.java)
+            startActivity(intent)
+            activity?.finish()
         }, 3000)
 
     }

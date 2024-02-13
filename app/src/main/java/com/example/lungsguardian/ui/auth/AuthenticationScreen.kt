@@ -3,7 +3,9 @@ package com.example.lungsguardian.ui.auth
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lungsguardian.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AuthenticationScreen : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     val binding get() = _binding!!
