@@ -1,6 +1,5 @@
-package com.example.lungsguardian.ui.splash
+package com.example.lungsguardian.ui.splash.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -9,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.ui.auth.AuthenticationScreen
-import com.example.lungsguardian.ui.home.HomeActivity
+import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
 
 
 class SplashFragment : Fragment() {

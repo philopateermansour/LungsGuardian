@@ -1,8 +1,6 @@
 package com.example.lungsguardian.ui.auth.signup
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +21,7 @@ import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.VALIDATE_PHONE_INVALID
 import com.example.lungsguardian.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
-import com.example.lungsguardian.ui.home.HomeActivity
+import com.example.lungsguardian.ui.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 

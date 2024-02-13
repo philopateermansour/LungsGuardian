@@ -1,4 +1,4 @@
-package com.example.lungsguardian.ui.auth
+package com.example.lungsguardian.ui.auth.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +15,6 @@ class AuthenticationScreen : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding?.root)
     }
-
-
 
     override fun onDestroy() {
         super.onDestroy()

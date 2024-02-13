@@ -19,7 +19,7 @@ import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
 import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
 import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentResetBinding
-import com.example.lungsguardian.ui.home.HomeActivity
+import com.example.lungsguardian.ui.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 

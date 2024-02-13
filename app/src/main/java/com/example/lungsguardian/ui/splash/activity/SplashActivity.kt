@@ -1,4 +1,4 @@
-package com.example.lungsguardian.ui.splash
+package com.example.lungsguardian.ui.splash.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
