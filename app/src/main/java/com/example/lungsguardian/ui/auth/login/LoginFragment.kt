@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -59,6 +60,12 @@ class LoginFragment : Fragment() {
             binding.btnLogin.text=null
             loginViewModel.validate(email, password)
         }
+        binding.editTextEmailLogin.doAfterTextChanged {
+            binding.inputTextEmailLogin.isErrorEnabled=false
+        }
+        binding.editTextPasswordLogin.doAfterTextChanged {
+            binding.inputTextPasswordLogin.isErrorEnabled=false
+        }
     }
 
     private fun observe() {
@@ -71,14 +78,11 @@ class LoginFragment : Fragment() {
                 binding.inputTextPasswordLogin.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
-                binding.inputTextEmailLogin.isErrorEnabled = false
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
-                binding.inputTextEmailLogin.isErrorEnabled = false
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
             }
-
         }
         loginViewModel.responseLiveData.observe(viewLifecycleOwner) {
             if (it.code() == 200) {
@@ -89,17 +93,14 @@ class LoginFragment : Fragment() {
                 binding.btnLogin.setText(R.string.login)
             }
             else if (it.code() == 401){
-                binding.inputTextPasswordLogin.isErrorEnabled = false
                 Toast.makeText(context,"wrong email or password",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
-                binding.inputTextPasswordLogin.isErrorEnabled = false
             }
             else{
                 Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
-                binding.inputTextPasswordLogin.isErrorEnabled = false
             }
         }
     }

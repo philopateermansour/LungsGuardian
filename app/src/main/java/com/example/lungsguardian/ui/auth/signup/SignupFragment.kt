@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -63,6 +64,21 @@ class SignupFragment : Fragment() {
             binding.btnSignup.text = null
             signupViewModel.validate(email, fullName, phone, password, confirmPassword)
         }
+        binding.editTextEmailSingUp.doAfterTextChanged {
+            binding.inputTextEmailSignUp.isErrorEnabled=false
+        }
+        binding.editTextFullName.doAfterTextChanged {
+            binding.inputTextFullName.isErrorEnabled=false
+        }
+        binding.editTextPhoneNumber.doAfterTextChanged {
+            binding.inputTextPhoneNumber.isErrorEnabled=false
+        }
+        binding.editTextPasswordSignUp.doAfterTextChanged {
+            binding.inputTextPasswordSignUp.isErrorEnabled=false
+        }
+        binding.editTextPasswordConfirm.doAfterTextChanged {
+            binding.inputTextPasswordConfirm.isErrorEnabled=false
+        }
     }
 
     private fun observe() {
@@ -75,22 +91,18 @@ class SignupFragment : Fragment() {
                 binding.inputTextFullName.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextEmailSignUp.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PHONE_NULL)) {
                 binding.inputTextPhoneNumber.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextFullName.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordSignUp.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPhoneNumber.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordSignUp.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.passwords_doesn_t_match)
                 binding.progressBar.visibility= View.GONE
@@ -99,22 +111,18 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextEmailSignUp.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PHONE_INVALID)) {
                 Toast.makeText(context, VALIDATE_PHONE_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPhoneNumber.isErrorEnabled = false
             } else if (it.equals(VALIDATE_FULL_NAME_INVALID)) {
                 Toast.makeText(context, VALIDATE_FULL_NAME_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextFullName.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordSignUp.isErrorEnabled = false
             }
         }
         signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
@@ -129,7 +137,6 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordConfirm.isErrorEnabled = false
             }
 
         }
@@ -139,7 +146,6 @@ class SignupFragment : Fragment() {
                     getString(R.string.this_account_is_already_registered),Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordConfirm.isErrorEnabled = false
             }
         }
     }

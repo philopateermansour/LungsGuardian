@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,9 @@ class ForgetFragment : Fragment() {
             binding.btnSendCode.text=null
             forgetViewModel.validate(email)
         }
+        binding.editTextEmailReset.doAfterTextChanged {
+            binding.inputTextEmailReset.isErrorEnabled=false
+        }
     }
 
     private fun observer() {
@@ -54,7 +58,6 @@ class ForgetFragment : Fragment() {
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
-                binding.inputTextEmailReset.isErrorEnabled = false
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
@@ -70,13 +73,11 @@ class ForgetFragment : Fragment() {
                 Toast.makeText(context,"this email is not registered in the system",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
-                binding.inputTextEmailReset.isErrorEnabled = false
             }
             else{
                 Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
-                binding.inputTextEmailReset.isErrorEnabled = false
             }
         }
     }

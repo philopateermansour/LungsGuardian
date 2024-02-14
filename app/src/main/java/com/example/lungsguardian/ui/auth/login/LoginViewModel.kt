@@ -26,11 +26,11 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
 
     fun validate(email: String, password: String) {
         if (email.isEmpty()) {
-            loginValidate.value = VALIDATE_EMAIL_NULL
+            _loginValidate.value = VALIDATE_EMAIL_NULL
         } else if (!isEmailValid(email)) {
-            loginValidate.value = VALIDATE_EMAIL_INVALID
+            _loginValidate.value = VALIDATE_EMAIL_INVALID
         } else if (password.isEmpty()) {
-            loginValidate.value = VALIDATE_PASSWORD_NULL
+            _loginValidate.value = VALIDATE_PASSWORD_NULL
         } else {
             login(UserLoginModel(email, password))
         }
@@ -39,14 +39,12 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
     fun login(user: UserLoginModel) {
         viewModelScope.launch {
             repo.login(user) {
-                responseLiveData.value = it
+                _responseLiveData.value = it
             }
         }
     }
-
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
 
 }

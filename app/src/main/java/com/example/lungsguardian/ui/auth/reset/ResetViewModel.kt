@@ -37,21 +37,21 @@ class ResetViewModel @Inject constructor(private val repo: IRepo) :ViewModel() {
     )
     fun validate(email:String,code:String,password:String,confirmPassword:String){
         if (email.isEmpty()){
-            resetValidate.value = VALIDATE_EMAIL_NULL
+            _resetValidate.value = VALIDATE_EMAIL_NULL
         } else if (!isEmailValid(email)){
-            resetValidate.value = VALIDATE_EMAIL_INVALID
+            _resetValidate.value = VALIDATE_EMAIL_INVALID
         } else if(code.toString().isEmpty()){
-            resetValidate.value = VALIDATE_CODE_NULL
+            _resetValidate.value = VALIDATE_CODE_NULL
         } else if (!isCodeValid(code.toString())){
-            resetValidate.value = VALIDATE_CODE_INVALID
+            _resetValidate.value = VALIDATE_CODE_INVALID
         } else if(password.isEmpty()){
-            resetValidate.value = VALIDATE_PASSWORD_NULL
+            _resetValidate.value = VALIDATE_PASSWORD_NULL
         } else if (!isPasswordValid(password)){
-            resetValidate.value = VALIDATE_PASSWORD_INVALID
+            _resetValidate.value = VALIDATE_PASSWORD_INVALID
         }else if(confirmPassword.isEmpty()){
-            resetValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
+            _resetValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
         } else if (password != confirmPassword){
-            resetValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+            _resetValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
         }else{
             resetPassword(ResetPasswordModel(code,confirmPassword,email,password))
         }
@@ -60,7 +60,7 @@ class ResetViewModel @Inject constructor(private val repo: IRepo) :ViewModel() {
     private fun resetPassword(resetPasswordModel: ResetPasswordModel){
         viewModelScope.launch {
             repo.resetPassword(resetPasswordModel) {
-                responseLiveData.value = it
+                _responseLiveData.value = it
             }
         }
     }

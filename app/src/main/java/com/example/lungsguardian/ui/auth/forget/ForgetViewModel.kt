@@ -22,9 +22,9 @@ class ForgetViewModel @Inject constructor(private val repo: IRepo): ViewModel() 
 
     fun validate(email: String) {
         if (email.isEmpty()) {
-            forgetValidate.value = VALIDATE_EMAIL_NULL
+            _forgetValidate.value = VALIDATE_EMAIL_NULL
         } else if (!isEmailValid(email)) {
-            forgetValidate.value = VALIDATE_EMAIL_INVALID
+            _forgetValidate.value = VALIDATE_EMAIL_INVALID
         }
         else {
             sendCode(email)
@@ -33,7 +33,7 @@ class ForgetViewModel @Inject constructor(private val repo: IRepo): ViewModel() 
     fun sendCode(email: String){
         viewModelScope.launch {
             repo.sendCode(email) {
-                sendCodeResponse.value = it
+               _sendCodeResponse.value = it
             }
         }
     }

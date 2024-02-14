@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
@@ -60,6 +61,18 @@ class ResetFragment : Fragment() {
             binding.btnReset.text=null
             resetViewModel.validate(email,code,password,confirmPassword)
         }
+        binding.editTextEmailReset.doAfterTextChanged {
+            binding.inputTextEmailReset.isErrorEnabled=false
+        }
+        binding.editTextCode.doAfterTextChanged {
+            binding.inputTextCode.isErrorEnabled=false
+        }
+        binding.editTextPasswordReset.doAfterTextChanged {
+            binding.inputTextPasswordReset.isErrorEnabled=false
+        }
+        binding.editTextPasswordConfirm.doAfterTextChanged {
+            binding.inputTextPasswordConfirm.isErrorEnabled=false
+        }
     }
 
     private fun observe() {
@@ -72,34 +85,28 @@ class ResetFragment : Fragment() {
                 binding.inputTextCode.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
-                binding.inputTextEmailReset.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordReset.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
-                binding.inputTextCode.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.required)
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
-                binding.inputTextPasswordReset.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.passwords_doesn_t_match)
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
-                binding.inputTextEmailReset.isErrorEnabled = false
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_CODE_INVALID)) {
                 Toast.makeText(context, VALIDATE_CODE_INVALID, Toast.LENGTH_SHORT).show()
-                binding.inputTextCode.isErrorEnabled = false
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
             } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
-                binding.inputTextPasswordReset.isErrorEnabled = false
                 binding.progressBar.visibility = View.GONE
                 binding.btnReset.setText(R.string.reset)
             }
@@ -115,7 +122,6 @@ class ResetFragment : Fragment() {
                 Toast.makeText(context,"Invalid code or email",Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnReset.setText(R.string.reset)
-                binding.inputTextPasswordConfirm.isErrorEnabled = false
             }
         }
     }

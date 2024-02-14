@@ -48,25 +48,25 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
     ) {
 
         if (email.isEmpty()) {
-            signUpValidate.value = VALIDATE_EMAIL_NULL
+            _signUpValidate.value = VALIDATE_EMAIL_NULL
         } else if (!isEmailValid(email)) {
-            signUpValidate.value = VALIDATE_EMAIL_INVALID
+            _signUpValidate.value = VALIDATE_EMAIL_INVALID
         } else if (fullName.isEmpty()) {
-            signUpValidate.value = VALIDATE_FULL_NAME_NULL
+            _signUpValidate.value = VALIDATE_FULL_NAME_NULL
         } else if (!isFullNameValid(fullName)) {
-            signUpValidate.value = VALIDATE_FULL_NAME_INVALID
+            _signUpValidate.value = VALIDATE_FULL_NAME_INVALID
         } else if (phone.isEmpty()) {
-            signUpValidate.value = VALIDATE_PHONE_NULL
+            _signUpValidate.value = VALIDATE_PHONE_NULL
         } else if (!isPhoneValid(phone)) {
-            signUpValidate.value = VALIDATE_PHONE_INVALID
+            _signUpValidate.value = VALIDATE_PHONE_INVALID
         } else if (password.isEmpty()) {
-            signUpValidate.value = VALIDATE_PASSWORD_NULL
+            _signUpValidate.value = VALIDATE_PASSWORD_NULL
         } else if (!isPasswordValid(password)) {
-            signUpValidate.value = VALIDATE_PASSWORD_INVALID
+            _signUpValidate.value = VALIDATE_PASSWORD_INVALID
         } else if (confirmPassword.isEmpty()) {
-            signUpValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
+            _signUpValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
         } else if (password != confirmPassword) {
-            signUpValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+            _signUpValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
         } else {
             createAccount(UserSignupModel(email, fullName, password, phone))
         }}
@@ -75,13 +75,13 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
     private fun createAccount(user: UserSignupModel) {
         viewModelScope.launch {
             repo.createAccount(user) {
-                responseLiveData.value = it
+                _responseLiveData.value = it
             }
         }
     }
     private fun checkIfEmailExists(email: String) {
         repo.checkIfEmailExists(email){
-            emailExistsValidate.value = it?.body()
+            _emailExistsValidate.value = it?.body()
         }
     }
     private fun isEmailValid(email: String): Boolean {
