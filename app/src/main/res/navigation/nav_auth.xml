@@ -54,5 +54,8 @@
             app:destination="@id/forgetFragment"
             app:popUpTo="@id/forgetFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="email"
+            app:argType="string" />
     </fragment>
 </navigation>

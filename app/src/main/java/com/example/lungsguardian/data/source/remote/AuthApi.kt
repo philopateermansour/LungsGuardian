@@ -34,7 +34,7 @@ interface AuthApi {
 
 
     @GET("emailExists")
-    fun  checkIfEmailExists(
+    suspend  fun  checkIfEmailExists(
         @Query("Email") email: String
     ):Response<String>
 }

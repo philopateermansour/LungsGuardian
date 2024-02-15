@@ -1,28 +1,27 @@
 package com.example.lungsguardian.ui.auth.signup
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
-import com.example.lungsguardian.VALIDATE_FULL_NAME_INVALID
-import com.example.lungsguardian.VALIDATE_FULL_NAME_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_CONFIGURATION_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
-import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
-import com.example.lungsguardian.VALIDATE_PHONE_INVALID
-import com.example.lungsguardian.VALIDATE_PHONE_NULL
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_INVALID
+import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_CONFIGURATION_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.utils.VALIDATE_PHONE_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.data.model.SignupResponse
 import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.repository.IRepo
-import com.example.lungsguardian.data.repository.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -73,16 +72,25 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
 
 
     private fun createAccount(user: UserSignupModel) {
-        viewModelScope.launch {
-            repo.createAccount(user) {
-                _responseLiveData.value = it
+        viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    repo.createAccount(user) {
+                _responseLiveData.postValue(it)
+            }}catch (e:IOException){
+                _signUpValidate.postValue(e.localizedMessage)
+            }
             }
         }
-    }
     private fun checkIfEmailExists(email: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+
         repo.checkIfEmailExists(email){
-            _emailExistsValidate.value = it?.body()
+            _emailExistsValidate.postValue(it?.body())
+        }}catch (e:IOException){
+            _emailExistsValidate.postValue(e.localizedMessage)
         }
+    }
     }
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();

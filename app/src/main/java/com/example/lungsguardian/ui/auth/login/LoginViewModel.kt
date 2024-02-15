@@ -4,17 +4,17 @@ import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.data.model.LoginResponse
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.repository.IRepo
-import com.example.lungsguardian.data.repository.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,10 +37,15 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
     }
 
     fun login(user: UserLoginModel) {
-        viewModelScope.launch {
-            repo.login(user) {
-                _responseLiveData.value = it
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.login(user) {
+                    _responseLiveData.postValue(it)
+                }
+            }catch (e:IOException){
+                _loginValidate.postValue(e.localizedMessage)
             }
+
         }
     }
     private fun isEmailValid(email: String): Boolean {

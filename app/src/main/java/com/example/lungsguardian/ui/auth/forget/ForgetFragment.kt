@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.databinding.FragmentForgetBinding
+import com.example.lungsguardian.utils.SEND_CODE_DONE
+import com.example.lungsguardian.utils.SEND_CODE_Failed
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +35,7 @@ class ForgetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onClicks()
-        observer()
+        observers()
     }
 
     private fun onClicks() {
@@ -47,11 +49,11 @@ class ForgetFragment : Fragment() {
             forgetViewModel.validate(email)
         }
         binding.editTextEmailReset.doAfterTextChanged {
-            binding.inputTextEmailReset.isErrorEnabled=false
+            binding.inputTextEmailReset.error=""
         }
     }
 
-    private fun observer() {
+    private fun observers() {
         forgetViewModel.forgetValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailReset.error = getString(R.string.required)
@@ -61,21 +63,24 @@ class ForgetFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
+            } else{
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnSendCode.setText(R.string.send_code)
             }
         }
         forgetViewModel.sendCodeResponse.observe(viewLifecycleOwner){
-            if (it.code() == 200){
-                findNavController().navigate(ForgetFragmentDirections.actionForgetFragmentToResetFragment())
+            if (it.code()==200){
+                findNavController().navigate(ForgetFragmentDirections.actionForgetFragmentToResetFragment(
+                    binding.editTextEmailReset.text.toString()
+                ))
+
+                Toast.makeText(context, SEND_CODE_DONE,Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
             }
-            else if (it.code() == 400){
-                Toast.makeText(context,"this email is not registered in the system",Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnSendCode.setText(R.string.send_code)
-            }
-            else{
-                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+            else {
+                Toast.makeText(context, SEND_CODE_Failed,Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
             }

@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentLoginBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLoginBinding.bind(view)
         onClicks()
-        observe()
+        observers()
 
     }
 
@@ -61,14 +61,14 @@ class LoginFragment : Fragment() {
             loginViewModel.validate(email, password)
         }
         binding.editTextEmailLogin.doAfterTextChanged {
-            binding.inputTextEmailLogin.isErrorEnabled=false
+            binding.inputTextEmailLogin.error=""
         }
         binding.editTextPasswordLogin.doAfterTextChanged {
-            binding.inputTextPasswordLogin.isErrorEnabled=false
+            binding.inputTextPasswordLogin.error=""
         }
     }
 
-    private fun observe() {
+    private fun observers() {
         loginViewModel.loginValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailLogin.error = getString(R.string.required)
@@ -82,6 +82,10 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
+            } else{
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
             }
         }
         loginViewModel.responseLiveData.observe(viewLifecycleOwner) {
@@ -92,13 +96,8 @@ class LoginFragment : Fragment() {
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
             }
-            else if (it.code() == 401){
-                Toast.makeText(context,"wrong email or password",Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnLogin.setText(R.string.login)
-            }
             else{
-                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,it.message(),Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
             }

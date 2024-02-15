@@ -15,12 +15,12 @@ interface IRepo {
 
     suspend fun login(user: UserLoginModel, userCallback: (Response<LoginResponse>?) -> Unit)
 
-    suspend fun sendCode(email: String, emailCallback: (Response<String>?) -> Unit)
+    suspend fun sendCode(email: String,codeCallBack :(Response<String>?)-> Unit)
 
     suspend fun resetPassword(
         resetPasswordModel: ResetPasswordModel,
         resetCallback: (Response<String>?) -> Unit
     )
 
-    fun checkIfEmailExists(email: String, checkCallback: (Response<String>?) -> Unit)
+    suspend fun checkIfEmailExists(email: String, checkCallback: (Response<String>?) -> Unit)
 }

@@ -11,16 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
-import com.example.lungsguardian.VALIDATE_FULL_NAME_INVALID
-import com.example.lungsguardian.VALIDATE_FULL_NAME_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_CONFIGURATION_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
-import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
-import com.example.lungsguardian.VALIDATE_PHONE_INVALID
-import com.example.lungsguardian.VALIDATE_PHONE_NULL
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_INVALID
+import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_CONFIGURATION_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.utils.VALIDATE_PHONE_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +46,7 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClicks()
-        observe()
+        observers()
     }
 
     private fun onClicks() {
@@ -65,23 +65,23 @@ class SignupFragment : Fragment() {
             signupViewModel.validate(email, fullName, phone, password, confirmPassword)
         }
         binding.editTextEmailSingUp.doAfterTextChanged {
-            binding.inputTextEmailSignUp.isErrorEnabled=false
+            binding.inputTextEmailSignUp.error=""
         }
         binding.editTextFullName.doAfterTextChanged {
-            binding.inputTextFullName.isErrorEnabled=false
+            binding.inputTextFullName.error=""
         }
         binding.editTextPhoneNumber.doAfterTextChanged {
-            binding.inputTextPhoneNumber.isErrorEnabled=false
+            binding.inputTextPhoneNumber.error=""
         }
         binding.editTextPasswordSignUp.doAfterTextChanged {
-            binding.inputTextPasswordSignUp.isErrorEnabled=false
+            binding.inputTextPasswordSignUp.error=""
         }
         binding.editTextPasswordConfirm.doAfterTextChanged {
-            binding.inputTextPasswordConfirm.isErrorEnabled=false
+            binding.inputTextPasswordConfirm.error=""
         }
     }
 
-    private fun observe() {
+    private fun observers() {
         signupViewModel.signUpValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailSignUp.error = getString(R.string.required)
@@ -123,6 +123,10 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
+            } else{
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnSignup.setText(R.string.sign_up)
             }
         }
         signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
@@ -134,11 +138,10 @@ class SignupFragment : Fragment() {
                 binding.btnSignup.setText(R.string.sign_up)
             }
             else{
-                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,it.message(),Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             }
-
         }
         signupViewModel.emailExistsValidate.observe(viewLifecycleOwner){
             if (it.equals("true")){

@@ -1,4 +1,4 @@
-package com.example.lungsguardian
+package com.example.lungsguardian.utils
 
 const val VALIDATE_EMAIL_NULL="email error"
 const val VALIDATE_FULL_NAME_NULL="name error"
@@ -12,3 +12,5 @@ const val VALIDATE_FULL_NAME_INVALID="full name must contain at least two names"
 const val VALIDATE_PHONE_INVALID="phone number must be 11 digits"
 const val VALIDATE_PASSWORD_INVALID="password must contains 1 Uppercase, 1 Lowercase, 1 Digit, 1 Special Character"
 const val VALIDATE_CODE_INVALID= "code must be 6 digits"
+const val SEND_CODE_DONE ="Password reset code sent to your email"
+const val SEND_CODE_Failed="Email is Not Exist"
