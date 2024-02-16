@@ -26,23 +26,19 @@
             android:visibility="gone"
             android:elevation="@dimen/_25sdp"
             />
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/horizontal_guide_33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33"
-            />
-        <ImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/image_signup"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@drawable/image_signup"
+            app:lottie_url="REPLACE_JSON_URL"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/self_protection"
             app:layout_constraintHeight_percent="0.33"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/horizontal_guide_33"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/text_signup"
@@ -52,7 +48,7 @@
             android:text="@string/sign_up"
             android:textSize="@dimen/_25sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_guide_33" />
+            app:layout_constraintTop_toBottomOf="@id/image_signup" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_text_email_sign_up"
