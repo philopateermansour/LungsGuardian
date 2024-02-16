@@ -9,5 +9,5 @@
         android:id="@+id/splashFragment2"
         android:name="com.example.lungsguardian.ui.splash.fragment.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/activity_splash" />
 </navigation>
