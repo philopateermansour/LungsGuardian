@@ -1,8 +1,7 @@
 package com.example.lungsguardian.data.source.remote
 
-import com.example.lungsguardian.data.model.LoginResponse
+import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
-import com.example.lungsguardian.data.model.SignupResponse
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserSignupModel
 import retrofit2.Response
@@ -15,12 +14,12 @@ interface AuthApi {
     @POST("Register")
     suspend fun createAccount(
         @Body userSignupModel: UserSignupModel
-    ): Response<SignupResponse>
+    ): Response<UserResponseModel>
 
     @POST("Login")
     suspend fun login(
         @Body userLoginModel: UserLoginModel
-    ): Response<LoginResponse>
+    ): Response<UserResponseModel>
 
     @POST("sendemail")
     suspend fun sendCode(

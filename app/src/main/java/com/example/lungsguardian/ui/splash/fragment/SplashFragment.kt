@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lungsguardian.R
 import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
+import com.example.lungsguardian.ui.home.activity.HomeActivity
+import com.example.lungsguardian.utils.LOGGED_IN
+import com.example.lungsguardian.utils.LOGGED_STATE
+import com.example.lungsguardian.utils.MySharedPreferences
 
 
 class SplashFragment : Fragment() {
@@ -27,16 +31,29 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        startApp()
+    }
+
+    private fun startApp() {
         Handler(Looper.myLooper()!!).postDelayed({
 
-            val intent = Intent(activity, AuthenticationScreen::class.java)
-            startActivity(intent)
-            activity?.finish()
+            when(MySharedPreferences.getFromShared(LOGGED_STATE)){
+                LOGGED_IN ->{
+                    val intent = Intent(activity, HomeActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+                else ->{
+                    val intent = Intent(activity, AuthenticationScreen::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
+            }
+
+
         }, 3000)
 
     }
-
-
 
 
 }

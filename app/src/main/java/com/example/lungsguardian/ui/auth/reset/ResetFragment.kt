@@ -106,9 +106,7 @@ class ResetFragment : Fragment() {
         }
         resetViewModel.responseLiveData.observe(viewLifecycleOwner){
             if (it.code()==200){
-                val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+               findNavController().navigate(ResetFragmentDirections.actionResetFragmentToLoginFragment())
                 binding.progressBar.visibility= View.GONE
                 binding.btnReset.setText(R.string.reset)
             }else{

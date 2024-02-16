@@ -7,9 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
-import com.example.lungsguardian.data.model.LoginResponse
+import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.repository.IRepo
+import com.example.lungsguardian.utils.LOGGED_IN
+import com.example.lungsguardian.utils.LOGGED_STATE
+import com.example.lungsguardian.utils.MySharedPreferences
+import com.example.lungsguardian.utils.USER_EMAIL
+import com.example.lungsguardian.utils.USER_NAME
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +26,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
     private val _loginValidate = MutableLiveData<String>()
     val loginValidate get() = _loginValidate
-    private val _responseLiveData = MutableLiveData<Response<LoginResponse>>()
+    private val _responseLiveData = MutableLiveData<Response<UserResponseModel>>()
     val responseLiveData get() = _responseLiveData
 
     fun validate(email: String, password: String) {
@@ -39,17 +44,24 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
     fun login(user: UserLoginModel) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repo.login(user) {
+               repo.login(user){
                     _responseLiveData.postValue(it)
-                }
-            }catch (e:IOException){
+                cacheUserDate(it)}
+                }catch (e:IOException){
                 _loginValidate.postValue(e.localizedMessage)
+            }
             }
 
         }
     }
+
+    private  fun cacheUserDate(it: Response<UserResponseModel>?) {
+        MySharedPreferences.setInShared(USER_NAME, it!!.body()!!.fullName)
+        MySharedPreferences.setInShared(USER_EMAIL, it.body()!!.email)
+        MySharedPreferences.setInShared(LOGGED_STATE, LOGGED_IN)
+    }
+
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-}
