@@ -78,6 +78,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
     //preferences Datastore
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    //lottie
+    implementation ("com.airbnb.android:lottie:3.4.1")
+
 }
 kapt {
     correctErrorTypes = true
