@@ -6,20 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
-import com.example.lungsguardian.VALIDATE_FULL_NAME_INVALID
-import com.example.lungsguardian.VALIDATE_FULL_NAME_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_CONFIGURATION_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
-import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
-import com.example.lungsguardian.VALIDATE_PHONE_INVALID
-import com.example.lungsguardian.VALIDATE_PHONE_NULL
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_INVALID
+import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_CONFIGURATION_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.utils.VALIDATE_PHONE_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClicks()
-        observe()
+        observers()
     }
 
     private fun onClicks() {
@@ -63,9 +64,24 @@ class SignupFragment : Fragment() {
             binding.btnSignup.text = null
             signupViewModel.validate(email, fullName, phone, password, confirmPassword)
         }
+        binding.editTextEmailSingUp.doAfterTextChanged {
+            binding.inputTextEmailSignUp.error=""
+        }
+        binding.editTextFullName.doAfterTextChanged {
+            binding.inputTextFullName.error=""
+        }
+        binding.editTextPhoneNumber.doAfterTextChanged {
+            binding.inputTextPhoneNumber.error=""
+        }
+        binding.editTextPasswordSignUp.doAfterTextChanged {
+            binding.inputTextPasswordSignUp.error=""
+        }
+        binding.editTextPasswordConfirm.doAfterTextChanged {
+            binding.inputTextPasswordConfirm.error=""
+        }
     }
 
-    private fun observe() {
+    private fun observers() {
         signupViewModel.signUpValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
                 binding.inputTextEmailSignUp.error = getString(R.string.required)
@@ -75,22 +91,18 @@ class SignupFragment : Fragment() {
                 binding.inputTextFullName.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextEmailSignUp.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PHONE_NULL)) {
                 binding.inputTextPhoneNumber.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextFullName.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_NULL)) {
                 binding.inputTextPasswordSignUp.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPhoneNumber.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.required)
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordSignUp.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM)) {
                 binding.inputTextPasswordConfirm.error = getString(R.string.passwords_doesn_t_match)
                 binding.progressBar.visibility= View.GONE
@@ -99,22 +111,22 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextEmailSignUp.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PHONE_INVALID)) {
                 Toast.makeText(context, VALIDATE_PHONE_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPhoneNumber.isErrorEnabled = false
             } else if (it.equals(VALIDATE_FULL_NAME_INVALID)) {
                 Toast.makeText(context, VALIDATE_FULL_NAME_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextFullName.isErrorEnabled = false
             } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordSignUp.isErrorEnabled = false
+            } else{
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnSignup.setText(R.string.sign_up)
             }
         }
         signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
@@ -126,12 +138,10 @@ class SignupFragment : Fragment() {
                 binding.btnSignup.setText(R.string.sign_up)
             }
             else{
-                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,it.message(),Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordConfirm.isErrorEnabled = false
             }
-
         }
         signupViewModel.emailExistsValidate.observe(viewLifecycleOwner){
             if (it.equals("true")){
@@ -139,7 +149,6 @@ class SignupFragment : Fragment() {
                     getString(R.string.this_account_is_already_registered),Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-                binding.inputTextPasswordConfirm.isErrorEnabled = false
             }
         }
     }

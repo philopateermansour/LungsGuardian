@@ -4,21 +4,21 @@ import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lungsguardian.VALIDATE_CODE_INVALID
-import com.example.lungsguardian.VALIDATE_CODE_NULL
-import com.example.lungsguardian.VALIDATE_EMAIL_INVALID
-import com.example.lungsguardian.VALIDATE_EMAIL_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_CONFIGURATION_NULL
-import com.example.lungsguardian.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
-import com.example.lungsguardian.VALIDATE_PASSWORD_INVALID
-import com.example.lungsguardian.VALIDATE_PASSWORD_NULL
+import com.example.lungsguardian.utils.VALIDATE_CODE_INVALID
+import com.example.lungsguardian.utils.VALIDATE_CODE_NULL
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
+import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_CONFIGURATION_NULL
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_INVALID
+import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.data.model.ResetPasswordModel
-import com.example.lungsguardian.data.model.SignupResponse
 import com.example.lungsguardian.data.repository.IRepo
-import com.example.lungsguardian.data.repository.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,38 +36,36 @@ class ResetViewModel @Inject constructor(private val repo: IRepo) :ViewModel() {
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
     )
     fun validate(email:String,code:String,password:String,confirmPassword:String){
-        if (email.isEmpty()){
-            resetValidate.value = VALIDATE_EMAIL_NULL
-        } else if (!isEmailValid(email)){
-            resetValidate.value = VALIDATE_EMAIL_INVALID
-        } else if(code.toString().isEmpty()){
-            resetValidate.value = VALIDATE_CODE_NULL
+         if(code.toString().isEmpty()){
+            _resetValidate.value = VALIDATE_CODE_NULL
         } else if (!isCodeValid(code.toString())){
-            resetValidate.value = VALIDATE_CODE_INVALID
+            _resetValidate.value = VALIDATE_CODE_INVALID
         } else if(password.isEmpty()){
-            resetValidate.value = VALIDATE_PASSWORD_NULL
+            _resetValidate.value = VALIDATE_PASSWORD_NULL
         } else if (!isPasswordValid(password)){
-            resetValidate.value = VALIDATE_PASSWORD_INVALID
+            _resetValidate.value = VALIDATE_PASSWORD_INVALID
         }else if(confirmPassword.isEmpty()){
-            resetValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
+            _resetValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
         } else if (password != confirmPassword){
-            resetValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
+            _resetValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
         }else{
             resetPassword(ResetPasswordModel(code,confirmPassword,email,password))
         }
     }
 
     private fun resetPassword(resetPasswordModel: ResetPasswordModel){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO)
+        {try{
             repo.resetPassword(resetPasswordModel) {
-                responseLiveData.value = it
+                _responseLiveData.postValue(it)
             }
+        }catch (e:IOException){
+            _resetValidate.postValue(e.localizedMessage)
+        }
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
+
     private fun isPasswordValid(password: String): Boolean {
         return password.matches(passwordPattern)
     }

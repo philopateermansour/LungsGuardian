@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:isScrollContainer="false"
+    android:background="@color/white_to_black"
     tools:context=".ui.auth.reset.ResetFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,41 +55,6 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_text_email_reset"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_13sdp"
-            android:hint="@string/email"
-            android:textColorHint="@color/blue"
-            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
-            app:boxCornerRadiusTopStart="@dimen/_10sdp"
-            app:boxStrokeColor="@color/black_to_white"
-            app:boxStrokeErrorColor="@color/red"
-            app:cursorColor="@color/blue"
-            app:errorEnabled="true"
-            app:errorIconTint="@color/red"
-            app:errorTextColor="@color/red"
-            app:hintAnimationEnabled="true"
-            app:hintTextColor="@color/black_to_white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_reset_password"
-            app:startIconDrawable="@drawable/image_email"
-            app:startIconTint="@color/blue">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_email_reset"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textColor="@color/black_to_white"
-                android:textSize="@dimen/_13sdp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_text_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -109,7 +75,7 @@
             app:hintTextColor="@color/black_to_white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_text_email_reset"
+            app:layout_constraintTop_toBottomOf="@id/text_reset_password"
             app:startIconDrawable="@drawable/code"
             app:startIconTint="@color/blue">
 
