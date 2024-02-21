@@ -9,7 +9,7 @@
         android:icon="@drawable/homewhite"
         android:title="@string/home"/>
     <item
-        android:id="@+id/downloadFragment"
+        android:id="@+id/historyFragment"
         android:icon="@drawable/download"
-        android:title="@string/downloads"/>
+        android:title="@string/history"/>
 </menu>

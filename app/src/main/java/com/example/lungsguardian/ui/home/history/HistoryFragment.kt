@@ -1,18 +1,17 @@
-package com.example.lungsguardian.ui.home.download
+package com.example.lungsguardian.ui.home.history
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.lungsguardian.R
-import com.example.lungsguardian.databinding.FragmentDownloadBinding
+import androidx.fragment.app.Fragment
+import com.example.lungsguardian.databinding.FragmentHistoryBinding
 
 
-class DownloadFragment : Fragment() {
+class HistoryFragment : Fragment() {
 
 
-    private var _binding: FragmentDownloadBinding? = null
+    private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -20,7 +19,7 @@ class DownloadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentDownloadBinding.inflate(inflater,container,false)
+        _binding = FragmentHistoryBinding.inflate(inflater,container,false)
         return binding.root
     }
 

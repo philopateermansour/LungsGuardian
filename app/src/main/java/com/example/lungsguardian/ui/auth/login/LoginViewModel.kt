@@ -15,6 +15,7 @@ import com.example.lungsguardian.utils.LOGGED_STATE
 import com.example.lungsguardian.utils.MySharedPreferences
 import com.example.lungsguardian.utils.USER_EMAIL
 import com.example.lungsguardian.utils.USER_NAME
+import com.example.lungsguardian.utils.USER_PHONE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,17 +52,13 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
                 _loginValidate.postValue(e.localizedMessage)
             }
             }
-
         }
     }
-
     private  fun cacheUserDate(it: Response<UserResponseModel>?) {
         MySharedPreferences.setInShared(USER_NAME, it!!.body()!!.fullName)
         MySharedPreferences.setInShared(USER_EMAIL, it.body()!!.email)
         MySharedPreferences.setInShared(LOGGED_STATE, LOGGED_IN)
     }
-
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
