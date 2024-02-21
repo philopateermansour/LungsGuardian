@@ -40,7 +40,7 @@ class Repo @Inject constructor(val getCalls:AuthApi) : IRepo {
     )
             = withContext(Dispatchers.IO)
     {
-        val response = getCalls.resetPassword(resetPasswordModel.Email, resetPasswordModel)
+        val response = getCalls.resetPassword(resetPasswordModel)
             resetCallback.invoke(response)
     }
 
@@ -50,4 +50,10 @@ class Repo @Inject constructor(val getCalls:AuthApi) : IRepo {
         val response = getCalls.checkIfEmailExists(email)
             checkCallback.invoke(response)
     }
+
+    override suspend fun showProfile(userCallback: (Response<UserResponseModel>?) -> Unit) = withContext(Dispatchers.IO) {
+        val response = getCalls.showProfile()
+        userCallback.invoke(response)
+    }
+
 }

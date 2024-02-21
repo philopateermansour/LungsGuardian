@@ -6,7 +6,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.lungsguardian.R.id.fragmentContainerView
 import com.example.lungsguardian.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private var _binding: ActivityHomeBinding? = null
     val binding get() = _binding!!

@@ -1,5 +1,6 @@
 package com.example.lungsguardian.utils
 
+const  val BASE_URL = "http://192.168.1.6:7178/Api/Accounts/"
 const val VALIDATE_EMAIL_NULL = "email error"
 const val VALIDATE_FULL_NAME_NULL = "name error"
 const val VALIDATE_PHONE_NULL = "phone error"
@@ -18,6 +19,7 @@ const val SEND_CODE_Failed = "Email is Not Exist"
 const val SHARED_PREFERENCES_NAME = "Lungs"
 const val USER_NAME = "user name"
 const val USER_EMAIL = "user email"
+const val USER_TOKEN = "user token"
 const val USER_PHONE = "user name"
 const val LOGGED_STATE = "user log state"
 const val LOGGED_IN = "user logged in"

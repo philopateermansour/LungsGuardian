@@ -22,4 +22,6 @@ interface IRepo {
     )
 
     suspend fun checkIfEmailExists(email: String, checkCallback: (Response<String>?) -> Unit)
+
+    suspend fun showProfile(userCallback: (Response<UserResponseModel>?) -> Unit)
 }

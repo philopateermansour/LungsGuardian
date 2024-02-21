@@ -38,6 +38,7 @@ class ForgetViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
                     sendCodeResponse.postValue(it)
                 }
             } catch (e: IOException) {
+                e.printStackTrace()
                 _forgetValidate.postValue(e.localizedMessage)
             }
         }
