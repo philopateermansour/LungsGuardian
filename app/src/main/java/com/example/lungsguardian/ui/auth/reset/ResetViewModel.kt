@@ -60,6 +60,7 @@ class ResetViewModel @Inject constructor(private val repo: IRepo) :ViewModel() {
                 _responseLiveData.postValue(it)
             }
         }catch (e:IOException){
+            e.printStackTrace()
             _resetValidate.postValue(e.localizedMessage)
         }
         }

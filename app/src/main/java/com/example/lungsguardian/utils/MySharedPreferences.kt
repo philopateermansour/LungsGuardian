@@ -21,4 +21,7 @@ object MySharedPreferences {
     fun getFromShared(sharedStore: String) : String{
         return getMySharedPreferences().getString(sharedStore,"")!!
     }
+    fun clearShared(){
+        getMySharedPreferences().edit().clear().apply()
+    }
 }

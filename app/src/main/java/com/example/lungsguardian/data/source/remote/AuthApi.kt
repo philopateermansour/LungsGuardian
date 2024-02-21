@@ -28,7 +28,7 @@ interface AuthApi {
 
     @POST("ResetPassword")
     suspend fun resetPassword(
-        @Query("Email") email: String,@Body resetPasswordModel: ResetPasswordModel
+        @Body resetPasswordModel: ResetPasswordModel
     ): Response<String>
 
 
@@ -36,4 +36,7 @@ interface AuthApi {
     suspend  fun  checkIfEmailExists(
         @Query("Email") email: String
     ):Response<String>
+
+    @GET("CurrentUser")
+    suspend fun  showProfile() :Response<UserResponseModel>
 }

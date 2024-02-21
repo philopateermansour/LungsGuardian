@@ -80,6 +80,8 @@ dependencies {
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
     //lottie
     implementation ("com.airbnb.android:lottie:3.4.1")
+    //interceptor
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
 }
 kapt {
