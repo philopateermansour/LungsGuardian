@@ -5,10 +5,10 @@
     android:id="@+id/nav_home"
     app:startDestination="@id/homeFragment">
     <fragment
-        android:id="@+id/downloadFragment"
-        android:name="com.example.lungsguardian.ui.home.download.DownloadFragment"
-        android:label="fragment_download"
-        tools:layout="@layout/fragment_download" />
+        android:id="@+id/historyFragment"
+        android:name="com.example.lungsguardian.ui.home.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.lungsguardian.ui.home.profile.ProfileFragment"
