@@ -10,6 +10,6 @@
         android:title="@string/home"/>
     <item
         android:id="@+id/historyFragment"
-        android:icon="@drawable/download"
+        android:icon="@drawable/history"
         android:title="@string/history"/>
 </menu>

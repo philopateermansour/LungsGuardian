@@ -1,15 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_to_black"
     tools:context=".ui.home.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_guide_25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_camera"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="homeeeeeeeeeeeeeeeeeeeee" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_guide_25"
+        app:cardElevation="@dimen/_10sdp"
+        android:layout_margin="@dimen/_10sdp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/image_camera"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
+                app:lottie_url="REPLACE_JSON_URL"
+                app:lottie_rawRes="@raw/camera"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <TextView
+                android:id="@+id/text_camra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:text="@string/capture_by_camera"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintStart_toEndOf="@id/image_camera"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-</FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/card_camera"
+        app:cardElevation="@dimen/_10sdp"
+        android:layout_margin="@dimen/_10sdp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/image_gallery"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
+                app:lottie_url="REPLACE_JSON_URL"
+                app:lottie_rawRes="@raw/gallery"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:text="@string/select_from_gallery"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintStart_toEndOf="@id/image_gallery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

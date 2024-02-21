@@ -41,9 +41,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.bind(view)
         onClicks()
         observers()
-
     }
-
 
     private fun onClicks() {
         binding.register.setOnClickListener {
