@@ -29,5 +29,5 @@ interface IRepo {
 
     suspend fun editProfile(email: String,fullName:String, editCallback: (Response<String>?) -> Unit)
 
-    suspend fun changePassword(oldPassword: String,newPassword: String,email: String, passwordCallback: (Response<String>?) -> Unit)
+    suspend fun changePassword(oldPassword: String,newPassword: String, passwordCallback: (Response<String>?) -> Unit)
 }
