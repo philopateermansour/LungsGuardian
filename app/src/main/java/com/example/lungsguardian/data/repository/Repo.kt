@@ -1,5 +1,7 @@
 package com.example.lungsguardian.data.repository
 
+import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.EditProfileModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserResponseModel
@@ -64,17 +66,16 @@ class Repo @Inject constructor(val getCalls: AuthApi) : IRepo {
     override suspend fun editProfile(
         email: String, fullName: String, editCallback: (Response<String>?) -> Unit
     ) {
-        val response = getCalls.editProfile(email, fullName)
+        val response = getCalls.editProfile(EditProfileModel(email,fullName))
         editCallback.invoke(response)
     }
 
     override suspend fun changePassword(
         oldPassword: String,
         newPassword: String,
-        email: String,
         passwordCallback: (Response<String>?) -> Unit
     ) {
-        val response = getCalls.changePassword(oldPassword, newPassword)
+        val response = getCalls.changePassword(ChangePasswordModel(oldPassword,newPassword))
         passwordCallback.invoke(response)
     }
 

@@ -1,5 +1,7 @@
 package com.example.lungsguardian.data.source.remote
 
+import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.EditProfileModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
 import com.example.lungsguardian.data.model.UserLoginModel
@@ -7,6 +9,7 @@ import com.example.lungsguardian.data.model.UserSignupModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -44,13 +47,11 @@ interface AuthApi {
 
     @PUT("EditProfile")
     suspend fun editProfile(
-        @Field("Email") email: String,
-        @Field("FullName") fullName: String
+        @Body editProfileModel: EditProfileModel
     ) :Response<String>
 
     @PUT("ChangePassword")
     suspend fun changePassword(
-        @Field("OldPassword") oldPassword :String,
-        @Field("NewPassword") newPassword: String
+       @Body changePasswordModel:ChangePasswordModel
     ):Response<String>
 }

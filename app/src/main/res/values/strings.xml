@@ -82,4 +82,7 @@
     <string name="edit_your_email">Edit your email</string>
     <string name="your_new_email">Your new email</string>
     <string name="reset_email">Reset email</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="old_password">old password</string>
+    <string name="new_password">new password</string>
 </resources>
