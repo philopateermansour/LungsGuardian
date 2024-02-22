@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
@@ -23,7 +24,9 @@ import com.example.lungsguardian.utils.VALIDATE_PHONE_INVALID
 import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
+import com.example.lungsguardian.utils.EMAIL_REGISTERED
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -62,8 +65,9 @@ class SignupFragment : Fragment() {
             val confirmPassword = binding.editTextPasswordConfirm.text.toString()
             binding.progressBar.visibility= View.VISIBLE
             binding.btnSignup.text = null
+            lifecycleScope.launch {
             signupViewModel.validate(email, fullName, phone, password, confirmPassword)
-        }
+        }}
         binding.editTextEmailSingUp.doAfterTextChanged {
             binding.inputTextEmailSignUp.error=""
         }
@@ -123,6 +127,10 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
+            }else if (it.equals(EMAIL_REGISTERED)) {
+                Toast.makeText(context, EMAIL_REGISTERED, Toast.LENGTH_LONG).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnSignup.setText(R.string.sign_up)
             } else{
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
@@ -130,26 +138,11 @@ class SignupFragment : Fragment() {
             }
         }
         signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
-            if (it.code() == 200) {
                 val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-            }
-            else{
-                Toast.makeText(context,it.message(),Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnSignup.setText(R.string.sign_up)
-            }
-        }
-        signupViewModel.emailExistsValidate.observe(viewLifecycleOwner){
-            if (it.equals("true")){
-                Toast.makeText(context,
-                    getString(R.string.this_account_is_already_registered),Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnSignup.setText(R.string.sign_up)
-            }
         }
     }
 

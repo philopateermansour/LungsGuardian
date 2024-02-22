@@ -70,20 +70,12 @@ class ForgetFragment : Fragment() {
             }
         }
         forgetViewModel.sendCodeResponse.observe(viewLifecycleOwner){
-            if (it.code()==200){
                 findNavController().navigate(ForgetFragmentDirections.actionForgetFragmentToResetFragment(
                     binding.editTextEmailReset.text.toString()
                 ))
-
                 Toast.makeText(context, SEND_CODE_DONE,Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
-            }
-            else {
-                Toast.makeText(context, SEND_CODE_Failed,Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnSendCode.setText(R.string.send_code)
-            }
         }
     }
 

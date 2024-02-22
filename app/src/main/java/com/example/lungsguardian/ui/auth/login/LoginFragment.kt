@@ -87,18 +87,11 @@ class LoginFragment : Fragment() {
             }
         }
         loginViewModel.responseLiveData.observe(viewLifecycleOwner) {
-            if (it.code() == 200) {
                 val intent = Intent(activity, HomeActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
-            }
-            else{
-                Toast.makeText(context,it.message(),Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnLogin.setText(R.string.login)
-            }
         }
     }
 

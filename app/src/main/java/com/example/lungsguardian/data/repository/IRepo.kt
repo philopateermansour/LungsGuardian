@@ -21,7 +21,13 @@ interface IRepo {
         resetCallback: (Response<String>?) -> Unit
     )
 
-    suspend fun checkIfEmailExists(email: String, checkCallback: (Response<String>?) -> Unit)
+
+    /*suspend fun checkIfEmailExists(email: String) :String*/
+    suspend fun checkIfEmailExists(email: String,checkCallBack :(String?)->Unit)
 
     suspend fun showProfile(userCallback: (Response<UserResponseModel>?) -> Unit)
+
+    suspend fun editProfile(email: String,fullName:String, editCallback: (Response<String>?) -> Unit)
+
+    suspend fun changePassword(oldPassword: String,newPassword: String,email: String, passwordCallback: (Response<String>?) -> Unit)
 }

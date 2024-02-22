@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.lungsguardian.databinding.FragmentProfileBinding
 import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
+import com.example.lungsguardian.ui.home.profile.email.EditEmailBottomSheetFragment
 import com.example.lungsguardian.utils.MySharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +42,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun onClicks() {
+        binding.emailCardView.setOnClickListener {
+            activity?.let { it1 -> EditEmailBottomSheetFragment.getIncs().show(it1.supportFragmentManager,"TAG") }
+        }
         binding.logoutCardView.setOnClickListener {
             MySharedPreferences.clearShared()
             val intent = Intent(activity, AuthenticationScreen::class.java)
