@@ -35,7 +35,11 @@ class ForgetViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                  repo.sendCode(email){
-                    sendCodeResponse.postValue(it)
+                     if (it?.code()==200){
+                    sendCodeResponse.postValue(it)}
+                     else{
+                         _forgetValidate.postValue(it?.message())
+                     }
                 }
             } catch (e: IOException) {
                 e.printStackTrace()

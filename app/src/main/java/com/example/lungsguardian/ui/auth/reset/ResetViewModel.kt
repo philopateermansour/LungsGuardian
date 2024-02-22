@@ -57,7 +57,11 @@ class ResetViewModel @Inject constructor(private val repo: IRepo) :ViewModel() {
         viewModelScope.launch(Dispatchers.IO)
         {try{
             repo.resetPassword(resetPasswordModel) {
-                _responseLiveData.postValue(it)
+                if (it?.code()==200){
+                    _responseLiveData.postValue(it)
+                }else{
+                    _resetValidate.postValue(it?.message())
+                }
             }
         }catch (e:IOException){
             e.printStackTrace()

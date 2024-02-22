@@ -6,8 +6,10 @@ import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserSignupModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface AuthApi {
@@ -35,8 +37,20 @@ interface AuthApi {
     @GET("emailExists")
     suspend  fun  checkIfEmailExists(
         @Query("Email") email: String
-    ):Response<String>
+    ):String
 
     @GET("CurrentUser")
     suspend fun  showProfile() :Response<UserResponseModel>
+
+    @PUT("EditProfile")
+    suspend fun editProfile(
+        @Field("Email") email: String,
+        @Field("FullName") fullName: String
+    ) :Response<String>
+
+    @PUT("ChangePassword")
+    suspend fun changePassword(
+        @Field("OldPassword") oldPassword :String,
+        @Field("NewPassword") newPassword: String
+    ):Response<String>
 }

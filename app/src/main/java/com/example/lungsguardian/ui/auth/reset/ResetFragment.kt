@@ -105,15 +105,10 @@ class ResetFragment : Fragment() {
             }
         }
         resetViewModel.responseLiveData.observe(viewLifecycleOwner){
-            if (it.code()==200){
                findNavController().navigate(ResetFragmentDirections.actionResetFragmentToLoginFragment())
                 binding.progressBar.visibility= View.GONE
                 binding.btnReset.setText(R.string.reset)
-            }else{
-                Toast.makeText(context,it.message(),Toast.LENGTH_SHORT).show()
-                binding.progressBar.visibility= View.GONE
-                binding.btnReset.setText(R.string.reset)
-            }
+
         }
     }
 

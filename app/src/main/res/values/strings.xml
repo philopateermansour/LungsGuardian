@@ -79,4 +79,7 @@
     <string name="history">History</string>
     <string name="capture_by_camera">capture by camera</string>
     <string name="select_from_gallery">select from gallery</string>
+    <string name="edit_your_email">Edit your email</string>
+    <string name="your_new_email">Your new email</string>
+    <string name="reset_email">Reset email</string>
 </resources>
