@@ -2,26 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white_to_black">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
-        android:id="@+id/text_edit_email"
+        android:id="@+id/text_edit_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
-        android:text="@string/edit_your_email"
+        android:text="@string/edit_your_name"
         android:textSize="@dimen/_25sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_text_reset_email"
+        android:id="@+id/input_text_Full_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_13sdp"
-        android:hint="@string/your_new_email"
+        android:hint="@string/your_new_name"
         android:textColorHint="@color/blue"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
@@ -37,32 +34,30 @@
         app:hintTextColor="@color/black_to_white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_edit_email"
-        app:startIconDrawable="@drawable/image_email"
+        app:layout_constraintTop_toBottomOf="@id/text_edit_name"
+        app:startIconDrawable="@drawable/personsvg"
         app:startIconTint="@color/blue">
-
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_reset_email"
+            android:id="@+id/edit_text_Full_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/black_to_white"
             android:textSize="@dimen/_13sdp" />
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_reset_email"
+        android:id="@+id/btn_reset_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_22sdp"
         android:backgroundTint="@color/blue"
-        android:text="@string/reset_email"
+        android:text="@string/reset_name"
         android:textColor="@color/white_to_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_text_reset_email"
+        app:layout_constraintTop_toBottomOf="@id/input_text_Full_name"
         android:layout_marginBottom="@dimen/_10sdp"/>
     <ProgressBar
         android:id="@+id/progressBar"
@@ -71,10 +66,10 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:indeterminateTint="@color/black_to_white"
-        app:layout_constraintTop_toTopOf="@id/btn_reset_email"
-        app:layout_constraintBottom_toBottomOf="@id/btn_reset_email"
-        app:layout_constraintLeft_toLeftOf="@id/btn_reset_email"
-        app:layout_constraintRight_toRightOf="@id/btn_reset_email"
+        app:layout_constraintTop_toTopOf="@id/btn_reset_name"
+        app:layout_constraintBottom_toBottomOf="@id/btn_reset_name"
+        app:layout_constraintLeft_toLeftOf="@id/btn_reset_name"
+        app:layout_constraintRight_toRightOf="@id/btn_reset_name"
         android:visibility="gone"
         android:elevation="@dimen/_25sdp"
         />

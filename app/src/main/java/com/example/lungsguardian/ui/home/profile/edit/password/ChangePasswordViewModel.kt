@@ -23,7 +23,6 @@ class ChangePasswordViewModel @Inject constructor(private val repo :IRepo) :View
     private val _responseLiveData = MutableLiveData<Response<String>>()
     val responseLiveData get() = _responseLiveData
 
-
     private val passwordPattern = Regex(
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
     )
@@ -47,7 +46,7 @@ class ChangePasswordViewModel @Inject constructor(private val repo :IRepo) :View
                 if (it?.code()==200){
                     _responseLiveData.postValue(it)}
                     else{
-                        _changePasswordValidate.postValue(it?.message())
+                        _changePasswordValidate.postValue(it?.body())
                     }
             }}catch (e:IOException){
                 e.printStackTrace()

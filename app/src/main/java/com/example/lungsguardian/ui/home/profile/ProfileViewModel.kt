@@ -21,6 +21,10 @@ class ProfileViewModel @Inject constructor(private val repo: IRepo) : ViewModel(
 
     private var _errorLiveData = MutableLiveData<String>()
      val errorLiveData get() = _errorLiveData
+
+
+
+
     fun showProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             try {

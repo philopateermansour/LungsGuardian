@@ -25,6 +25,7 @@ class ChangePasswordBottomSheetFragment :BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private val changePasswordViewModel :ChangePasswordViewModel by viewModels()
 
+
     companion object{
         fun getIncs()= ChangePasswordBottomSheetFragment()
     }
@@ -48,6 +49,8 @@ class ChangePasswordBottomSheetFragment :BottomSheetDialogFragment() {
         binding.btnChangePassword.setOnClickListener {
             val oldPassword = binding.editTextOldPassword.text.toString()
             val newPassword = binding.editTextNewPassword.text.toString()
+            binding.progressBar.visibility= View.VISIBLE
+            binding.btnChangePassword.text=null
             changePasswordViewModel.validate(oldPassword,newPassword)
         }
         binding.editTextOldPassword.doAfterTextChanged {
@@ -61,16 +64,26 @@ class ChangePasswordBottomSheetFragment :BottomSheetDialogFragment() {
         changePasswordViewModel.signUpValidate.observe(viewLifecycleOwner){
             if (it.equals(VALIDATE_PASSWORD_NULL)){
                 binding.inputTextOldPassword.error=getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
+                binding.btnChangePassword.setText(R.string.change_password)
             } else if(it.equals(VALIDATE_PASSWORD_CONFIGURATION_NULL)){
                 binding.inputTextNewPassword.error=getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
+                binding.btnChangePassword.setText(R.string.change_password)
             } else if(it.equals(VALIDATE_PASSWORD_INVALID)){
                 binding.inputTextNewPassword.error= VALIDATE_PASSWORD_INVALID
+                binding.progressBar.visibility= View.GONE
+                binding.btnChangePassword.setText(R.string.change_password)
             } else{
                 Toast.makeText(context, PASSWORD_CHANGED, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnChangePassword.setText(R.string.change_password)
             }
         }
         changePasswordViewModel.responseLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, it.body(), Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility= View.GONE
+            binding.btnChangePassword.setText(R.string.change_password)
             dismiss()
         }
     }

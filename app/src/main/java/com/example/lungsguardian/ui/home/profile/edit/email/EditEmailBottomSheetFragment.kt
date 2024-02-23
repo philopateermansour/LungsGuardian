@@ -8,10 +8,8 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentEditEmailBinding
-import com.example.lungsguardian.ui.home.profile.ProfileViewModel
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
@@ -23,7 +21,8 @@ import kotlinx.coroutines.launch
 class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
     private var _binding :BottomSheetFragmentEditEmailBinding ?=null
     private val binding get() = _binding!!
-    private val editEmailViewModel : EditEmailViwModel by viewModels()
+    private val editEmailViewModel : EditEmailViewModel by viewModels()
+
 
     companion object{
         fun getIncs()= EditEmailBottomSheetFragment()
@@ -46,6 +45,8 @@ class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
     private fun onClicks() {
         binding.btnResetEmail.setOnClickListener {
             val email = binding.editTextResetEmail.text.toString().trim()
+            binding.progressBar.visibility= View.VISIBLE
+            binding.btnResetEmail.text=null
             lifecycleScope.launch {
             editEmailViewModel.validation(email) }
         }
@@ -58,16 +59,26 @@ class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
         editEmailViewModel.editEmailValidateLiveData.observe(viewLifecycleOwner){
             if (it.equals(VALIDATE_EMAIL_NULL)){
                 binding.inputTextResetEmail.error=getString(R.string.required)
+                binding.progressBar.visibility= View.GONE
+                binding.btnResetEmail.setText(R.string.reset_email)
             } else if(it.equals(VALIDATE_EMAIL_INVALID)){
                 binding.inputTextResetEmail.error= VALIDATE_EMAIL_INVALID
+                binding.progressBar.visibility= View.GONE
+                binding.btnResetEmail.setText(R.string.reset_email)
             } else if(it.equals(EMAIL_REGISTERED)){
                 Toast.makeText(context, EMAIL_REGISTERED, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnResetEmail.setText(R.string.reset_email)
             } else {
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnResetEmail.setText(R.string.reset_email)
             }
         }
         editEmailViewModel.editEmailResponseLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, it.body(), Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility= View.GONE
+            binding.btnResetEmail.setText(R.string.reset_email)
             dismiss()
         }
     }

@@ -11,12 +11,15 @@ import androidx.fragment.app.viewModels
 import com.example.lungsguardian.databinding.FragmentProfileBinding
 import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
 import com.example.lungsguardian.ui.home.profile.edit.email.EditEmailBottomSheetFragment
+import com.example.lungsguardian.ui.home.profile.edit.name.EditNameBottomSheetFragment
 import com.example.lungsguardian.ui.home.profile.edit.password.ChangePasswordBottomSheetFragment
 import com.example.lungsguardian.utils.MySharedPreferences
+import com.example.lungsguardian.utils.TRUE
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.wait
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment()  {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -38,19 +41,26 @@ class ProfileFragment : Fragment() {
     }
 
 
+
     private fun updateUserData() {
         profileViewModel.showProfile()
     }
 
-    private fun onClicks() {
+    private  fun onClicks() {
         binding.emailCardView.setOnClickListener {
-            activity?.let { it1 ->
+             activity?.let { it1 ->
                 EditEmailBottomSheetFragment.getIncs().show(it1.supportFragmentManager, "TAG")
             }
         }
         binding.passwordCardView.setOnClickListener {
             activity?.let { it1 ->
                 ChangePasswordBottomSheetFragment.getIncs().show(it1.supportFragmentManager, "TAG")
+            }
+
+        }
+        binding.fullNameCardView.setOnClickListener {
+            activity?.let { it1 ->
+                EditNameBottomSheetFragment.getIncs().show(it1.supportFragmentManager, "TAG")
             }
         }
         binding.logoutCardView.setOnClickListener {
