@@ -85,4 +85,7 @@
     <string name="change_your_password">Change your password</string>
     <string name="old_password">old password</string>
     <string name="new_password">new password</string>
+    <string name="edit_your_name">Edit your name</string>
+    <string name="your_new_name">Your new name</string>
+    <string name="reset_name">Reset name</string>
 </resources>

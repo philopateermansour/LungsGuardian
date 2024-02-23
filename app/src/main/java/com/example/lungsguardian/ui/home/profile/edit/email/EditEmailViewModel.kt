@@ -17,7 +17,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class EditEmailViwModel @Inject constructor(private val repo: IRepo) : ViewModel() {
+class EditEmailViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
 
     private var _editEmailValidateLiveData = MutableLiveData<String>()
     val editEmailValidateLiveData get() = _editEmailValidateLiveData
@@ -42,7 +42,7 @@ class EditEmailViwModel @Inject constructor(private val repo: IRepo) : ViewModel
     private fun editEmail(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repo.editProfile(email,"") {
+                repo.editEmail(email) {
                     if (it?.code() == 200) {
                         _editEmailResponseLiveData.postValue(it)
                     } else {
@@ -55,7 +55,6 @@ class EditEmailViwModel @Inject constructor(private val repo: IRepo) : ViewModel
             }
         }
     }
-
     private suspend fun checkIfEmailExists(email: String): String {
         var response = ""
         val job = viewModelScope.launch(Dispatchers.IO) {

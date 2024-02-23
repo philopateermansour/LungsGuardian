@@ -29,8 +29,6 @@ import javax.inject.Singleton
 object DiModule {
 
 
-
-
     @Singleton
     @Provides
     fun getRetrofit(): Retrofit {
@@ -48,22 +46,6 @@ object DiModule {
                     val requestBuilder = originalRequest.newBuilder().url(url)
                         .addHeader("Accept", "application/json") // Accept header for XML data
                         .addHeader("Authorization", "Bearer ${MySharedPreferences.getFromShared(USER_TOKEN)}") // Authorization header with Bearer token
-                        .addHeader("Content-Type", "application/json")
-                        .addHeader("Content-Type", "application/xml")
-                        .addHeader("Content-Type", "text/plain")
-                        .addHeader("Content-Type", "multipart/form-data")
-                        .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                        .addHeader("Content-Type", "image/jpeg")
-                        .addHeader("Content-Type", "image/png")
-                        .addHeader("Content-Type", "image/gif")
-                        .addHeader("Content-Type", "audio/mpeg")
-                        .addHeader("Content-Type", "audio/wav")
-                        .addHeader("Content-Type", "audio/ogg")
-                        .addHeader("Content-Type", "video/mp4")
-                        .addHeader("Content-Type", "video/ogg")
-                        .addHeader("Content-Type", "video/webm")
-                        .addHeader("Content-Type", "application/octet-stream")
-                        // Content-Type header for XML data
                         .method(originalRequest.method, originalRequest.body) // Set method and request body
 
                     val request = requestBuilder.build()
