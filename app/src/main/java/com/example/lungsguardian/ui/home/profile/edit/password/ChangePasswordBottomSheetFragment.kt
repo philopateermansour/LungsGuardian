@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentChangePasswordBinding
+import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.ui.home.profile.ProfileViewModel
 import com.example.lungsguardian.utils.PASSWORD_CHANGED
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_CONFIGURATION_NULL
@@ -24,6 +26,7 @@ class ChangePasswordBottomSheetFragment :BottomSheetDialogFragment() {
     private var _binding :BottomSheetFragmentChangePasswordBinding ?=null
     private val binding get() = _binding!!
     private val changePasswordViewModel :ChangePasswordViewModel by viewModels()
+    private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
 
 
     companion object{
@@ -75,7 +78,7 @@ class ChangePasswordBottomSheetFragment :BottomSheetDialogFragment() {
                 binding.progressBar.visibility= View.GONE
                 binding.btnChangePassword.setText(R.string.change_password)
             } else{
-                Toast.makeText(context, PASSWORD_CHANGED, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnChangePassword.setText(R.string.change_password)
             }
@@ -85,6 +88,7 @@ class ChangePasswordBottomSheetFragment :BottomSheetDialogFragment() {
             binding.progressBar.visibility= View.GONE
             binding.btnChangePassword.setText(R.string.change_password)
             dismiss()
+            homeSharedViewModel.isProfileChanged.value=true
         }
     }
 }

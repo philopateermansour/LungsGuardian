@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentEditEmailBinding
+import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
@@ -22,6 +24,7 @@ class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
     private var _binding :BottomSheetFragmentEditEmailBinding ?=null
     private val binding get() = _binding!!
     private val editEmailViewModel : EditEmailViewModel by viewModels()
+    private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
 
 
     companion object{
@@ -80,6 +83,7 @@ class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
             binding.progressBar.visibility= View.GONE
             binding.btnResetEmail.setText(R.string.reset_email)
             dismiss()
+            homeSharedViewModel.isProfileChanged.value=true
         }
     }
 }

@@ -82,8 +82,6 @@ dependencies {
     implementation ("com.airbnb.android:lottie:3.4.1")
     //interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
-
-
 }
 kapt {
     correctErrorTypes = true

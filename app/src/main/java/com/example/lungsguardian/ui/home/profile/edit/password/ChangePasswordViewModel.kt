@@ -46,7 +46,7 @@ class ChangePasswordViewModel @Inject constructor(private val repo :IRepo) :View
                 if (it?.code()==200){
                     _responseLiveData.postValue(it)}
                     else{
-                        _changePasswordValidate.postValue(it?.body())
+                        _changePasswordValidate.postValue(it?.message())
                     }
             }}catch (e:IOException){
                 e.printStackTrace()

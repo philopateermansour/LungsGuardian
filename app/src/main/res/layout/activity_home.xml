@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.activity.HomeActivity"
-    android:background="@color/white_to_black">
+    android:background="@drawable/background">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_horizontal_90"
@@ -13,12 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide_horizontal_91"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.91" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigator"
         android:layout_width="match_parent"
@@ -31,7 +25,8 @@
         app:itemRippleColor="@android:color/darker_gray"
         app:labelVisibilityMode="selected"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="@id/guide_horizontal_91"
+        android:layout_marginVertical="@dimen/_2sdp"
+        app:layout_constraintTop_toTopOf="@id/guide_horizontal_90"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView

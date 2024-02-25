@@ -7,9 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.repository.IRepo
+import com.example.lungsguardian.utils.EMAIL_NOT_REGISTERED
+import com.example.lungsguardian.utils.EMAIL_REGISTERED
+import com.example.lungsguardian.utils.FALSE
 import com.example.lungsguardian.utils.LOGGED_IN
 import com.example.lungsguardian.utils.LOGGED_STATE
 import com.example.lungsguardian.utils.MySharedPreferences
+import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.USER_TOKEN
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
@@ -28,13 +32,15 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
     private val _responseLiveData = MutableLiveData<Response<UserResponseModel>>()
     val responseLiveData get() = _responseLiveData
 
-    fun validate(email: String, password: String) {
+    suspend fun validate(email: String, password: String) {
         if (email.isEmpty()) {
             _loginValidate.value = VALIDATE_EMAIL_NULL
         } else if (!isEmailValid(email)) {
             _loginValidate.value = VALIDATE_EMAIL_INVALID
         } else if (password.isEmpty()) {
             _loginValidate.value = VALIDATE_PASSWORD_NULL
+        } else if (checkIfEmailExists(email).equals(FALSE)) {
+            _loginValidate.value = EMAIL_NOT_REGISTERED
         } else {
             login(UserLoginModel(email, password))
         }
@@ -57,7 +63,16 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
             }
         }
     }
-}
+
+    private suspend fun checkIfEmailExists(email: String) :String {
+        var response = ""
+        val job =  viewModelScope.launch(Dispatchers.IO){
+            repo.checkIfEmailExists(email){
+                response=it!!
+            } }
+        job.join()
+        return response
+    }}
 
 private fun cacheUserDate(it: Response<UserResponseModel>?) {
     MySharedPreferences.setInShared(USER_TOKEN, it?.body()!!.token)
