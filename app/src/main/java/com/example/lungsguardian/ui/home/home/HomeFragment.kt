@@ -1,9 +1,11 @@
 package com.example.lungsguardian.ui.home.home
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,8 +38,19 @@ class HomeFragment : Fragment() {
         binding.cardGallery.setOnClickListener {
             openGallery()
         }
+        binding.cardCamera.setOnClickListener {
+            captureByCamera()
+        }
     }
 
+    private fun captureByCamera() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            resultLauncher.launch(takePictureIntent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(activity, "Something went wrong try again", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -57,6 +70,7 @@ class HomeFragment : Fragment() {
         intent.action = Intent.ACTION_GET_CONTENT
         resultLauncher.launch(intent)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
