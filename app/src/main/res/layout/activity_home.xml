@@ -25,6 +25,7 @@
         app:itemRippleColor="@android:color/darker_gray"
         app:labelVisibilityMode="selected"
         android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_2sdp"
         app:layout_constraintTop_toTopOf="@id/guide_horizontal_90"
         app:layout_constraintBottom_toBottomOf="parent" />
 
