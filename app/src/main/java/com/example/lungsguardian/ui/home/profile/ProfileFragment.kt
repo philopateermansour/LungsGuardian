@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.lungsguardian.databinding.FragmentProfileBinding
 import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
+import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.ui.home.profile.edit.email.EditEmailBottomSheetFragment
 import com.example.lungsguardian.ui.home.profile.edit.name.EditNameBottomSheetFragment
 import com.example.lungsguardian.ui.home.profile.edit.password.ChangePasswordBottomSheetFragment
@@ -24,6 +26,8 @@ class ProfileFragment : Fragment()  {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,6 +86,11 @@ class ProfileFragment : Fragment()  {
         }
         profileViewModel.errorLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+        homeSharedViewModel.isProfileChanged.observe(viewLifecycleOwner){
+            if (it==true){
+                updateUserData()
+            }
         }
     }
 

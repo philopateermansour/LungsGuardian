@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentEditNameBinding
+import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_INVALID
 import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_NULL
@@ -23,6 +25,7 @@ class EditNameBottomSheetFragment :BottomSheetDialogFragment(){
     private var _binding :BottomSheetFragmentEditNameBinding ?=null
     private val binding get() = _binding!!
     private val editNameViwModel :EditNameViewModel by viewModels()
+    private val homeSharedViewModel:HomeSharedViewModel by activityViewModels()
 
 
     companion object{
@@ -76,6 +79,7 @@ class EditNameBottomSheetFragment :BottomSheetDialogFragment(){
             binding.progressBar.visibility= View.GONE
             binding.btnResetName.setText(R.string.reset_name)
             dismiss()
+            homeSharedViewModel.isProfileChanged.value=true
         }
     }
 

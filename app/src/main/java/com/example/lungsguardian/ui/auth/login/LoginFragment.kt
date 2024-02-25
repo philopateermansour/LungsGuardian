@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
@@ -16,7 +17,9 @@ import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentLoginBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
+import com.example.lungsguardian.utils.EMAIL_NOT_REGISTERED
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -56,7 +59,8 @@ class LoginFragment : Fragment() {
 
             binding.progressBar.visibility= View.VISIBLE
             binding.btnLogin.text=null
-            loginViewModel.validate(email, password)
+            lifecycleScope.launch {
+            loginViewModel.validate(email, password)}
         }
         binding.editTextEmailLogin.doAfterTextChanged {
             binding.inputTextEmailLogin.error=""
@@ -79,6 +83,10 @@ class LoginFragment : Fragment() {
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
+                binding.btnLogin.setText(R.string.login)
+            } else if (it.equals(EMAIL_NOT_REGISTERED)) {
+                Toast.makeText(context, EMAIL_NOT_REGISTERED, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
                 binding.btnLogin.setText(R.string.login)
             } else{
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
