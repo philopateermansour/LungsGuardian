@@ -1,15 +1,13 @@
 package com.example.lungsguardian.ui.auth.signup
 
-import android.util.Log
 import android.util.Patterns
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.repository.IRepo
-import com.example.lungsguardian.utils.EMAIL_REGISTERED
+import com.example.lungsguardian.utils.FALSE
 import com.example.lungsguardian.utils.LOGGED_IN
 import com.example.lungsguardian.utils.LOGGED_STATE
 import com.example.lungsguardian.utils.MySharedPreferences
@@ -27,8 +25,6 @@ import com.example.lungsguardian.utils.VALIDATE_PHONE_INVALID
 import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
@@ -46,7 +42,7 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
     )
 
-    suspend fun validate(
+    fun validate(
         email: String,
         fullName: String,
         phone: String,
@@ -74,10 +70,8 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
             _signUpValidate.value = VALIDATE_PASSWORD_CONFIGURATION_NULL
         } else if (password != confirmPassword) {
             _signUpValidate.value = VALIDATE_PASSWORD_DOESNT_MATCH_PROBLEM
-        } else if (checkIfEmailExists(email).equals(TRUE)) {
-            _signUpValidate.value = EMAIL_REGISTERED
         } else {
-            createAccount(UserSignupModel(email, fullName, password, phone))
+            checkIfEmailExists(UserSignupModel(email, fullName, password, phone))
         }
     }
 
@@ -112,14 +106,20 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
         job.join()
         return response
     }*/
-    private suspend fun checkIfEmailExists(email: String) :String {
-        var response = ""
-       val job =  viewModelScope.launch(Dispatchers.IO){
-              repo.checkIfEmailExists(email){
-                response=it!!
-            } }
-        job.join()
-        return response
+    private fun checkIfEmailExists(user: UserSignupModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.checkIfEmailExists(user.Email) {
+                    if (it!!.equals(TRUE)){
+                        _signUpValidate.postValue(it)}
+                    else if (it!!.equals(FALSE)){
+                        createAccount(user)
+                    }}
+            }catch (e:IOException){
+                e.printStackTrace()
+                _signUpValidate.postValue(e.localizedMessage)
+            }
+        }
     }
 
     private fun isEmailValid(email: String): Boolean {

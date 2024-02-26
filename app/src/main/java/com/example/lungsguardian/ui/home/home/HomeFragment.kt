@@ -58,7 +58,6 @@ class HomeFragment : Fragment() {
                 val data: Intent? = it.data
                 if (data != null){
                     fileImageUser = data.data
-
                 }else{
                     Toast.makeText(activity, "Something went wrong try again", Toast.LENGTH_SHORT).show()
                 }

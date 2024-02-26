@@ -13,6 +13,7 @@ import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentEditEmailBinding
 import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
+import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -68,7 +69,7 @@ class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
                 binding.inputTextResetEmail.error= VALIDATE_EMAIL_INVALID
                 binding.progressBar.visibility= View.GONE
                 binding.btnResetEmail.setText(R.string.reset_email)
-            } else if(it.equals(EMAIL_REGISTERED)){
+            } else if(it.equals(TRUE)){
                 Toast.makeText(context, EMAIL_REGISTERED, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnResetEmail.setText(R.string.reset_email)

@@ -25,6 +25,7 @@ import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
+import com.example.lungsguardian.utils.TRUE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,9 +66,8 @@ class SignupFragment : Fragment() {
             val confirmPassword = binding.editTextPasswordConfirm.text.toString()
             binding.progressBar.visibility= View.VISIBLE
             binding.btnSignup.text = null
-            lifecycleScope.launch {
             signupViewModel.validate(email, fullName, phone, password, confirmPassword)
-        }}
+        }
         binding.editTextEmailSingUp.doAfterTextChanged {
             binding.inputTextEmailSignUp.error=""
         }
@@ -127,7 +127,7 @@ class SignupFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
-            }else if (it.equals(EMAIL_REGISTERED)) {
+            }else if (it.equals(TRUE)) {
                 Toast.makeText(context, EMAIL_REGISTERED, Toast.LENGTH_LONG).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
