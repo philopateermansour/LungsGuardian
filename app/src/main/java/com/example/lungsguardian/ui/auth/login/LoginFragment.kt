@@ -18,6 +18,7 @@ import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
 import com.example.lungsguardian.databinding.FragmentLoginBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import com.example.lungsguardian.utils.EMAIL_NOT_REGISTERED
+import com.example.lungsguardian.utils.FALSE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,7 +39,6 @@ class LoginFragment : Fragment() {
         _binding=FragmentLoginBinding.inflate(inflater,container,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLoginBinding.bind(view)
@@ -59,8 +59,7 @@ class LoginFragment : Fragment() {
 
             binding.progressBar.visibility= View.VISIBLE
             binding.btnLogin.text=null
-            lifecycleScope.launch {
-            loginViewModel.validate(email, password)}
+            loginViewModel.validate(email, password)
         }
         binding.editTextEmailLogin.doAfterTextChanged {
             binding.inputTextEmailLogin.error=""
@@ -84,7 +83,7 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
-            } else if (it.equals(EMAIL_NOT_REGISTERED)) {
+            } else if(it.equals(FALSE)){
                 Toast.makeText(context, EMAIL_NOT_REGISTERED, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = View.GONE
                 binding.btnLogin.setText(R.string.login)
@@ -107,5 +106,4 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

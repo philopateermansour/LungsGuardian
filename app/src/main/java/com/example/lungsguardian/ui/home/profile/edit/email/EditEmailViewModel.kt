@@ -4,8 +4,10 @@ import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.repository.IRepo
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
+import com.example.lungsguardian.utils.FALSE
 import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
@@ -31,10 +33,8 @@ class EditEmailViewModel @Inject constructor(private val repo: IRepo) : ViewMode
             _editEmailValidateLiveData.value = VALIDATE_EMAIL_NULL
         } else if (!isEmailValid(email)) {
             _editEmailValidateLiveData.value = VALIDATE_EMAIL_INVALID
-        } else if (checkIfEmailExists(email) == TRUE) {
-            _editEmailValidateLiveData.value = EMAIL_REGISTERED
         } else {
-            editEmail(email)
+            checkIfEmailExists(email)
         }
     }
 
@@ -55,15 +55,20 @@ class EditEmailViewModel @Inject constructor(private val repo: IRepo) : ViewMode
             }
         }
     }
-    private suspend fun checkIfEmailExists(email: String): String {
-        var response = ""
-        val job = viewModelScope.launch(Dispatchers.IO) {
-            repo.checkIfEmailExists(email) {
-                response = it!!
+    private fun checkIfEmailExists(email: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.checkIfEmailExists(email) {
+                    if (it!!.equals(TRUE)){
+                        _editEmailValidateLiveData.postValue(it)}
+                    else if (it!!.equals(FALSE)){
+                        editEmail(email)
+                    }}
+            }catch (e:IOException){
+                e.printStackTrace()
+                _editEmailValidateLiveData.postValue(e.localizedMessage)
             }
         }
-        job.join()
-        return response
     }
 
     private fun isEmailValid(email: String): Boolean {
