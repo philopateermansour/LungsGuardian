@@ -39,7 +39,7 @@ class EditEmailViewModel @Inject constructor(private val repo: IRepo) : ViewMode
     }
 
 
-    private fun editEmail(email: String) {
+     fun editEmail(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repo.editEmail(email) {
@@ -62,7 +62,7 @@ class EditEmailViewModel @Inject constructor(private val repo: IRepo) : ViewMode
                     if (it!!.equals(TRUE)){
                         _editEmailValidateLiveData.postValue(it)}
                     else if (it!!.equals(FALSE)){
-                        editEmail(email)
+                        _editEmailValidateLiveData.postValue(it)
                     }}
             }catch (e:IOException){
                 e.printStackTrace()

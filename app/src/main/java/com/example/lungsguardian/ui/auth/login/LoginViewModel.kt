@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
         } else if (password.isEmpty()) {
             _loginValidate.value = VALIDATE_PASSWORD_NULL
         } else {
-            checkIfEmailExists(UserLoginModel(email, password))
+            checkIfEmailExists(email)
         }
     }
     fun login(user: UserLoginModel) {
@@ -60,14 +60,14 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
         }
     }
 
-    fun checkIfEmailExists(user: UserLoginModel) {
+    fun checkIfEmailExists(email: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-            repo.checkIfEmailExists(user.Email) {
+            repo.checkIfEmailExists(email) {
                 if (it!!.equals(FALSE)){
                 _loginValidate.postValue(it)}
                 else if (it!!.equals(TRUE)){
-                login(user)
+                    _loginValidate.postValue(it)
             }}
 
         }catch (e:IOException){

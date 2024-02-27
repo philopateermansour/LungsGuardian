@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
+import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_INVALID
@@ -25,6 +26,7 @@ import com.example.lungsguardian.utils.VALIDATE_PHONE_NULL
 import com.example.lungsguardian.databinding.FragmentSignupBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
+import com.example.lungsguardian.utils.FALSE
 import com.example.lungsguardian.utils.TRUE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -129,6 +131,14 @@ class SignupFragment : Fragment() {
                 binding.btnSignup.setText(R.string.sign_up)
             }else if (it.equals(TRUE)) {
                 Toast.makeText(context, EMAIL_REGISTERED, Toast.LENGTH_LONG).show()
+                binding.progressBar.visibility= View.GONE
+                binding.btnSignup.setText(R.string.sign_up)
+            } else if (it.equals(FALSE)) {
+                val email = binding.editTextEmailSingUp.text.toString().trim()
+                val fullName = binding.editTextFullName.text.toString().trim()
+                val phone = binding.editTextPhoneNumber.text.toString().trim()
+                val password = binding.editTextPasswordSignUp.text.toString()
+                signupViewModel.createAccount(UserSignupModel(email,fullName,password,phone))
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             } else{

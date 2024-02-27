@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
+import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
@@ -19,6 +20,7 @@ import com.example.lungsguardian.databinding.FragmentLoginBinding
 import com.example.lungsguardian.ui.home.activity.HomeActivity
 import com.example.lungsguardian.utils.EMAIL_NOT_REGISTERED
 import com.example.lungsguardian.utils.FALSE
+import com.example.lungsguardian.utils.TRUE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -56,7 +58,6 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.editTextEmailLogin.text.toString().trim()
             val password = binding.editTextPasswordLogin.text.toString()
-
             binding.progressBar.visibility= View.VISIBLE
             binding.btnLogin.text=null
             loginViewModel.validate(email, password)
@@ -87,7 +88,13 @@ class LoginFragment : Fragment() {
                 Toast.makeText(context, EMAIL_NOT_REGISTERED, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility = View.GONE
                 binding.btnLogin.setText(R.string.login)
-            } else{
+            }  else if(it.equals(TRUE)){
+                val email = binding.editTextEmailLogin.text.toString().trim()
+                val password = binding.editTextPasswordLogin.text.toString()
+                loginViewModel.login(UserLoginModel(email,password))
+                binding.progressBar.visibility = View.GONE
+                binding.btnLogin.setText(R.string.login)
+            }  else{
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
