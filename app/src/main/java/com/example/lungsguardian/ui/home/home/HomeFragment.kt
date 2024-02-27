@@ -86,8 +86,8 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    private fun handleImageUri(fileImageUser: Bitmap?) {
-        binding.imageTop.setImageBitmap(fileImageUser)
+    private fun handleImageUri(fileImage: Bitmap?) {
+
     }
     private fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
         var inputStream: InputStream? = null
