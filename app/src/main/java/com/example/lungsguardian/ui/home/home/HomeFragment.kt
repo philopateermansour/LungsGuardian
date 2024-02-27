@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
     private fun handleImageUri(fileImageUser: Bitmap?) {
         binding.imageTop.setImageBitmap(fileImageUser)
     }
-    fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
+    private fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
         var inputStream: InputStream? = null
         try {
             // Open an input stream from the URI
