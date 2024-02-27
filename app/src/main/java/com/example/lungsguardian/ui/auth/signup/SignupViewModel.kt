@@ -76,7 +76,7 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
     }
 
 
-    private fun createAccount(user: UserSignupModel) {
+     fun createAccount(user: UserSignupModel) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repo.createAccount(user) {
@@ -113,7 +113,7 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
                     if (it!!.equals(TRUE)){
                         _signUpValidate.postValue(it)}
                     else if (it!!.equals(FALSE)){
-                        createAccount(user)
+                        _signUpValidate.postValue(it)
                     }}
             }catch (e:IOException){
                 e.printStackTrace()
