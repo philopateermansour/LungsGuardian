@@ -1,6 +1,7 @@
 package com.example.lungsguardian.data.repository
 
 import android.graphics.Bitmap
+import android.net.Uri
 import com.example.lungsguardian.data.model.MlResponseModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
 import com.example.lungsguardian.data.model.UserLoginModel
@@ -34,5 +35,5 @@ interface IRepo {
         newPassword: String,
         passwordCallback: (Response<String>?) -> Unit
     )
-    suspend fun sendImageToModel(image :Bitmap,modelCallback: (Response<MlResponseModel>?) -> Unit)
+    suspend fun sendImageToModel(file :File,modelCallback: (Response<MlResponseModel>?) -> Unit)
 }

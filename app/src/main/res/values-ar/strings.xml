@@ -42,4 +42,5 @@
     <string name="your_new_name">Your new name</string>
     <string name="reset_name">Reset name</string>
     <string name="x_ray_insights_for_lungs">X-Ray Insights for Lungs</string>
+    <string name="report">Report</string>
 </resources>

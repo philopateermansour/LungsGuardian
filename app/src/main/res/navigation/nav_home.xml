@@ -33,6 +33,6 @@
             app:argType="string" />
         <argument
             android:name="image"
-            app:argType="android.graphics.Bitmap" />
+            app:argType="android.net.Uri" />
     </fragment>
 </navigation>

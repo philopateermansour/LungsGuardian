@@ -1,6 +1,7 @@
 package com.example.lungsguardian.data.repository
 
 import android.graphics.Bitmap
+import android.net.Uri
 import com.example.lungsguardian.data.model.ChangePasswordModel
 import com.example.lungsguardian.data.model.Email
 import com.example.lungsguardian.data.model.MlResponseModel
@@ -13,6 +14,8 @@ import com.example.lungsguardian.data.source.remote.AuthApi
 import com.example.lungsguardian.data.source.remote.MlApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
@@ -94,12 +97,16 @@ class Repo @Inject constructor(private val getCalls: AuthApi,private val getMl :
     }
 
     override suspend fun sendImageToModel(
-        image: Bitmap,
+        file: File,
         modelCallback: (Response<MlResponseModel>?) -> Unit
     )
             = withContext(Dispatchers.IO)
     {
-        val response = getMl.sendImageToMl(image)
+        val response = getMl.sendImageToMl(
+            image = MultipartBody.Part.createFormData(
+                "image",file.name,file.asRequestBody()
+            )
+        )
         modelCallback.invoke(response)
     }
 
