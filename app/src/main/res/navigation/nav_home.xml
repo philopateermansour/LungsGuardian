@@ -18,5 +18,21 @@
         android:id="@+id/homeFragment"
         android:name="com.example.lungsguardian.ui.home.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.lungsguardian.ui.home.report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" >
+        <argument
+            android:name="caption"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="android.net.Uri" />
+    </fragment>
 </navigation>

@@ -1,19 +1,26 @@
 package com.example.lungsguardian.data.repository
 
+import android.graphics.Bitmap
+import android.net.Uri
 import com.example.lungsguardian.data.model.ChangePasswordModel
 import com.example.lungsguardian.data.model.Email
+import com.example.lungsguardian.data.model.MlResponseModel
 import com.example.lungsguardian.data.model.Name
 import com.example.lungsguardian.data.model.ResetPasswordModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.UserSignupModel
 import com.example.lungsguardian.data.source.remote.AuthApi
+import com.example.lungsguardian.data.source.remote.MlApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Response
+import java.io.File
 import javax.inject.Inject
 
-class Repo @Inject constructor(val getCalls: AuthApi) : IRepo {
+class Repo @Inject constructor(private val getCalls: AuthApi,private val getMl :MlApi) : IRepo {
 
     override suspend fun createAccount(
         user: UserSignupModel, userCallback: (Response<UserResponseModel>?) -> Unit
@@ -64,12 +71,16 @@ class Repo @Inject constructor(val getCalls: AuthApi) : IRepo {
             userCallback.invoke(response)
         }
 
-    override suspend fun editName(fullName: String, editCallback: (Response<String>?) -> Unit) {
+    override suspend fun editName(fullName: String, editCallback: (Response<String>?) -> Unit)
+    = withContext(Dispatchers.IO)
+    {
         val response = getCalls.editName(Name(fullName))
         editCallback.invoke(response)
     }
 
-    override suspend fun editEmail(email: String, editCallback: (Response<String>?) -> Unit) {
+    override suspend fun editEmail(email: String, editCallback: (Response<String>?) -> Unit)
+            = withContext(Dispatchers.IO)
+    {
         val response = getCalls.editEmail(Email(email))
         editCallback.invoke(response)
     }
@@ -79,9 +90,24 @@ class Repo @Inject constructor(val getCalls: AuthApi) : IRepo {
         oldPassword: String,
         newPassword: String,
         passwordCallback: (Response<String>?) -> Unit
-    ) {
+    )
+            = withContext(Dispatchers.IO){
         val response = getCalls.changePassword(ChangePasswordModel(oldPassword,newPassword))
         passwordCallback.invoke(response)
+    }
+
+    override suspend fun sendImageToModel(
+        file: File,
+        modelCallback: (Response<MlResponseModel>?) -> Unit
+    )
+            = withContext(Dispatchers.IO)
+    {
+        val response = getMl.sendImageToMl(
+            image = MultipartBody.Part.createFormData(
+                "image",file.name,file.asRequestBody()
+            )
+        )
+        modelCallback.invoke(response)
     }
 
 }

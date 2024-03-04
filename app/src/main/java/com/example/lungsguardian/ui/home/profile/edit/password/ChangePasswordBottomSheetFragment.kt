@@ -8,12 +8,9 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentChangePasswordBinding
 import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
-import com.example.lungsguardian.ui.home.profile.ProfileViewModel
-import com.example.lungsguardian.utils.PASSWORD_CHANGED
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_CONFIGURATION_NULL
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_INVALID
 import com.example.lungsguardian.utils.VALIDATE_PASSWORD_NULL
