@@ -1,6 +1,7 @@
 package com.example.lungsguardian.utils
 
-const  val BASE_URL = "http://192.168.1.6:7178/Api/Accounts/"
+const  val BASE_URL_BACK = "http://192.168.1.6:7178/Api/Accounts/"
+const val BASE_URL_ML = "http://192.168.1.6:5000/"
 const val VALIDATE_EMAIL_NULL = "email error"
 const val VALIDATE_FULL_NAME_NULL = "name error"
 const val VALIDATE_PHONE_NULL = "phone error"
@@ -27,7 +28,5 @@ const val TRUE = "true"
 const val FALSE = "false"
 const val EMAIL_REGISTERED ="this email is already registered"
 const val EMAIL_NOT_REGISTERED ="this email is not registered"
-
-const val EMAIL_CHANGED = "email changed successfully"
-const val NAME_CHANGED = "name changed successfully"
-const val PASSWORD_CHANGED = "password changed successfully"
+const val RETROFIT_FOR_BACK="retrofit for backend"
+const val RETROFIT_FOR_ML="retrofit for Ml"

@@ -1,10 +1,15 @@
 package com.example.lungsguardian.di
 
+import com.bumptech.glide.provider.ResourceEncoderRegistry
 import com.example.lungsguardian.data.repository.IRepo
 import com.example.lungsguardian.data.repository.Repo
 import com.example.lungsguardian.data.source.remote.AuthApi
-import com.example.lungsguardian.utils.BASE_URL
+import com.example.lungsguardian.data.source.remote.MlApi
+import com.example.lungsguardian.utils.BASE_URL_BACK
+import com.example.lungsguardian.utils.BASE_URL_ML
 import com.example.lungsguardian.utils.MySharedPreferences
+import com.example.lungsguardian.utils.RETROFIT_FOR_BACK
+import com.example.lungsguardian.utils.RETROFIT_FOR_ML
 import com.example.lungsguardian.utils.USER_TOKEN
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -12,26 +17,24 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DiModule {
 
-
     @Singleton
     @Provides
-    fun getRetrofit(): Retrofit {
+    @Named(RETROFIT_FOR_BACK)
+    fun getRetrofitForBack(): Retrofit {
         val client = OkHttpClient.Builder()
             .connectTimeout(50, TimeUnit.SECONDS)
             .writeTimeout(150, TimeUnit.SECONDS)
@@ -57,7 +60,7 @@ object DiModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BASE_URL_BACK)
             .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder()
@@ -67,12 +70,31 @@ object DiModule {
     }
     @Singleton
     @Provides
-    fun getCalls(retrofit: Retrofit):AuthApi{
-        return retrofit.create(AuthApi::class.java)
+    @Named(RETROFIT_FOR_ML)
+    fun getRetrofitForMl(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL_ML)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder()
+                .setLenient()
+                .create()))
+            .build()
     }
     @Singleton
     @Provides
-    fun getIRep(apiCalls: AuthApi): IRepo {
-        return Repo(apiCalls)
+    fun getCalls(@Named(RETROFIT_FOR_BACK) retrofit: Retrofit):AuthApi{
+        return retrofit.create(AuthApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun getMlCall(@Named(RETROFIT_FOR_ML) retrofit: Retrofit) :MlApi{
+        return retrofit.create(MlApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun getIRep(apiCalls: AuthApi,mlApi:MlApi): IRepo {
+        return Repo(apiCalls,mlApi)
     }
 }
