@@ -1,5 +1,6 @@
 package com.example.lungsguardian.ui.home.profile.edit.email
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.BottomSheetFragmentEditEmailBinding
+import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
+import com.example.lungsguardian.ui.home.activity.HomeActivity
 import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.utils.EMAIL_REGISTERED
 import com.example.lungsguardian.utils.FALSE
+import com.example.lungsguardian.utils.MySharedPreferences
 import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
@@ -89,7 +93,10 @@ class EditEmailBottomSheetFragment :BottomSheetDialogFragment() {
             binding.progressBar.visibility= View.GONE
             binding.btnResetEmail.setText(R.string.reset_email)
             dismiss()
-            homeSharedViewModel.isProfileChanged.value=true
+            val intent = Intent(activity, AuthenticationScreen::class.java)
+            startActivity(intent)
+            activity?.finish()
+            MySharedPreferences.clearShared()
         }
     }
 }

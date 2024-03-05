@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.report.ReportFragment"
-    android:background="@color/white_to_black">
+    android:background="@color/white_to_black"
+    android:layout_marginHorizontal="@dimen/_5sdp">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guide_10"
         android:layout_width="wrap_content"
@@ -35,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_arrow_back_24"
-        android:paddingHorizontal="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_guide_10"
         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -46,14 +46,33 @@
         app:layout_constraintTop_toTopOf="@id/horizontal_guide_10"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_guide_60"/>
 
-    <TextView
-        android:id="@+id/caption"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/horizontal_guide_60"
-        android:padding="@dimen/_10sdp"/>
+        android:layout_margin="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        android:elevation="@dimen/_100sdp"
+        android:backgroundTint="@color/gray">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@drawable/card_caption"
+            android:layout_margin="@dimen/_5sdp"
+            android:backgroundTint="@color/white_to_black">
+            <TextView
+                android:id="@+id/caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_13sdp"
+                android:padding="@dimen/_5sdp"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
