@@ -51,7 +51,7 @@ class ResetFragment : Fragment() {
 
     private fun onClicks(receivedEmail :String) {
         binding.btnBackToSendCode.setOnClickListener{
-            findNavController().navigate(ResetFragmentDirections.actionResetFragmentToForgetFragment())
+            findNavController().popBackStack()
         }
         binding.btnReset.setOnClickListener{
             val code = binding.editTextCode.text.toString().trim()

@@ -36,16 +36,14 @@ class ReportFragment : Fragment() {
 
     private fun onClicks() {
         binding.imageArrow.setOnClickListener {
-            activity?.onBackPressedDispatcher?.onBackPressed()
+            findNavController().popBackStack()
         }
     }
 
     private fun showReport(receivedImage: Uri, receivedCaption: String) {
-
         binding.imageXray.setImageURI(receivedImage)
         binding.caption.text = receivedCaption
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

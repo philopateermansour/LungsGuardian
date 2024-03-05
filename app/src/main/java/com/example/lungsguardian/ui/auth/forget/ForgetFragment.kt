@@ -40,7 +40,7 @@ class ForgetFragment : Fragment() {
 
     private fun onClicks() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(ForgetFragmentDirections.actionForgetFragmentToLoginFragment())
+            findNavController().popBackStack()
         }
         binding.btnSendCode.setOnClickListener {
             val email = binding.editTextEmailReset.text.toString().trim()

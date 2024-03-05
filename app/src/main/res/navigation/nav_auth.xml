@@ -22,23 +22,12 @@
         android:id="@+id/signupFragment"
         android:name="com.example.lungsguardian.ui.auth.signup.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
-        <action
-            android:id="@+id/action_signupFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_signup" />
     <fragment
         android:id="@+id/forgetFragment"
         android:name="com.example.lungsguardian.ui.auth.forget.ForgetFragment"
         android:label="fragment_forget"
         tools:layout="@layout/fragment_forget" >
-        <action
-            android:id="@+id/action_forgetFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_forgetFragment_to_resetFragment"
             app:destination="@id/resetFragment"
@@ -49,11 +38,6 @@
         android:name="com.example.lungsguardian.ui.auth.reset.ResetFragment"
         android:label="fragment_reset"
         tools:layout="@layout/fragment_reset" >
-        <action
-            android:id="@+id/action_resetFragment_to_forgetFragment"
-            app:destination="@id/forgetFragment"
-            app:popUpTo="@id/forgetFragment"
-            app:popUpToInclusive="true" />
         <argument
             android:name="email"
             app:argType="string" />

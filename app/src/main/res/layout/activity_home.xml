@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.activity.HomeActivity"
-    android:background="@drawable/background">
+    android:background="@color/white_to_black">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_horizontal_90"

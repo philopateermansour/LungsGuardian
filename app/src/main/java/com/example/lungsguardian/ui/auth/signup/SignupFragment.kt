@@ -57,7 +57,7 @@ class SignupFragment : Fragment() {
 
     private fun onClicks() {
         binding.login.setOnClickListener {
-            findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToLoginFragment())
+            findNavController().popBackStack()
         }
 
         binding.btnSignup.setOnClickListener {

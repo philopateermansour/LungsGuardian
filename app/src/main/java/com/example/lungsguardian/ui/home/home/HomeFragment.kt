@@ -73,6 +73,19 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun showLoading() {
+        binding.cardCamera.visibility=View.GONE
+        binding.cardGallery.visibility=View.GONE
+        binding.imageLoading.visibility=View.VISIBLE
+    }
+
+    /*private fun hideLoading() {
+        binding.cardCamera.visibility=View.VISIBLE
+        binding.cardGallery.visibility=View.VISIBLE
+        binding.imageLoading.visibility=View.GONE
+    }
+*/
+
     private fun captureByCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
@@ -104,11 +117,13 @@ class HomeFragment : Fragment() {
                         fileImage=bitmapToFile(requireContext(),bitmapImage!!)
                         uriImage=bitmapToUri(requireContext(), bitmapImage!!)
                         homeViewModel.sendImageToModel(fileImage!!)
+                        showLoading()
                     }
                     else{
                         uriImage = data.data
                         fileImage=uriToFile(requireContext(),uriImage!!)
                         homeViewModel.sendImageToModel(fileImage!!)
+                        showLoading()
                     }
 
                 } else {
