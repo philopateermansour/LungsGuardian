@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -16,14 +15,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.databinding.FragmentHomeBinding
+import com.example.lungsguardian.utils.HOME
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -58,9 +56,11 @@ class HomeFragment : Fragment() {
     private fun observers() {
         homeViewModel.modelValidate.observe(viewLifecycleOwner){
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            hideLoading()
         }
         homeViewModel.responseLiveData.observe(viewLifecycleOwner){
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToReportFragment(it.body()!!.caption,uriImage!!))
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToReportFragment(it.body()!!.caption,uriImage!!
+                ,HOME))
         }
     }
 
@@ -79,12 +79,12 @@ class HomeFragment : Fragment() {
         binding.imageLoading.visibility=View.VISIBLE
     }
 
-    /*private fun hideLoading() {
+    private fun hideLoading() {
         binding.cardCamera.visibility=View.VISIBLE
         binding.cardGallery.visibility=View.VISIBLE
         binding.imageLoading.visibility=View.GONE
     }
-*/
+
 
     private fun captureByCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -132,9 +132,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
-
-
     fun uriToFile(context: Context, uri: Uri): File? {
         var inputStream: InputStream? = null
         var outputStream: FileOutputStream? = null
