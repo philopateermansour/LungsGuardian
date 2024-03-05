@@ -21,7 +21,8 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_reportFragment"
-            app:destination="@id/reportFragment" />
+            app:destination="@id/reportFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
@@ -34,5 +35,16 @@
         <argument
             android:name="image"
             app:argType="android.net.Uri" />
+        <action
+            android:id="@+id/action_reportFragment_to_historyFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/historyFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_reportFragment_to_homeFragment2"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <argument android:name="source" />
     </fragment>
 </navigation>

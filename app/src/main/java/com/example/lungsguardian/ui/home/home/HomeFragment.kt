@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.databinding.FragmentHomeBinding
+import com.example.lungsguardian.utils.HOME
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileNotFoundException
@@ -60,7 +61,8 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
         homeViewModel.responseLiveData.observe(viewLifecycleOwner){
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToReportFragment(it.body()!!.caption,uriImage!!))
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToReportFragment(it.body()!!.caption,uriImage!!
+                ,HOME))
         }
     }
 
