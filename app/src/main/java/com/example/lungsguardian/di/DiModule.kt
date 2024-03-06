@@ -72,8 +72,15 @@ object DiModule {
     @Provides
     @Named(RETROFIT_FOR_ML)
     fun getRetrofitForMl(): Retrofit {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(50, TimeUnit.SECONDS)
+            .writeTimeout(150, TimeUnit.SECONDS)
+            .readTimeout(50, TimeUnit.SECONDS)
+            .callTimeout(50, TimeUnit.SECONDS).build()
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL_ML)
+            .client(client)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder()
                 .setLenient()

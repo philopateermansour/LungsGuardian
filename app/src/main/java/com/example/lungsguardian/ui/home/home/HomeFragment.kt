@@ -63,7 +63,6 @@ class HomeFragment : Fragment() {
                 ,HOME))
         }
     }
-
     private fun onClicks() {
         binding.cardGallery.setOnClickListener {
             openGallery()

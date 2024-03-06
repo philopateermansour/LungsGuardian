@@ -31,16 +31,17 @@ class HomeViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
               repo.sendImageToModel(file){
                   if (it?.code()==200){
                           _responseLiveData.postValue(it)
+                      Log.e("TAG", "done: ${it.body()?.caption} " )
                   }
                   else{
                       _modelValidate.postValue(it?.message())
-
+                      Log.e("TAG", "failed: " )
                   }
               }
-
         }catch (e:IOException){
             e.printStackTrace()
                 _modelValidate.postValue(e.localizedMessage)
+                Log.e("TAG", "exception: ${e.message.toString()} ", )
         }
         }
     }
