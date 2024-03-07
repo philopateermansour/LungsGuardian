@@ -19,7 +19,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.databinding.FragmentHomeBinding
+import com.example.lungsguardian.ui.report.ReportActivity
+import com.example.lungsguardian.ui.report.showLoading.LoadingViewModel
 import com.example.lungsguardian.utils.HOME
+import com.example.lungsguardian.utils.IMAGE_FILE
+import com.example.lungsguardian.utils.IMAGE_URI
+import com.example.lungsguardian.utils.SOURCE
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -37,7 +42,6 @@ class HomeFragment : Fragment() {
     private var uriImage: Uri? = null
     private var bitmapImage: Bitmap? = null
     private var fileImage :File? = null
-    private val homeViewModel :HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,19 +54,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClicks()
-        observers()
     }
 
-    private fun observers() {
-        homeViewModel.modelValidate.observe(viewLifecycleOwner){
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-            hideLoading()
-        }
-        homeViewModel.responseLiveData.observe(viewLifecycleOwner){
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToReportFragment(it.body()!!.caption,uriImage!!
-                ,HOME))
-        }
-    }
 
     private fun onClicks() {
         binding.cardGallery.setOnClickListener {
@@ -73,17 +66,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showLoading() {
-        binding.cardCamera.visibility=View.GONE
-        binding.cardGallery.visibility=View.GONE
-        binding.imageLoading.visibility=View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        binding.cardCamera.visibility=View.VISIBLE
-        binding.cardGallery.visibility=View.VISIBLE
-        binding.imageLoading.visibility=View.GONE
-    }
 
 
     private fun captureByCamera() {
@@ -116,15 +98,18 @@ class HomeFragment : Fragment() {
                         bitmapImage=(data.extras?.getParcelable("data",) as Bitmap?)!!
                         fileImage=bitmapToFile(requireContext(),bitmapImage!!)
                         uriImage=bitmapToUri(requireContext(), bitmapImage!!)
-                        homeViewModel.sendImageToModel(fileImage!!)
-                        showLoading()
+                        val intent = Intent(activity, ReportActivity::class.java)
+                        intent.putExtra(IMAGE_URI,uriImage)
+                        intent.putExtra(IMAGE_FILE,fileImage)
+                        startActivity(intent)
                     }
                     else{
                         uriImage = data.data
                         fileImage=uriToFile(requireContext(),uriImage!!)
-                        homeViewModel.sendImageToModel(fileImage!!)
-                        showLoading()
-                    }
+                        val intent = Intent(activity, ReportActivity::class.java)
+                        intent.putExtra(IMAGE_URI,uriImage)
+                        intent.putExtra(IMAGE_FILE,fileImage)
+                        startActivity(intent)                    }
 
                 } else {
                     Toast.makeText(activity, "Something went wrong try again", Toast.LENGTH_SHORT)

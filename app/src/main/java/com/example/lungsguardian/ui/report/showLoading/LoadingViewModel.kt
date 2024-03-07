@@ -1,13 +1,10 @@
-package com.example.lungsguardian.ui.home.home
+package com.example.lungsguardian.ui.report.showLoading
 
-import android.graphics.Bitmap
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.data.model.MlResponseModel
-import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.repository.IRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +15,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
+class LoadingViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
 
     private val _modelValidate = MutableLiveData<String>()
     val modelValidate get() = _modelValidate
@@ -31,16 +28,17 @@ class HomeViewModel @Inject constructor(private val repo: IRepo) : ViewModel() {
               repo.sendImageToModel(file){
                   if (it?.code()==200){
                           _responseLiveData.postValue(it)
+                      Log.e("TAG", "done: ${it.body()?.caption} " )
                   }
                   else{
                       _modelValidate.postValue(it?.message())
-
+                      Log.e("TAG", "failed: " )
                   }
               }
-
         }catch (e:IOException){
             e.printStackTrace()
                 _modelValidate.postValue(e.localizedMessage)
+                Log.e("TAG", "exception: ${e.message.toString()} ", )
         }
         }
     }

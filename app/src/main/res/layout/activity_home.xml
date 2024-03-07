@@ -38,5 +38,4 @@
         app:layout_constraintBottom_toTopOf="@id/guide_horizontal_90"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_home" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
