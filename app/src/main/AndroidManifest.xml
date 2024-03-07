@@ -19,25 +19,35 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.LungsGuardian"
-            >
+            android:theme="@style/Base.Theme.LungsGuardian">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.home.activity.HomeActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_home"
-            android:theme="@style/Base.Theme.LungsGuardian"
-            />
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/Base.Theme.LungsGuardian" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.auth.activity.AuthenticationScreen"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Base.Theme.LungsGuardian"
-            />
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.report.ReportActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.LungsGuardian"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

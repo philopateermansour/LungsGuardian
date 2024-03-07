@@ -13,7 +13,7 @@ class AuthenticationScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(_binding?.root)
+        setContentView(binding.root)
     }
 
     override fun onDestroy() {

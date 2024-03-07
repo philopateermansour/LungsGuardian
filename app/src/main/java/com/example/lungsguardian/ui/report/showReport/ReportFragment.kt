@@ -1,4 +1,4 @@
-package com.example.lungsguardian.ui.home.report
+package com.example.lungsguardian.ui.report.showReport
 
 import android.net.Uri
 import android.os.Bundle
@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.FragmentReportBinding
-import com.example.lungsguardian.utils.HISTORY
-import com.example.lungsguardian.utils.HOME
 
 
 class ReportFragment : Fragment() {
@@ -30,34 +28,27 @@ class ReportFragment : Fragment() {
         _binding = FragmentReportBinding.bind(view)
         val receivedImage = ReportFragmentArgs.fromBundle(requireArguments()).image
         val receivedCaption = ReportFragmentArgs.fromBundle(requireArguments()).caption
-        val receivedSource = ReportFragmentArgs.fromBundle(requireArguments()).source
         showReport(receivedImage, receivedCaption)
-
-        onClicks(receivedSource)
+        onClicks()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            navigateBack(receivedSource)
-        }
-        }
-
-    private fun onClicks(receivedSource: String) {
-        binding.imageArrow.setOnClickListener {
-            navigateBack(receivedSource)
+            navigateBack()
         }
     }
 
-    private fun navigateBack(receivedSource: String) {
-        if (receivedSource == HOME) {
-
-            findNavController().navigate(ReportFragmentDirections.actionReportFragmentToHomeFragment2())
-        } else if (receivedSource == HISTORY) {
-            findNavController().navigate(ReportFragmentDirections.actionReportFragmentToHistoryFragment())
+    private fun onClicks() {
+        binding.imageArrow.setOnClickListener {
+            navigateBack()
         }
+    }
+    private fun navigateBack() {
+        requireActivity().finish()
     }
 
     private fun showReport(receivedImage: Uri, receivedCaption: String) {
         binding.imageXray.setImageURI(receivedImage)
         binding.caption.text = receivedCaption
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
