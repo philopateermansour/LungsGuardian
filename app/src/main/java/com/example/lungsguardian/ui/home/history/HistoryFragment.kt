@@ -43,7 +43,7 @@ class HistoryFragment : Fragment() {
     private fun onClicks() {
         historyAdapter.onItemClick = object :AdapterHistoryRecyclerView.OnItemClick{
             override fun onClick(id: Int) {
-                historyViewModel.deleteReport(id)
+
             }
         }
         binding.searchBar.doAfterTextChanged{
