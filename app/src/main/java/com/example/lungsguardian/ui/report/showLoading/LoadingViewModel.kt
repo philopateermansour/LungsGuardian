@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lungsguardian.data.model.MlResponseModel
+import com.example.lungsguardian.data.model.PredictionModel
 import com.example.lungsguardian.data.repository.IRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ class LoadingViewModel @Inject constructor(private val repo: IRepo) : ViewModel(
 
     private val _modelValidate = MutableLiveData<String>()
     val modelValidate get() = _modelValidate
-    private val _responseLiveData = MutableLiveData<Response<MlResponseModel>>()
+    private val _responseLiveData = MutableLiveData<Response<String>>()
     val responseLiveData get() = _responseLiveData
 
     fun sendImageToModel(file: File) {
@@ -28,7 +28,7 @@ class LoadingViewModel @Inject constructor(private val repo: IRepo) : ViewModel(
               repo.sendImageToModel(file){
                   if (it?.code()==200){
                           _responseLiveData.postValue(it)
-                      Log.e("TAG", "done: ${it.body()?.caption} " )
+                      Log.e("TAG", "done: ${it.body()} " )
                   }
                   else{
                       _modelValidate.postValue(it?.message())

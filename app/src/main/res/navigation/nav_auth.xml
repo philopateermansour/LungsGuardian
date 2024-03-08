@@ -22,7 +22,13 @@
         android:id="@+id/signupFragment"
         android:name="com.example.lungsguardian.ui.auth.signup.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_profileImageFragment"
+            app:destination="@id/profileImageFragment"
+            app:popUpTo="@id/profileImageFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/forgetFragment"
         android:name="com.example.lungsguardian.ui.auth.forget.ForgetFragment"
@@ -42,9 +48,16 @@
             android:name="email"
             app:argType="string" />
         <action
+            android:id="@+id/action_resetFragment_to_forgetFragment"
+            app:destination="@id/forgetFragment"
+            app:popUpTo="@id/loginFragment" />
+        <action
             android:id="@+id/action_resetFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profileImageFragment"
+        android:name="com.example.lungsguardian.ui.auth.image.ProfileImageFragment"
+        android:label="fragment_profile_image"
+        tools:layout="@layout/fragment_profile_image" />
 </navigation>

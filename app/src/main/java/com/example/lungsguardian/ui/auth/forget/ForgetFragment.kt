@@ -10,16 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
+import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.databinding.FragmentForgetBinding
+import com.example.lungsguardian.utils.EMAIL_NOT_REGISTERED
+import com.example.lungsguardian.utils.FALSE
 import com.example.lungsguardian.utils.SEND_CODE_DONE
 import com.example.lungsguardian.utils.SEND_CODE_Failed
+import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ForgetFragment : Fragment() {
-
 
     private var _binding: FragmentForgetBinding? = null
     private val binding get() = _binding!!
@@ -62,6 +65,15 @@ class ForgetFragment : Fragment() {
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
                 Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
                 binding.progressBar.visibility= View.GONE
+                binding.btnSendCode.setText(R.string.send_code)
+            } else if(it.equals(FALSE)){
+                Toast.makeText(context, EMAIL_NOT_REGISTERED, Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
+                binding.btnSendCode.setText(R.string.send_code)
+            }  else if(it.equals(TRUE)){
+                val email = binding.editTextEmailReset.text.toString().trim()
+                forgetViewModel.sendCode(email)
+                binding.progressBar.visibility = View.GONE
                 binding.btnSendCode.setText(R.string.send_code)
             } else{
                 Toast.makeText(context, it, Toast.LENGTH_SHORT).show()

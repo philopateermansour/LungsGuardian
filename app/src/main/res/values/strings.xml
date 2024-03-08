@@ -90,4 +90,10 @@
     <string name="reset_name">Reset name</string>
     <string name="x_ray_insights_for_lungs">X-Ray Insights for Lungs</string>
     <string name="report">Report</string>
+    <string name="change_your_picture">Change your picture</string>
+    <string name="change_your_profile_picture">Change your profile picture</string>
+    <string name="remove_profile_picture">Remove profile picture</string>
+    <string name="optional_profile_picture">Optional profile picture</string>
+    <string name="start">start</string>
+    <string name="search_in_reports">Search in reports</string>
 </resources>

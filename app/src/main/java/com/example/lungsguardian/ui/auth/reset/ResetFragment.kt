@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -47,11 +48,19 @@ class ResetFragment : Fragment() {
         val receivedEmail = ResetFragmentArgs.fromBundle(requireArguments()).email
         onClicks(receivedEmail)
         observers()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            navigateBack()
+        }
+    }
+
+    private fun navigateBack() {
+        findNavController().navigate(ResetFragmentDirections.actionResetFragmentToForgetFragment())
+
     }
 
     private fun onClicks(receivedEmail :String) {
         binding.btnBackToSendCode.setOnClickListener{
-            findNavController().popBackStack()
+            navigateBack()
         }
         binding.btnReset.setOnClickListener{
             val code = binding.editTextCode.text.toString().trim()

@@ -148,9 +148,7 @@ class SignupFragment : Fragment() {
             }
         }
         signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
-                val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+                findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToProfileImageFragment())
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
         }

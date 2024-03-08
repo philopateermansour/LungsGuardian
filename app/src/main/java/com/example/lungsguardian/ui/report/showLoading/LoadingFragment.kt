@@ -50,8 +50,7 @@ class LoadingFragment : Fragment() {
         }
         loadingViewModel.responseLiveData.observe(viewLifecycleOwner){
             findNavController().navigate(
-                LoadingFragmentDirections.actionLoadingFragmentToReportFragment(it.body()!!.caption,uriImage,
-                ))
+                LoadingFragmentDirections.actionLoadingFragmentToReportFragment(it.body()!!,uriImage))
         }
     }
     override fun onDestroyView() {

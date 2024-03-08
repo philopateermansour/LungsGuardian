@@ -46,7 +46,8 @@ class ReportFragment : Fragment() {
 
     private fun showReport(receivedImage: Uri, receivedCaption: String) {
         binding.imageXray.setImageURI(receivedImage)
-        binding.caption.text = receivedCaption
+        val filteredString = receivedCaption.substring(3, receivedCaption.length - 5)
+        binding.caption.text = filteredString
     }
 
     override fun onDestroyView() {

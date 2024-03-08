@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
 import com.example.lungsguardian.data.repository.IRepo
+import com.example.lungsguardian.utils.FALSE
+import com.example.lungsguardian.utils.TRUE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +29,7 @@ class ForgetViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
         } else if (!isEmailValid(email)) {
             _forgetValidate.value = VALIDATE_EMAIL_INVALID
         } else {
-            sendCode(email)
+            checkIfEmailExists(email)
         }
     }
 
@@ -48,6 +50,22 @@ class ForgetViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
         }
     }
 
+    fun checkIfEmailExists(email: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.checkIfEmailExists(email) {
+                    if (it!!.equals(FALSE)){
+                        _forgetValidate.postValue(it)}
+                    else if (it.equals(TRUE)){
+                        _forgetValidate.postValue(it)
+                    }}
+
+            }catch (e:IOException){
+                e.printStackTrace()
+                _forgetValidate.postValue(e.localizedMessage)
+            }
+        }
+    }
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }

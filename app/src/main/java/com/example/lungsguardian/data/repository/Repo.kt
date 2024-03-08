@@ -1,16 +1,17 @@
 package com.example.lungsguardian.data.repository
 
-import android.graphics.Bitmap
-import android.net.Uri
 import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.CurrentUserDataModel
 import com.example.lungsguardian.data.model.Email
-import com.example.lungsguardian.data.model.MlResponseModel
+import com.example.lungsguardian.data.model.HistoryModel
 import com.example.lungsguardian.data.model.Name
+import com.example.lungsguardian.data.model.PredictionModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
+import com.example.lungsguardian.data.model.UploadImageResponseModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.UserSignupModel
-import com.example.lungsguardian.data.source.remote.AuthApi
+import com.example.lungsguardian.data.source.remote.CallsApi
 import com.example.lungsguardian.data.source.remote.MlApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,7 +21,7 @@ import retrofit2.Response
 import java.io.File
 import javax.inject.Inject
 
-class Repo @Inject constructor(private val getCalls: AuthApi,private val getMl :MlApi) : IRepo {
+class Repo @Inject constructor(private val getCalls: CallsApi, private val getMl :MlApi) : IRepo {
 
     override suspend fun createAccount(
         user: UserSignupModel, userCallback: (Response<UserResponseModel>?) -> Unit
@@ -65,7 +66,7 @@ class Repo @Inject constructor(private val getCalls: AuthApi,private val getMl :
         getCalls.checkIfEmailExists(email)
     }*/
 
-    override suspend fun showProfile(userCallback: (Response<UserResponseModel>?) -> Unit) =
+    override suspend fun showProfile(userCallback: (Response<CurrentUserDataModel>?) -> Unit) =
         withContext(Dispatchers.IO) {
             val response = getCalls.showProfile()
             userCallback.invoke(response)
@@ -98,11 +99,11 @@ class Repo @Inject constructor(private val getCalls: AuthApi,private val getMl :
 
     override suspend fun sendImageToModel(
         file: File,
-        modelCallback: (Response<MlResponseModel>?) -> Unit
+        modelCallback: (Response<String>?) -> Unit
     )
             = withContext(Dispatchers.IO)
     {
-        val response = getMl.sendImageToMl(
+        val response = getCalls.sendImageToMl(
             image = MultipartBody.Part.createFormData(
                 "image",file.name,file.asRequestBody()
             )
@@ -110,4 +111,35 @@ class Repo @Inject constructor(private val getCalls: AuthApi,private val getMl :
         modelCallback.invoke(response)
     }
 
+    override suspend fun showHistory(historyCallback: (Response<HistoryModel>?) -> Unit)
+    = withContext(Dispatchers.IO) {
+        val response = getCalls.showHistory()
+        historyCallback.invoke(response)
+    }
+
+    override suspend fun deleteReport(id:Int,deleteCallback: (Response<String>?) -> Unit)
+    = withContext(Dispatchers.IO)
+    {
+        val response = getCalls.deleteReport(id)
+        deleteCallback.invoke(response)
+    }
+
+    override suspend fun uploadProfileImage(
+        file: File,
+        uploadCallBack: (Response<UploadImageResponseModel>?) -> Unit
+    )    = withContext(Dispatchers.IO)
+    {
+        val response = getCalls.uploadProfileImage(
+            imageFile = MultipartBody.Part.createFormData(
+                "imageFile",file.name,file.asRequestBody()
+            )
+        )
+        uploadCallBack.invoke(response)
+    }
+
+    override suspend fun deleteProfileImage(deleteCallBAck: (Response<String>?) -> Unit) =
+        withContext(Dispatchers.IO) {
+        val response = getCalls.deleteProfileImage()
+            deleteCallBAck.invoke(response)
+    }
 }

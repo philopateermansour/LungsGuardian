@@ -2,6 +2,7 @@ package com.example.lungsguardian.utils
 
 const  val BASE_URL_BACK = "http://192.168.1.6:7178/Api/Accounts/"
 const val BASE_URL_ML = "http://192.168.1.6:5000/"
+const val BASE_URL_IMAGE = "http://192.168.1.6:7178"
 const val VALIDATE_EMAIL_NULL = "email error"
 const val VALIDATE_FULL_NAME_NULL = "name error"
 const val VALIDATE_PHONE_NULL = "phone error"
