@@ -1,8 +1,10 @@
 package com.example.lungsguardian.data.repository
 
+import com.example.lungsguardian.data.model.CurrentUserDataModel
 import com.example.lungsguardian.data.model.HistoryModel
 import com.example.lungsguardian.data.model.PredictionModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
+import com.example.lungsguardian.data.model.UploadImageResponseModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.UserSignupModel
@@ -26,7 +28,7 @@ interface IRepo {
 
     /*suspend fun checkIfEmailExists(email: String) :String*/
     suspend fun checkIfEmailExists(email: String, checkCallBack: (String?) -> Unit)
-    suspend fun showProfile(userCallback: (Response<UserResponseModel>?) -> Unit)
+    suspend fun showProfile(userCallback: (Response<CurrentUserDataModel>?) -> Unit)
     suspend fun editName(fullName: String, editCallback: (Response<String>?) -> Unit)
     suspend fun editEmail(email: String, editCallback: (Response<String>?) -> Unit)
     suspend fun changePassword(
@@ -37,4 +39,6 @@ interface IRepo {
     suspend fun sendImageToModel(file :File,modelCallback: (Response<String>?) -> Unit)
     suspend fun showHistory(historyCallback: (Response<HistoryModel>?) -> Unit)
     suspend fun deleteReport(id:Int, deleteCallback: (Response<String>?) -> Unit)
+    suspend fun uploadProfileImage(file :File, uploadCallBack :(Response<UploadImageResponseModel>?)->Unit)
+    suspend fun deleteProfileImage(deleteCallBAck :(Response<String>?)->Unit)
 }

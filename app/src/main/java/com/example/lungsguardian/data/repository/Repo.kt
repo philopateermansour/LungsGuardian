@@ -1,11 +1,13 @@
 package com.example.lungsguardian.data.repository
 
 import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.CurrentUserDataModel
 import com.example.lungsguardian.data.model.Email
 import com.example.lungsguardian.data.model.HistoryModel
 import com.example.lungsguardian.data.model.Name
 import com.example.lungsguardian.data.model.PredictionModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
+import com.example.lungsguardian.data.model.UploadImageResponseModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.UserSignupModel
@@ -64,7 +66,7 @@ class Repo @Inject constructor(private val getCalls: CallsApi, private val getMl
         getCalls.checkIfEmailExists(email)
     }*/
 
-    override suspend fun showProfile(userCallback: (Response<UserResponseModel>?) -> Unit) =
+    override suspend fun showProfile(userCallback: (Response<CurrentUserDataModel>?) -> Unit) =
         withContext(Dispatchers.IO) {
             val response = getCalls.showProfile()
             userCallback.invoke(response)
@@ -120,5 +122,24 @@ class Repo @Inject constructor(private val getCalls: CallsApi, private val getMl
     {
         val response = getCalls.deleteReport(id)
         deleteCallback.invoke(response)
+    }
+
+    override suspend fun uploadProfileImage(
+        file: File,
+        uploadCallBack: (Response<UploadImageResponseModel>?) -> Unit
+    )    = withContext(Dispatchers.IO)
+    {
+        val response = getCalls.uploadProfileImage(
+            imageFile = MultipartBody.Part.createFormData(
+                "imageFile",file.name,file.asRequestBody()
+            )
+        )
+        uploadCallBack.invoke(response)
+    }
+
+    override suspend fun deleteProfileImage(deleteCallBAck: (Response<String>?) -> Unit) =
+        withContext(Dispatchers.IO) {
+        val response = getCalls.deleteProfileImage()
+            deleteCallBAck.invoke(response)
     }
 }

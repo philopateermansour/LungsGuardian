@@ -56,7 +56,7 @@ class HistoryFragment : Fragment() {
             binding.recyclerHistory.adapter=historyAdapter
         }
         historyViewModel.deleteLiveData.observe(viewLifecycleOwner){
-            historyViewModel.showHistory()
+            historyAdapter.notifyDataSetChanged()
         }
     }
 

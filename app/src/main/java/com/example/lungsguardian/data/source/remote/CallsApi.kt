@@ -1,12 +1,14 @@
 package com.example.lungsguardian.data.source.remote
 
 import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.CurrentUserDataModel
 import com.example.lungsguardian.data.model.Email
 import com.example.lungsguardian.data.model.HistoryModel
 import com.example.lungsguardian.data.model.Name
 import com.example.lungsguardian.data.model.PredictionModel
 import com.example.lungsguardian.data.model.UserResponseModel
 import com.example.lungsguardian.data.model.ResetPasswordModel
+import com.example.lungsguardian.data.model.UploadImageResponseModel
 import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.data.model.UserSignupModel
 import okhttp3.MultipartBody
@@ -47,7 +49,7 @@ interface CallsApi {
     ):String
 
     @GET("CurrentUser")
-    suspend fun  showProfile() :Response<UserResponseModel>
+    suspend fun  showProfile() :Response<CurrentUserDataModel>
 
     @PUT("EditProfile")
     suspend fun editName(
@@ -80,4 +82,13 @@ interface CallsApi {
     suspend fun deleteReport(
         @Query("predictionId") predictionId:Int
     ):Response<String>
+
+    @Multipart
+    @POST("UploadImage")
+    suspend fun uploadProfileImage(
+        @Part imageFile:MultipartBody.Part
+    ):Response<UploadImageResponseModel>
+
+    @DELETE("DeleteImage")
+    suspend fun deleteProfileImage():Response<String>
 }
