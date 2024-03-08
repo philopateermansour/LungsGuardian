@@ -1,9 +1,8 @@
 package com.example.lungsguardian.di
 
-import com.bumptech.glide.provider.ResourceEncoderRegistry
 import com.example.lungsguardian.data.repository.IRepo
 import com.example.lungsguardian.data.repository.Repo
-import com.example.lungsguardian.data.source.remote.AuthApi
+import com.example.lungsguardian.data.source.remote.CallsApi
 import com.example.lungsguardian.data.source.remote.MlApi
 import com.example.lungsguardian.utils.BASE_URL_BACK
 import com.example.lungsguardian.utils.BASE_URL_ML
@@ -89,8 +88,8 @@ object DiModule {
     }
     @Singleton
     @Provides
-    fun getCalls(@Named(RETROFIT_FOR_BACK) retrofit: Retrofit):AuthApi{
-        return retrofit.create(AuthApi::class.java)
+    fun getCalls(@Named(RETROFIT_FOR_BACK) retrofit: Retrofit):CallsApi{
+        return retrofit.create(CallsApi::class.java)
     }
 
     @Singleton
@@ -101,7 +100,7 @@ object DiModule {
 
     @Singleton
     @Provides
-    fun getIRep(apiCalls: AuthApi,mlApi:MlApi): IRepo {
+    fun getIRep(apiCalls: CallsApi, mlApi:MlApi): IRepo {
         return Repo(apiCalls,mlApi)
     }
 }
