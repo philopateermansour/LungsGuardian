@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.lungsguardian.data.model.Value
@@ -44,6 +45,17 @@ class HistoryFragment : Fragment() {
             override fun onClick(id: Int) {
                 historyViewModel.deleteReport(id)
             }
+        }
+        binding.searchBar.doAfterTextChanged{
+            val query = it.toString()
+            if (query.isEmpty()){
+                reportsList.let { it1 -> historyAdapter.setData(it1) }
+                return@doAfterTextChanged
+            }
+            val newList = reportsList.filter {
+                it.caption.lowercase().contains(query.lowercase())
+            }
+            historyAdapter.setData(newList as ArrayList<Value>)
         }
     }
     private fun observers() {
