@@ -66,7 +66,7 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
             repo.checkIfEmailExists(email) {
                 if (it!!.equals(FALSE)){
                 _loginValidate.postValue(it)}
-                else if (it!!.equals(TRUE)){
+                else if (it.equals(TRUE)){
                     _loginValidate.postValue(it)
             }}
 
