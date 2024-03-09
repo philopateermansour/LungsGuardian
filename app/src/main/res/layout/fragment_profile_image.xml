@@ -7,6 +7,20 @@
     tools:context=".ui.auth.image.ProfileImageFragment"
     android:background="@color/white_to_black">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/dark_gray"
+        app:layout_constraintTop_toTopOf="@id/cardViewProfilePic"
+        app:layout_constraintBottom_toBottomOf="@id/cardViewProfilePic"
+        app:layout_constraintLeft_toLeftOf="@id/cardViewProfilePic"
+        app:layout_constraintRight_toRightOf="@id/cardViewProfilePic"
+        android:visibility="gone"
+        android:elevation="@dimen/_25sdp"
+        />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
