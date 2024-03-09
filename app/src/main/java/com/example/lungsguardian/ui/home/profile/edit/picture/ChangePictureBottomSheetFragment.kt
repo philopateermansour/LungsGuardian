@@ -60,22 +60,26 @@ class ChangePictureBottomSheetFragment:BottomSheetDialogFragment() {
         }
         binding.textRemove.setOnClickListener {
             changePictureViewModel.deleteProfileImage()
+            binding.progressBar.visibility=View.VISIBLE
         }
     }
 
     private fun observers() {
         changePictureViewModel.errorLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility=View.GONE
         }
         changePictureViewModel.uploadImageLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, "Profile picture changed ", Toast.LENGTH_SHORT).show()
             dismiss()
             homeSharedViewModel.isProfileChanged.value=true
+            binding.progressBar.visibility=View.GONE
         }
         changePictureViewModel.deleteImageLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, it.body(), Toast.LENGTH_SHORT).show()
             dismiss()
             homeSharedViewModel.isProfileChanged.value=true
+            binding.progressBar.visibility=View.GONE
         }
     }
 
@@ -100,6 +104,7 @@ class ChangePictureBottomSheetFragment:BottomSheetDialogFragment() {
                     uriImage = data?.data
                     fileImage=commonFunctions.uriToFile(requireContext(),uriImage!!)
                     changePictureViewModel.uploadProfileImage(fileImage!!)
+                    binding.progressBar.visibility=View.VISIBLE
                 }} catch (e: Exception){
                 Toast.makeText(activity, "${e.localizedMessage}, try again", Toast.LENGTH_SHORT)
                     .show()

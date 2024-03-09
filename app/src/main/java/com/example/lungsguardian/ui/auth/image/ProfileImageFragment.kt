@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -45,6 +46,11 @@ class ProfileImageFragment : Fragment() {
         _binding = FragmentProfileImageBinding.bind(view)
         onClicks()
         observers()
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            val intent = Intent(activity, HomeActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
     }
 
 
@@ -54,6 +60,7 @@ class ProfileImageFragment : Fragment() {
         }
         binding.textRemove.setOnClickListener {
             changePictureViewModel.deleteProfileImage()
+            binding.progressBar.visibility=View.VISIBLE
         }
         binding.btnStart.setOnClickListener {
             val intent = Intent(activity, HomeActivity::class.java)
@@ -64,15 +71,19 @@ class ProfileImageFragment : Fragment() {
     private fun observers() {
         changePictureViewModel.errorLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            binding.progressBar.visibility=View.GONE
         }
         changePictureViewModel.uploadImageLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, "Profile picture changed ", Toast.LENGTH_SHORT).show()
             Glide.with(binding.root.context).load("$BASE_URL_IMAGE${it.body()?.uploadedImage}")
                 .into(binding.profilePic)
+            binding.progressBar.visibility=View.GONE
+
         }
         changePictureViewModel.deleteImageLiveData.observe(viewLifecycleOwner){
             Toast.makeText(context, it.body(), Toast.LENGTH_SHORT).show()
-
+            binding.progressBar.visibility=View.GONE
+            binding.profilePic.setImageResource(R.drawable.user_profile)
         }
     }
     private fun openGallery() {
@@ -95,6 +106,7 @@ class ProfileImageFragment : Fragment() {
                     uriImage = data?.data
                     fileImage=commonFunctions.uriToFile(requireContext(),uriImage!!)
                     changePictureViewModel.uploadProfileImage(fileImage!!)
+                    binding.progressBar.visibility=View.VISIBLE
                 }} catch (e: Exception){
                 Toast.makeText(activity, "${e.localizedMessage}, try again", Toast.LENGTH_SHORT)
                     .show()
