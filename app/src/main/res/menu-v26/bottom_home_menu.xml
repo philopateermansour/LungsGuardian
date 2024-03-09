@@ -8,9 +8,11 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/homewhite"
-        android:title="@string/home"/>
+        android:title="@string/home"
+        android:iconTint="@color/dark_gray"/>
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/history"
-        android:title="@string/history"/>
+        android:title="@string/history"
+        android:iconTint="@color/dark_gray"/>
 </menu>

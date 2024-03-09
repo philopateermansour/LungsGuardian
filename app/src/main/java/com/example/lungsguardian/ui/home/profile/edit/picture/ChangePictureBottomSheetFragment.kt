@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.lungsguardian.R
-import com.example.lungsguardian.databinding.BottomShetFragmentChangePictureBinding
+import com.example.lungsguardian.databinding.BottomSheetFragmentChangePictureBinding
 import com.example.lungsguardian.ui.auth.image.ChangePictureViewModel
 import com.example.lungsguardian.ui.home.activity.HomeSharedViewModel
 import com.example.lungsguardian.utils.CommonFunctions
@@ -24,7 +24,7 @@ import java.io.File
 @AndroidEntryPoint
 class ChangePictureBottomSheetFragment:BottomSheetDialogFragment() {
 
-    private var _binding : BottomShetFragmentChangePictureBinding?=null
+    private var _binding : BottomSheetFragmentChangePictureBinding?=null
     private val binding get() = _binding!!
     private var uriImage: Uri? = null
     private var fileImage : File? = null
@@ -43,12 +43,12 @@ class ChangePictureBottomSheetFragment:BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.bottom_shet_fragment_change_picture,container,false)
+        return inflater.inflate(R.layout.bottom_sheet_fragment_change_picture,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding= BottomShetFragmentChangePictureBinding.bind(view)
+        _binding= BottomSheetFragmentChangePictureBinding.bind(view)
         onClicks()
         observers()
     }

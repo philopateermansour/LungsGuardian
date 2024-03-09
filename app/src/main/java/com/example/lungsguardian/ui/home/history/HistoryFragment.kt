@@ -40,11 +40,22 @@ class HistoryFragment : Fragment() {
         onClicks()
     }
 
+    private fun enableDelete() {
+        if (reportsList.isEmpty()){
+            binding.btnDeleteHistory.visibility=View.GONE
+        } else if(reportsList.isNotEmpty()){
+            binding.btnDeleteHistory.visibility=View.VISIBLE
+        }
+    }
+
     private fun onClicks() {
-        historyAdapter.onItemClick = object :AdapterHistoryRecyclerView.OnItemClick{
+        /*historyAdapter.onItemClick = object :AdapterHistoryRecyclerView.OnItemClick{
             override fun onClick(id: Int) {
 
             }
+        }*/
+        binding.btnDeleteHistory.setOnClickListener {
+            historyViewModel.deleteReports()
         }
         binding.searchBar.doAfterTextChanged{
             val query = it.toString()
@@ -66,9 +77,12 @@ class HistoryFragment : Fragment() {
             reportsList = it.body()?.`$values` as ArrayList<Value>
             historyAdapter.setData(reportsList)
             binding.recyclerHistory.adapter=historyAdapter
+            enableDelete()
         }
         historyViewModel.deleteLiveData.observe(viewLifecycleOwner){
-            historyAdapter.notifyDataSetChanged()
+            historyViewModel.showHistory()
+            reportsList.clear()
+            enableDelete()
         }
     }
 
