@@ -117,10 +117,9 @@ class Repo @Inject constructor(private val getCalls: CallsApi, private val getMl
         historyCallback.invoke(response)
     }
 
-    override suspend fun deleteReport(id:Int,deleteCallback: (Response<String>?) -> Unit)
-    = withContext(Dispatchers.IO)
+    override suspend fun deleteReports(deleteCallback: (Response<String>?) -> Unit)  = withContext(Dispatchers.IO)
     {
-        val response = getCalls.deleteReport(id)
+        val response = getCalls.deleteReports()
         deleteCallback.invoke(response)
     }
 

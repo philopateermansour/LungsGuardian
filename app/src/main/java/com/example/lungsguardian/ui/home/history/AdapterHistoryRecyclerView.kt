@@ -15,7 +15,7 @@ import java.time.LocalDate
 class AdapterHistoryRecyclerView : RecyclerView.Adapter<AdapterHistoryRecyclerView.Holder>() {
 
     var reportList: ArrayList<Value> = ArrayList()
-    var onItemClick: OnItemClick?=null
+   // var onItemClick: OnItemClick?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return Holder(ItemReportBinding.inflate(LayoutInflater.from(parent.context)
@@ -53,15 +53,16 @@ class AdapterHistoryRecyclerView : RecyclerView.Adapter<AdapterHistoryRecyclerVi
             }
             itemReportBinding.textReport.text = value.caption
         }
-        init {
+       /* init {
             itemReportBinding.root.setOnClickListener{
 
                 onItemClick?.onClick(reportList[layoutPosition].`$id`.toInt())
 
                 notifyDataSetChanged()
             }
-        }
+        }*/
     }
-    interface OnItemClick{
+    /*interface OnItemClick{
         fun onClick(id: Int)
-    }}
+    }*/
+}

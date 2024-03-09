@@ -43,10 +43,10 @@ class HistoryViewModel  @Inject constructor(private val repo:IRepo)  : ViewModel
             }
         }
     }
-    fun deleteReport(id:Int){
+    fun deleteReports(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repo.deleteReport(id){
+                repo.deleteReports{
                     if (it?.code()==200){
                         _deleteLiveData.postValue(it)
                     }else{

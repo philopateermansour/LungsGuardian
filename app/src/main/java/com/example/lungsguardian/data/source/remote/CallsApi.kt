@@ -79,8 +79,7 @@ interface CallsApi {
 
 
     @DELETE("DeletePrediction")
-    suspend fun deleteReport(
-        @Query("predictionId") predictionId:Int
+    suspend fun deleteReports(
     ):Response<String>
 
     @Multipart

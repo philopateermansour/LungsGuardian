@@ -38,7 +38,7 @@ interface IRepo {
     )
     suspend fun sendImageToModel(file :File,modelCallback: (Response<String>?) -> Unit)
     suspend fun showHistory(historyCallback: (Response<HistoryModel>?) -> Unit)
-    suspend fun deleteReport(id:Int, deleteCallback: (Response<String>?) -> Unit)
+    suspend fun deleteReports( deleteCallback: (Response<String>?) -> Unit)
     suspend fun uploadProfileImage(file :File, uploadCallBack :(Response<UploadImageResponseModel>?)->Unit)
     suspend fun deleteProfileImage(deleteCallBAck :(Response<String>?)->Unit)
 }
