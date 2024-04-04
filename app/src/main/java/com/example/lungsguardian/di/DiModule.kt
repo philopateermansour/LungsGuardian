@@ -35,10 +35,10 @@ object DiModule {
     @Named(RETROFIT_FOR_BACK)
     fun getRetrofitForBack(): Retrofit {
         val client = OkHttpClient.Builder()
-            .connectTimeout(50, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(150, TimeUnit.SECONDS)
-            .readTimeout(50, TimeUnit.SECONDS)
-            .callTimeout(50, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .callTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(object : Interceptor {
                 override fun intercept(chain: Interceptor.Chain): Response {

@@ -27,15 +27,15 @@
         android:id="@+id/btn_deleteHistory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:backgroundTint="@color/blue"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:backgroundTint="@color/gray"
         android:text="@string/delete_history"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
+        android:clickable="false"
         />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_history"

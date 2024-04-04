@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.lungsguardian.R
 import com.example.lungsguardian.data.model.Value
 import com.example.lungsguardian.databinding.FragmentHistoryBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,16 +44,16 @@ class HistoryFragment : Fragment() {
 
     private fun enableDelete() {
         if (reportsList.isEmpty()){
-            binding.btnDeleteHistory.visibility=View.GONE
+            binding.btnDeleteHistory.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
+            binding.btnDeleteHistory.isClickable=false
         } else if(reportsList.isNotEmpty()){
-            binding.btnDeleteHistory.visibility=View.VISIBLE
+            binding.btnDeleteHistory.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.blue)
+            binding.btnDeleteHistory.isClickable=true
         }
     }
-
     private fun onClicks() {
         /*historyAdapter.onItemClick = object :AdapterHistoryRecyclerView.OnItemClick{
             override fun onClick(id: Int) {
-
             }
         }*/
         binding.btnDeleteHistory.setOnClickListener {
@@ -86,11 +88,9 @@ class HistoryFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }
