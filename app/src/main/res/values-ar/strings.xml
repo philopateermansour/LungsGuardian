@@ -50,4 +50,5 @@
     <string name="start">start</string>
     <string name="search_in_reports">Search in reports</string>
     <string name="delete_history">Delete History</string>
+    <string name="generating_report">Generating Report</string>
 </resources>
