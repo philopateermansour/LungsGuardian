@@ -52,4 +52,5 @@
     <string name="search_in_reports">البحث في التقارير</string>
     <string name="delete_history">حذف السجل</string>
     <string name="generating_report">جاري إنشاء التقرير</string>
+    <string name="translate">ترجمها باستخدام جوجل</string>
 </resources>

@@ -26,5 +26,8 @@
             app:argType="string" />
         <argument android:name="image"
             app:argType="android.net.Uri" />
+        <argument
+            android:name="arabicCaption"
+            app:argType="string" />
     </fragment>
 </navigation>

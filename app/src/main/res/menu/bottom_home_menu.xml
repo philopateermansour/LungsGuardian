@@ -12,5 +12,5 @@
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/history"
-        android:title="@string/history"/>
+        android:title="History"/>
 </menu>

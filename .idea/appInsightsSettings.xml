@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.lungsguardian" />
+                  <option name="mobileSdkAppId" value="1:380489913173:android:53c8df6d72ef250b2195dc" />
+                  <option name="projectId" value="lungs-guardian-420f0" />
+                  <option name="projectNumber" value="380489913173" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

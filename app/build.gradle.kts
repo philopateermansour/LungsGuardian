@@ -6,6 +6,8 @@ plugins {
     id("kotlin-kapt")
     //hilt
     id("com.google.dagger.hilt.android")
+    //firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -83,6 +85,10 @@ dependencies {
     implementation ("com.airbnb.android:lottie:3.4.1")
     //interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    //firebase
+    implementation (platform("com.google.firebase:firebase-bom:32.8.0"))
+    //firebase translation
+    implementation ("com.google.mlkit:translate:17.0.2")
 }
 kapt {
     correctErrorTypes = true
