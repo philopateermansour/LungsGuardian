@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "380489913173",
+    "project_id": "lungs-guardian-420f0",
+    "storage_bucket": "lungs-guardian-420f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380489913173:android:53c8df6d72ef250b2195dc",
+        "android_client_info": {
+          "package_name": "com.example.lungsguardian"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBndnxtdH0IRA8XZzr-1wB3vWsyAo9EHQk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -40,6 +40,7 @@ class AdapterHistoryRecyclerView : RecyclerView.Adapter<AdapterHistoryRecyclerVi
         reportList=newReportList
         diffResults.dispatchUpdatesTo(this)
     }
+
     inner class Holder(private val itemReportBinding: ItemReportBinding) :
         RecyclerView.ViewHolder(itemReportBinding.root) {
         fun bind(value: Value) {
