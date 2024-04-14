@@ -99,4 +99,7 @@
     <string name="delete_history">Delete History</string>
     <string name="generating_report">Generating Report</string>
     <string name="translate">ترجمها باستخدام جوجل</string>
+    <string name="check_the_photo">check the photo</string>
+    <string name="generate_report">Generate report</string>
+    <string name="back_to_home">Back to home</string>
 </resources>

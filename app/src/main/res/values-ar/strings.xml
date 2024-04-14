@@ -53,4 +53,7 @@
     <string name="delete_history">حذف السجل</string>
     <string name="generating_report">جاري إنشاء التقرير</string>
     <string name="translate">ترجمها باستخدام جوجل</string>
+    <string name="check_the_photo">تحقق من الصورة</string>
+    <string name="generate_report">انشاء تقرير</string>
+    <string name="back_to_home">العودة إلى الصفحة الرئيسية</string>
 </resources>
