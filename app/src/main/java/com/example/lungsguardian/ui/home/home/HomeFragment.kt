@@ -100,19 +100,13 @@ class HomeFragment : Fragment() {
                         bitmapImage=(data.extras?.getParcelable("data",) as Bitmap?)!!
                         fileImage=commonFunctions.bitmapToFile(requireContext(),bitmapImage!!)
                         uriImage=commonFunctions.bitmapToUri(requireContext(), bitmapImage!!)
-                        val intent = Intent(activity, ReportActivity::class.java)
-                        intent.putExtra(IMAGE_URI,uriImage)
-                        intent.putExtra(IMAGE_FILE,fileImage)
-                        startActivity(intent)
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCheckFragment(uriImage!!,fileImage!!))
                     }
                     else{
                         uriImage = data.data
                         fileImage=commonFunctions.uriToFile(requireContext(),uriImage!!)
-                        val intent = Intent(activity, ReportActivity::class.java)
-                        intent.putExtra(IMAGE_URI,uriImage)
-                        intent.putExtra(IMAGE_FILE,fileImage)
-                        startActivity(intent)                    }
-
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCheckFragment(uriImage!!,fileImage!!))
+                    }
                 } else {
                     Toast.makeText(activity, "Something went wrong try again", Toast.LENGTH_SHORT)
                         .show()
