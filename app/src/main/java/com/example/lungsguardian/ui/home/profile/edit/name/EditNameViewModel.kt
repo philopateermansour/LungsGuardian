@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lungsguardian.data.model.Name
 import com.example.lungsguardian.data.repository.IRepo
 import com.example.lungsguardian.utils.MySharedPreferences
-import com.example.lungsguardian.utils.USER_EMAIL
+import com.example.lungsguardian.utils.USER_NAME
 import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_INVALID
 import com.example.lungsguardian.utils.VALIDATE_FULL_NAME_NULL
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,7 +40,7 @@ class EditNameViewModel @Inject constructor(private val repo: IRepo) : ViewModel
                 repo.editName(name) {
                     if (it?.code() == 200) {
                         _editNameResponseLiveData.postValue(it)
-                        Log.d("TAG", "editName: ")
+                        MySharedPreferences.setInShared(USER_NAME,name)
                     } else {
                         _validateLiveData.postValue(it?.message())
                     }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.auth.image.ProfileImageFragment"
-    android:background="@color/white_to_black">
+    android:background="@drawable/gradient_img">
 
     <ProgressBar
         android:id="@+id/progressBar"

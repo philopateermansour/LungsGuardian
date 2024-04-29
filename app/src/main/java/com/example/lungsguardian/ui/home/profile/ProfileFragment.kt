@@ -1,6 +1,7 @@
 package com.example.lungsguardian.ui.home.profile
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
@@ -89,10 +90,21 @@ class ProfileFragment : Fragment()  {
             }
         }
         binding.logoutCardView.setOnClickListener {
-            MySharedPreferences.clearShared()
-            val intent = Intent(activity, AuthenticationScreen::class.java)
-            startActivity(intent)
-            activity?.finish()
+
+            AlertDialog.Builder(activity)
+                .setMessage("Log out of your account?")
+                .setPositiveButton(
+                    "LOG OUT"
+                ) { p0, p1 ->
+                    MySharedPreferences.clearShared()
+                    val intent = Intent(activity, AuthenticationScreen::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }.setNegativeButton(
+                    "CANCEL"
+                ) { p0, p1 -> }
+                .create()
+                .show()
         }
     }
 

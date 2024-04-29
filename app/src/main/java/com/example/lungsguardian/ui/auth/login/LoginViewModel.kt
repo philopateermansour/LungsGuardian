@@ -13,6 +13,7 @@ import com.example.lungsguardian.utils.LOGGED_IN
 import com.example.lungsguardian.utils.LOGGED_STATE
 import com.example.lungsguardian.utils.MySharedPreferences
 import com.example.lungsguardian.utils.TRUE
+import com.example.lungsguardian.utils.USER_NAME
 import com.example.lungsguardian.utils.USER_TOKEN
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL
@@ -81,6 +82,7 @@ class LoginViewModel @Inject constructor(private val repo: IRepo) : ViewModel() 
 private fun cacheUserDate(it: Response<UserResponseModel>?) {
     MySharedPreferences.setInShared(USER_TOKEN, it?.body()!!.token)
     MySharedPreferences.setInShared(LOGGED_STATE, LOGGED_IN)
+    MySharedPreferences.setInShared(USER_NAME,it.body()!!.fullName)
 }
 
 private fun isEmailValid(email: String): Boolean {

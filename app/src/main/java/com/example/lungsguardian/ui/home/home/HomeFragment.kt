@@ -2,13 +2,10 @@ package com.example.lungsguardian.ui.home.home
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -16,24 +13,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.databinding.FragmentHomeBinding
-import com.example.lungsguardian.ui.report.ReportActivity
-import com.example.lungsguardian.ui.report.showLoading.LoadingViewModel
 import com.example.lungsguardian.utils.CommonFunctions
-import com.example.lungsguardian.utils.HOME
-import com.example.lungsguardian.utils.IMAGE_FILE
-import com.example.lungsguardian.utils.IMAGE_URI
-import com.example.lungsguardian.utils.SOURCE
+import com.example.lungsguardian.utils.MySharedPreferences
+import com.example.lungsguardian.utils.USER_NAME
+import com.example.lungsguardian.utils.USER_TOKEN
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -52,12 +39,11 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.textName.text="Hello, ${MySharedPreferences.getFromShared(USER_NAME)}"
         onClicks()
     }
-
 
     private fun onClicks() {
         binding.cardGallery.setOnClickListener {
@@ -67,8 +53,6 @@ class HomeFragment : Fragment() {
             captureByCamera()
         }
     }
-
-
 
     private fun captureByCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)

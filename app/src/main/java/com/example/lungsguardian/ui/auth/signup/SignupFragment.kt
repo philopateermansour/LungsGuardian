@@ -39,7 +39,6 @@ class SignupFragment : Fragment() {
     private val binding get() = _binding!!
     private val signupViewModel: SignupViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +47,6 @@ class SignupFragment : Fragment() {
         _binding = FragmentSignupBinding.inflate(inflater,container,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClicks()
@@ -86,7 +84,6 @@ class SignupFragment : Fragment() {
             binding.inputTextPasswordConfirm.error=""
         }
     }
-
     private fun observers() {
         signupViewModel.signUpValidate.observe(viewLifecycleOwner) {
             if (it.equals(VALIDATE_EMAIL_NULL)) {
