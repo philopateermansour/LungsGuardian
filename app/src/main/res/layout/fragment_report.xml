@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.report.showReport.ReportFragment"
-    android:background="@color/white_to_black"
-    android:layout_marginHorizontal="@dimen/_5sdp">
+    android:background="@drawable/gradient_img"
+    android:paddingHorizontal="@dimen/_5sdp">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guide_10"
         android:layout_width="wrap_content"

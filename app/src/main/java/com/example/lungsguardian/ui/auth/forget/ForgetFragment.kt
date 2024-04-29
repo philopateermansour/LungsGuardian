@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.lungsguardian.R
-import com.example.lungsguardian.data.model.UserLoginModel
 import com.example.lungsguardian.databinding.FragmentForgetBinding
 import com.example.lungsguardian.utils.EMAIL_NOT_REGISTERED
 import com.example.lungsguardian.utils.FALSE
 import com.example.lungsguardian.utils.SEND_CODE_DONE
-import com.example.lungsguardian.utils.SEND_CODE_Failed
 import com.example.lungsguardian.utils.TRUE
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_INVALID
 import com.example.lungsguardian.utils.VALIDATE_EMAIL_NULL

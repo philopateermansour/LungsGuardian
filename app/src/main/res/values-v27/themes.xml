@@ -8,7 +8,8 @@
         <item name="colorPrimaryVariant">@color/blue</item>
         <item name="colorOnPrimary">@color/white_to_black</item>
         <item name="android:windowBackground">@color/white_to_black</item>
-        <item name="android:statusBarColor">@color/blue</item>
+        <item name="android:statusBarColor">@color/white_to_black</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:navigationBarColor">@color/transparency</item>
         <item name="android:windowLightNavigationBar">true</item>
 
