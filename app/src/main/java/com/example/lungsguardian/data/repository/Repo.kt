@@ -99,7 +99,7 @@ class Repo @Inject constructor(private val getCalls: CallsApi, private val getMl
 
     override suspend fun sendImageToModel(
         file: File,
-        modelCallback: (Response<String>?) -> Unit
+        modelCallback: (Response<PredictionModel>?) -> Unit
     )
             = withContext(Dispatchers.IO)
     {

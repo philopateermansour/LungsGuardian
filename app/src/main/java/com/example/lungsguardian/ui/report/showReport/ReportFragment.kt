@@ -60,11 +60,11 @@ class ReportFragment : Fragment() {
         }
         binding.btnTranslate.setOnClickListener {
             if (binding.btnTranslate.text== GO_TO_ARABIC){
-            binding.caption.text=arabicCaption.substring(3, arabicCaption.length - 7)
+            binding.caption.text=arabicCaption
             binding.btnTranslate.text= BACK_TO_ENGLISH
             }
             else if ( binding.btnTranslate.text == BACK_TO_ENGLISH){
-                binding.caption.text=receivedCaption.substring(3, receivedCaption.length - 5)
+                binding.caption.text=receivedCaption
                 binding.btnTranslate.text=GO_TO_ARABIC
             }
         }
@@ -79,8 +79,7 @@ class ReportFragment : Fragment() {
     }
     private fun showReport(receivedImage: Uri, receivedCaption: String) {
         binding.imageXray.setImageURI(receivedImage)
-        val filteredString = receivedCaption.substring(3, receivedCaption.length - 5)
-        binding.caption.text = filteredString
+        binding.caption.text = receivedCaption
     }
 
     override fun onDestroyView() {

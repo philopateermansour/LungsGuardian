@@ -1,5 +1,7 @@
 package com.example.lungsguardian.data.model
 
 data class PredictionModel(
-    val caption: String
+    val `$id`: String,
+    val caption: String,
+    val predicted_label: String
 )

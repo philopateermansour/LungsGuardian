@@ -36,7 +36,7 @@ interface IRepo {
         newPassword: String,
         passwordCallback: (Response<String>?) -> Unit
     )
-    suspend fun sendImageToModel(file :File,modelCallback: (Response<String>?) -> Unit)
+    suspend fun sendImageToModel(file :File,modelCallback: (Response<PredictionModel>?) -> Unit)
     suspend fun showHistory(historyCallback: (Response<HistoryModel>?) -> Unit)
     suspend fun deleteReports( deleteCallback: (Response<String>?) -> Unit)
     suspend fun uploadProfileImage(file :File, uploadCallBack :(Response<UploadImageResponseModel>?)->Unit)
