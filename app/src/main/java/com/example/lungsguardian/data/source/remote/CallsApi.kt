@@ -70,7 +70,7 @@ interface CallsApi {
     @POST("SendImageAndPredict")
     suspend fun sendImageToMl(
         @Part image : MultipartBody.Part
-    ): Response<String>
+    ): Response<PredictionModel>
 
     @GET("PredictionHistory")
     suspend fun showHistory(

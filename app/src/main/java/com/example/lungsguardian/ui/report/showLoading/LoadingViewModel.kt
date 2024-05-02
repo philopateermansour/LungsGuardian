@@ -19,7 +19,7 @@ class LoadingViewModel @Inject constructor(private val repo: IRepo) : ViewModel(
 
     private val _modelValidate = MutableLiveData<String>()
     val modelValidate get() = _modelValidate
-    private val _responseLiveData = MutableLiveData<Response<String>>()
+    private val _responseLiveData = MutableLiveData<Response<PredictionModel>>()
     val responseLiveData get() = _responseLiveData
 
     fun sendImageToModel(file: File) {

@@ -90,7 +90,7 @@ class LoadingFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         loadingViewModel.responseLiveData.observe(viewLifecycleOwner){
-            englishCaption=it.body()!!
+            englishCaption=it.body()?.caption!!
             if (language == ARABIC){
             prepareTranslateModel(englishCaption,uriImage)}
             else {
