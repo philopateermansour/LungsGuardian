@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rounded_gray_strock"
-
         >
 
 
@@ -35,7 +34,7 @@
             android:layout_margin="@dimen/_10sdp"
             tools:src="@drawable/image_eye"
             />
-        <TextView
+        <!--<TextView
             android:id="@+id/text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/guide_horizontal_50"
             android:textSize="@dimen/_11sdp"
-            tools:text="01_23_2003"/>
+            tools:text="01_23_2003"/>-->
         <TextView
             android:id="@+id/text_report"
             android:layout_width="0dp"
@@ -53,12 +52,11 @@
             app:layout_constraintStart_toEndOf="@id/image_report"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/guide_horizontal_50"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guide_horizontal_50"
             android:textSize="@dimen/_10sdp"
             tools:text="There is mild cardiomegaly. The lungs are clear without focal airspace opacity, pleural effusion, or pneumothorax. The osseous structures are intact."
             android:padding="@dimen/_2sdp"
             android:fontFamily="@font/archivo"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

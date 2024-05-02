@@ -22,6 +22,7 @@ class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
+
     private val historyViewModel :HistoryViewModel by viewModels()
     private val historyAdapter:AdapterHistoryRecyclerView by lazy { AdapterHistoryRecyclerView() }
     private var reportsList : ArrayList<Value> = ArrayList()
@@ -92,5 +93,4 @@ class HistoryFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
