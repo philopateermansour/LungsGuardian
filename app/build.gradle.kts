@@ -72,7 +72,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    //For serialising JSONP add converter-scalars
+    //For serialising JSON add converter-scalars
     implementation ("com.squareup.retrofit2:converter-scalars:2.1.0")
     //circular image
     implementation ("de.hdodenhof:circleimageview:3.1.0")
@@ -86,7 +86,7 @@ dependencies {
     //interceptor
     implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
     //firebase
-    implementation (platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation (platform("com.google.firebase:firebase-bom:32.8.1"))
     //firebase translation
     implementation ("com.google.mlkit:translate:17.0.2")
 }

@@ -25,7 +25,6 @@ class AdapterHistoryRecyclerView : RecyclerView.Adapter<AdapterHistoryRecyclerVi
     override fun getItemCount(): Int {
         return reportList.size
     }
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(reportList[position])
     }
@@ -47,13 +46,15 @@ class AdapterHistoryRecyclerView : RecyclerView.Adapter<AdapterHistoryRecyclerVi
             Glide.with(itemReportBinding.root.context)
                 .load("$BASE_URL_IMAGE${value.image}")
                 .into(itemReportBinding.imageReport)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 itemReportBinding.textDate.text = LocalDate.now().toString()
             } else {
                 itemReportBinding.textDate.text = value.`$id`
-            }
+            }*/
             itemReportBinding.textReport.text = value.caption
         }
+
        /* init {
             itemReportBinding.root.setOnClickListener{
 
