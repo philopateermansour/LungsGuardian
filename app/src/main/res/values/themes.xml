@@ -9,6 +9,7 @@
         <item name="android:windowBackground">@color/white_to_black</item>
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:navigationBarColor">@color/gray</item>
+        <item name="isLightTheme">true</item>
 
     </style>
 
