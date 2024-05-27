@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/_5sdp"
     tools:context=".ui.home.check.CheckFragment"
-    android:background="@drawable/gradient_img">
+    android:background="@color/white_to_black">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_guide_10"
         android:layout_width="wrap_content"
