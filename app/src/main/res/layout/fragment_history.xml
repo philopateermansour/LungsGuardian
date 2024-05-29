@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.history.HistoryFragment"
-    android:background="@drawable/gradient_img">
+    android:background="@color/white_to_black">
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="0dp"

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:isScrollContainer="false"
-    android:background="@drawable/gradient_img"
+    android:background="@color/white_to_black"
     tools:context=".ui.auth.reset.ResetFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
