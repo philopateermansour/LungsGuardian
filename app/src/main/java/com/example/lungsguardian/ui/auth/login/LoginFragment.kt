@@ -81,7 +81,7 @@ class LoginFragment : Fragment() {
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
-                Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextEmailLogin.error=VALIDATE_EMAIL_INVALID
                 binding.progressBar.visibility= View.GONE
                 binding.btnLogin.setText(R.string.login)
             } else if(it.equals(FALSE)){

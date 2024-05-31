@@ -65,4 +65,10 @@
     <string name="check_the_photo">check the photo</string>
     <string name="generate_report">Generate report</string>
     <string name="back_to_home">Back to home</string>
+    <string name="confirm_code">Confirmation Code</string>
+    <string name="log_out_of_your_account">Log out of your account?</string>
+    <string name="log_out">LOG OUT</string>
+    <string name="cancel">CANCEL</string>
+    <string name="invalid_Code">Invalid Code</string>
+
 </resources>

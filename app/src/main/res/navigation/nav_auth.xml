@@ -59,5 +59,22 @@
         android:id="@+id/profileImageFragment"
         android:name="com.example.lungsguardian.ui.auth.image.ProfileImageFragment"
         android:label="fragment_profile_image"
-        tools:layout="@layout/fragment_profile_image" />
+        tools:layout="@layout/fragment_profile_image" >
+        <action
+            android:id="@+id/action_profileImageFragment_to_verifyFragment"
+            app:destination="@id/verifyFragment"
+            app:popUpTo="@id/verifyFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyFragment"
+        android:name="com.example.lungsguardian.ui.auth.verification.VerifyFragment"
+        android:label="VerifyFragment" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>
