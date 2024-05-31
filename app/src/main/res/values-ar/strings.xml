@@ -56,4 +56,9 @@
     <string name="check_the_photo">تحقق من الصورة</string>
     <string name="generate_report">انشاء تقرير</string>
     <string name="back_to_home">العودة إلى الصفحة الرئيسية</string>
+    <string name="confirm_code">كود التأكيد</string>
+    <string name="log_out_of_your_account">تسجيل الخروج من حسابك؟</string>
+    <string name="log_out">تسجيل الخروج</string>
+    <string name="cancel">ألغي</string>
+    <string name="invalid_Code">الرمز غير صحيح</string>
 </resources>

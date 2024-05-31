@@ -1,6 +1,7 @@
 package com.example.lungsguardian.data.repository
 
 import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.ConfirmEmailModel
 import com.example.lungsguardian.data.model.CurrentUserDataModel
 import com.example.lungsguardian.data.model.Email
 import com.example.lungsguardian.data.model.HistoryModel
@@ -140,5 +141,19 @@ class Repo @Inject constructor(private val getCalls: CallsApi, private val getMl
         withContext(Dispatchers.IO) {
         val response = getCalls.deleteProfileImage()
             deleteCallBAck.invoke(response)
+    }
+    override suspend fun sendCodeToConfirm(email: String, callBAck: (Response<String>?) -> Unit) =
+        withContext(Dispatchers.IO){
+            val response = getCalls.sendCodeToConfirm(email)
+            callBAck.invoke(response)
+        }
+
+    override suspend fun confirmEmail(
+        email: String,
+        code: String,
+        callBAck: (Response<String>?) -> Unit
+    ) = withContext(Dispatchers.IO){
+        val response=getCalls.confirmEmail(ConfirmEmailModel(code,email))
+        callBAck.invoke(response)
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.lungsguardian.R
 import com.example.lungsguardian.databinding.FragmentProfileImageBinding
@@ -44,17 +45,16 @@ class ProfileImageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentProfileImageBinding.bind(view)
-        onClicks()
+        val email =ProfileImageFragmentArgs.fromBundle(requireArguments()).email
+        onClicks(email)
         observers()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            val intent = Intent(activity, HomeActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            findNavController().navigate(ProfileImageFragmentDirections.actionProfileImageFragmentToVerifyFragment(email))
         }
     }
 
 
-    private fun onClicks() {
+    private fun onClicks(email:String) {
         binding.imageUpload.setOnClickListener {
             openGallery()
         }
@@ -63,9 +63,7 @@ class ProfileImageFragment : Fragment() {
             binding.progressBar.visibility=View.VISIBLE
         }
         binding.btnStart.setOnClickListener {
-            val intent = Intent(activity, HomeActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            findNavController().navigate(ProfileImageFragmentDirections.actionProfileImageFragmentToVerifyFragment(email))
         }
     }
     private fun observers() {

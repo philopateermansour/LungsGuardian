@@ -111,19 +111,19 @@ class SignupFragment : Fragment() {
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             } else if (it.equals(VALIDATE_EMAIL_INVALID)) {
-                Toast.makeText(context, VALIDATE_EMAIL_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextEmailSignUp.error= VALIDATE_EMAIL_INVALID
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             } else if (it.equals(VALIDATE_PHONE_INVALID)) {
-                Toast.makeText(context, VALIDATE_PHONE_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextPhoneNumber.error=VALIDATE_PHONE_INVALID
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             } else if (it.equals(VALIDATE_FULL_NAME_INVALID)) {
-                Toast.makeText(context, VALIDATE_FULL_NAME_INVALID, Toast.LENGTH_SHORT).show()
+                binding.inputTextFullName.error=VALIDATE_FULL_NAME_INVALID
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             } else if (it.equals(VALIDATE_PASSWORD_INVALID)) {
-                Toast.makeText(context, VALIDATE_PASSWORD_INVALID, Toast.LENGTH_LONG).show()
+                binding.inputTextPasswordSignUp.error= VALIDATE_PASSWORD_INVALID
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
             }else if (it.equals(TRUE)) {
@@ -144,8 +144,12 @@ class SignupFragment : Fragment() {
                 binding.btnSignup.setText(R.string.sign_up)
             }
         }
-        signupViewModel.responseLiveData.observe(viewLifecycleOwner) {
-                findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToProfileImageFragment())
+       signupViewModel.responseLiveData.observe(viewLifecycleOwner){
+            signupViewModel.sendCode(binding.editTextEmailSingUp.text.toString().trim())
+        }
+        signupViewModel.responseCode.observe(viewLifecycleOwner) {
+                findNavController().navigate(SignupFragmentDirections.actionSignupFragmentToProfileImageFragment(
+                    binding.editTextEmailSingUp.text.toString().trim()))
                 binding.progressBar.visibility= View.GONE
                 binding.btnSignup.setText(R.string.sign_up)
         }

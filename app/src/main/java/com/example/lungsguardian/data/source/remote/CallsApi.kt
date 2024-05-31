@@ -1,6 +1,7 @@
 package com.example.lungsguardian.data.source.remote
 
 import com.example.lungsguardian.data.model.ChangePasswordModel
+import com.example.lungsguardian.data.model.ConfirmEmailModel
 import com.example.lungsguardian.data.model.CurrentUserDataModel
 import com.example.lungsguardian.data.model.Email
 import com.example.lungsguardian.data.model.HistoryModel
@@ -90,4 +91,13 @@ interface CallsApi {
 
     @DELETE("DeleteImage")
     suspend fun deleteProfileImage():Response<String>
+    @POST("SendToConfirmEmail")
+    suspend fun sendCodeToConfirm(
+        @Query("email") email: String
+    ):Response<String>
+
+    @POST("ConfirmGmail")
+    suspend fun  confirmEmail(
+        @Body confirmEmailModel : ConfirmEmailModel
+    ):Response<String>
 }

@@ -41,4 +41,6 @@ interface IRepo {
     suspend fun deleteReports( deleteCallback: (Response<String>?) -> Unit)
     suspend fun uploadProfileImage(file :File, uploadCallBack :(Response<UploadImageResponseModel>?)->Unit)
     suspend fun deleteProfileImage(deleteCallBAck :(Response<String>?)->Unit)
+    suspend fun sendCodeToConfirm(email: String,callBAck :(Response<String>?)->Unit)
+    suspend fun confirmEmail(email: String, code:String, callBAck :(Response<String>?)->Unit)
 }

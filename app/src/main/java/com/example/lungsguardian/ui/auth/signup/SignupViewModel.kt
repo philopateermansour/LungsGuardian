@@ -38,6 +38,8 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
     val signUpValidate get() = _signUpValidate
     private val _responseLiveData = MutableLiveData<Response<UserResponseModel>>()
     val responseLiveData get() = _responseLiveData
+    private val _responseCode = MutableLiveData<Response<String>>()
+    val responseCode get() = _responseCode
     private val phoneNumberPattern = Regex("\\d{11}")
     private val passwordPattern = Regex(
         "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()-_+=<>?{}|./,:;]).{8,}$"
@@ -75,8 +77,6 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
             checkIfEmailExists(UserSignupModel(email, fullName, password, phone))
         }
     }
-
-
      fun createAccount(user: UserSignupModel) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -93,10 +93,24 @@ class SignupViewModel @Inject constructor(private val repo: IRepo) : ViewModel()
             }
         }
     }
+    fun sendCode(email: String){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                repo.sendCodeToConfirm(email){
+                    if (it?.code() == 200) {
+                        _responseCode.postValue(it)
+                    } else {
+                        _signUpValidate.postValue(it?.message())
+                    }
+                }
+            }catch (e:IOException){
+                _signUpValidate.postValue(e.localizedMessage)
+            }
+        }
+    }
 
     private fun cacheUserDate(it: Response<UserResponseModel>?) {
         MySharedPreferences.setInShared(USER_TOKEN, it!!.body()!!.token)
-        MySharedPreferences.setInShared(LOGGED_STATE, LOGGED_IN)
         MySharedPreferences.setInShared(USER_NAME,it.body()!!.fullName)
     }
 

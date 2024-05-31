@@ -92,16 +92,16 @@ class ProfileFragment : Fragment()  {
         binding.logoutCardView.setOnClickListener {
 
             AlertDialog.Builder(activity)
-                .setMessage("Log out of your account?")
+                .setMessage(getString(R.string.log_out_of_your_account))
                 .setPositiveButton(
-                    "LOG OUT"
+                    getString(R.string.log_out)
                 ) { p0, p1 ->
                     MySharedPreferences.clearShared()
                     val intent = Intent(activity, AuthenticationScreen::class.java)
                     startActivity(intent)
                     activity?.finish()
                 }.setNegativeButton(
-                    "CANCEL"
+                    getString(R.string.cancel)
                 ) { p0, p1 -> }
                 .create()
                 .show()
