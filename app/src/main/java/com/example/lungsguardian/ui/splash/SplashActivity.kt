@@ -1,10 +1,11 @@
 package com.example.lungsguardian.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import com.example.lungsguardian.R
 import com.example.lungsguardian.ui.auth.activity.AuthenticationScreen
 import com.example.lungsguardian.ui.home.activity.HomeActivity
@@ -17,6 +18,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         startApp()
+        this.requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
     private fun startApp() {
         Handler(Looper.myLooper()!!).postDelayed({

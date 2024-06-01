@@ -1,5 +1,6 @@
 package com.example.lungsguardian.ui.home.activity
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -17,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        this.requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         val navHostFragment = supportFragmentManager.findFragmentById(fragmentContainerView)
                 as NavHostFragment
