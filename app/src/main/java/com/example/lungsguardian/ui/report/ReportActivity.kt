@@ -1,15 +1,9 @@
 package com.example.lungsguardian.ui.report
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.lungsguardian.R
-import com.example.lungsguardian.databinding.ActivityHomeBinding
 import com.example.lungsguardian.databinding.ActivityReportBinding
-import com.example.lungsguardian.utils.IMAGE_FILE
-import com.example.lungsguardian.utils.IMAGE_URI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +14,7 @@ class ReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        this.requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onDestroy() {

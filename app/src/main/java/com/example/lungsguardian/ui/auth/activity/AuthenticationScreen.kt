@@ -1,5 +1,6 @@
 package com.example.lungsguardian.ui.auth.activity
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lungsguardian.databinding.ActivityMainBinding
@@ -14,6 +15,7 @@ class AuthenticationScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        this.requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun onDestroy() {
