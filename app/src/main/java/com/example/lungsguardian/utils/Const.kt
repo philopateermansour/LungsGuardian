@@ -1,8 +1,8 @@
 package com.example.lungsguardian.utils
 
-const  val BASE_URL_BACK = "http://192.168.1.6:7178/Api/Accounts/"
+const  val BASE_URL_BACK = "http://172.20.10.3:7178/Api/Accounts/"
 const val BASE_URL_ML = "http://192.168.1.6:5000/"
-const val BASE_URL_IMAGE = "http://192.168.1.6:7178"
+const val BASE_URL_IMAGE = "http://172.20.10.3:7178"
 const val VALIDATE_EMAIL_NULL = "email error"
 const val VALIDATE_FULL_NAME_NULL = "name error"
 const val VALIDATE_PHONE_NULL = "phone error"
@@ -14,7 +14,7 @@ const val VALIDATE_EMAIL_INVALID = "invalid email format"
 const val VALIDATE_FULL_NAME_INVALID = "full name must contain at least two names"
 const val VALIDATE_PHONE_INVALID = "phone number must be 11 digits"
 const val VALIDATE_PASSWORD_INVALID =
-    "password must contains 1 Uppercase, 1 Lowercase, 1 Digit, 1 Special Character"
+    "password must contains 1 Uppercase, 1 Lowercase, 1 Digit, 1 Special Character, 8 characters long at least"
 const val VALIDATE_CODE_INVALID = "code must be 6 digits"
 const val SEND_CODE_DONE = "Password reset code sent to your email"
 const val SHARED_PREFERENCES_NAME = "Lungs"
